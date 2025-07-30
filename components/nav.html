@@ -1,0 +1,713 @@
+<!-- 공통 네비게이션 컴포넌트 (components/nav.html) -->
+<nav class="tab-container" role="navigation" aria-label="생애주기별 혜택 카테고리">
+  <div class="nav-scroll-container">
+    <ul class="tab-list" role="tablist">
+      <li class="tab-item" role="none">
+        <a class="tab-link {{baby-active}}" 
+           href="{{baseUrl}}pages/baby.html" 
+           role="tab" 
+           aria-label="신생아 가정 지원 (0-2세)"
+           data-category="baby">
+          <span class="tab-icon" aria-hidden="true">👶</span>
+          <span class="tab-text">신생아 가정</span>
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      
+      <li class="tab-item" role="none">
+        <a class="tab-link {{student-active}}" 
+           href="{{baseUrl}}pages/student.html" 
+           role="tab" 
+           aria-label="학령기 가정 지원 (3-18세)"
+           data-category="student">
+          <span class="tab-icon" aria-hidden="true">🎒</span>
+          <span class="tab-text">학령기 가정</span>
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      
+      <li class="tab-item" role="none">
+        <a class="tab-link {{youth-active}}" 
+           href="{{baseUrl}}pages/youth.html" 
+           role="tab" 
+           aria-label="청년 독립기 지원 (19-34세)"
+           data-category="youth">
+          <span class="tab-icon" aria-hidden="true">🎓</span>
+          <span class="tab-text">청년 독립기</span>
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      
+      <li class="tab-item" role="none">
+        <a class="tab-link {{career-active}}" 
+           href="{{baseUrl}}pages/career.html" 
+           role="tab" 
+           aria-label="경력 발전기 지원 (35-54세)"
+           data-category="career">
+          <span class="tab-icon" aria-hidden="true">💼</span>
+          <span class="tab-text">경력 발전기</span>
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      
+      <li class="tab-item" role="none">
+        <a class="tab-link {{senior-active}}" 
+           href="{{baseUrl}}pages/senior.html" 
+           role="tab" 
+           aria-label="은퇴 준비기 지원 (55세+)"
+           data-category="senior">
+          <span class="tab-icon" aria-hidden="true">🌅</span>
+          <span class="tab-text">은퇴 준비기</span>
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      
+      <li class="tab-item" role="none">
+        <a class="tab-link {{disability-active}}" 
+           href="{{baseUrl}}pages/disability.html" 
+           role="tab" 
+           aria-label="장애인 지원 (전연령)"
+           data-category="disability">
+          <span class="tab-icon" aria-hidden="true">🦽</span>
+          <span class="tab-text">장애인 지원</span>
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      
+      <li class="tab-item" role="none">
+        <a class="tab-link {{women-active}}" 
+           href="{{baseUrl}}pages/women.html" 
+           role="tab" 
+           aria-label="여성/가족 지원 (생애전반)"
+           data-category="women">
+          <span class="tab-icon" aria-hidden="true">👩</span>
+          <span class="tab-text">여성/가족</span>
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      
+      <li class="tab-item" role="none">
+        <a class="tab-link {{rural-active}}" 
+           href="{{baseUrl}}pages/rural.html" 
+           role="tab" 
+           aria-label="농어촌 지원 (농어업인)"
+           data-category="rural">
+          <span class="tab-icon" aria-hidden="true">🌾</span>
+          <span class="tab-text">농어촌</span>
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      
+      <li class="tab-item" role="none">
+        <a class="tab-link {{culture-active}}" 
+           href="{{baseUrl}}pages/culture.html" 
+           role="tab" 
+           aria-label="문화/여가 지원 (문화생활)"
+           data-category="culture">
+          <span class="tab-icon" aria-hidden="true">🎭</span>
+          <span class="tab-text">문화/여가</span>
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      
+      <li class="tab-item" role="none">
+        <a class="tab-link {{emergency-active}}" 
+           href="{{baseUrl}}pages/emergency.html" 
+           role="tab" 
+           aria-label="긴급상황 지원 (즉시지원)"
+           data-category="emergency">
+          <span class="tab-icon" aria-hidden="true">🆘</span>
+          <span class="tab-text">긴급상황</span>
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      
+      <li class="tab-item" role="none">
+        <a class="tab-link {{business-active}}" 
+           href="{{baseUrl}}pages/business.html" 
+           role="tab" 
+           aria-label="사업자 지원 (창업/운영)"
+           data-category="business">
+          <span class="tab-icon" aria-hidden="true">🏪</span>
+          <span class="tab-text">사업자 지원</span>
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- 스크롤 인디케이터 -->
+  <div class="scroll-indicator" id="scrollIndicator">
+    <div class="scroll-indicator-track">
+      <div class="scroll-indicator-thumb" id="scrollThumb"></div>
+    </div>
+    <div class="scroll-hint">← 좌우로 스크롤 →</div>
+  </div>
+  
+  <!-- 네비게이션 컨트롤 -->
+  <div class="nav-controls">
+    <button class="nav-control nav-prev" 
+            onclick="scrollNavigation('left')" 
+            aria-label="이전 카테고리들 보기"
+            title="이전">
+      ←
+    </button>
+    <button class="nav-control nav-next" 
+            onclick="scrollNavigation('right')" 
+            aria-label="다음 카테고리들 보기"
+            title="다음">
+      →
+    </button>
+  </div>
+  
+  <!-- 네비게이션 요약 (스크린 리더용) -->
+  <div class="nav-summary hidden-text" aria-live="polite" id="navSummary">
+    현재 {{currentCategory}} 페이지입니다. 총 11개의 카테고리가 있습니다.
+  </div>
+</nav>
+
+<!-- 네비게이션 전용 스타일 -->
+<style>
+/* 네비게이션 컨테이너 개선 */
+.tab-container {
+  position: fixed;
+  top: 90px;
+  left: 0;
+  width: 100%;
+  background: rgba(30, 30, 30, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 999;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.nav-scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.tab-list {
+  display: flex;
+  list-style: none;
+  min-width: max-content;
+  padding: 0 15px;
+  margin: 0;
+  gap: 5px;
+}
+
+.tab-item {
+  flex-shrink: 0;
+}
+
+.tab-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 16px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 8px 8px 0 0;
+  text-align: center;
+  line-height: 1.2;
+  min-width: 80px;
+}
+
+.tab-icon {
+  font-size: 20px;
+  margin-bottom: 4px;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.tab-text {
+  font-size: 11px;
+  margin-bottom: 2px;
+}
+
+.tab-subtitle {
+  font-size: 9px;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+/* 활성 상태 */
+.tab-link.active {
+  color: var(--primary);
+  background: rgba(79, 195, 247, 0.15);
+  text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+}
+
+.tab-link.active .tab-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(79, 195, 247, 0.5));
+}
+
+.tab-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 60%;
+  height: 3px;
+  background: var(--primary);
+  transform: translateX(-50%);
+  border-radius: 3px;
+  box-shadow: 0 0 10px var(--primary);
+}
+
+/* 호버 효과 */
+.tab-link:hover:not(.active) {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-link:hover .tab-icon {
+  transform: scale(1.05);
+}
+
+/* 포커스 효과 (접근성) */
+.tab-link:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* 스크롤 인디케이터 */
+.scroll-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  display: none;
+}
+
+.scroll-indicator-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-indicator-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--primary);
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.scroll-hint {
+  position: absolute;
+  top: -20px;
+  right: 10px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  display: none;
+}
+
+/* 네비게이션 컨트롤 */
+.nav-controls {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  pointer-events: none;
+}
+
+.nav-control {
+  position: absolute;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  background: rgba(79, 195, 247, 0.9);
+  color: var(--bg-dark);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nav-prev {
+  left: 5px;
+}
+
+.nav-next {
+  right: 5px;
+}
+
+.nav-control:hover {
+  background: var(--primary);
+  transform: scale(1.1);
+}
+
+.nav-control:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 카테고리별 강조 색상 */
+.tab-link[data-category="emergency"] {
+  border-bottom: 2px solid #ff4444;
+}
+
+.tab-link[data-category="emergency"].active {
+  background: rgba(255, 68, 68, 0.15);
+  color: #ff6b6b;
+}
+
+.tab-link[data-category="business"] {
+  border-bottom: 2px solid #9c27b0;
+}
+
+.tab-link[data-category="business"].active {
+  background: rgba(156, 39, 176, 0.15);
+  color: #ba68c8;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .tab-container {
+    top: 120px;
+  }
+  
+  .tab-link {
+    padding: 10px 12px;
+    min-width: 70px;
+  }
+  
+  .tab-icon {
+    font-size: 16px;
+  }
+  
+  .tab-text {
+    font-size: 10px;
+  }
+  
+  .tab-subtitle {
+    font-size: 8px;
+  }
+  
+  .scroll-indicator {
+    display: block;
+  }
+  
+  .scroll-hint {
+    display: block;
+  }
+  
+  .nav-controls {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .tab-list {
+    padding: 0 10px;
+    gap: 3px;
+  }
+  
+  .tab-link {
+    padding: 8px 10px;
+    min-width: 60px;
+  }
+  
+  .tab-icon {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  
+  .tab-text {
+    font-size: 9px;
+  }
+  
+  .tab-subtitle {
+    font-size: 7px;
+  }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  .tab-link {
+    padding: 14px 18px;
+  }
+  
+  .tab-link:hover {
+    background: none;
+    color: var(--text-secondary);
+  }
+  
+  .tab-link:active {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* 다크모드 지원 */
+@media (prefers-color-scheme: dark) {
+  .tab-container {
+    background: rgba(18, 18, 18, 0.95);
+  }
+}
+
+/* 고대비 모드 */
+body.high-contrast .tab-link.active {
+  background: var(--primary);
+  color: var(--bg-dark);
+}
+
+body.high-contrast .tab-link:not(.active) {
+  border: 1px solid var(--border);
+}
+
+/* 큰 글자 모드 */
+body.large-font .tab-text {
+  font-size: 13px;
+}
+
+body.large-font .tab-subtitle {
+  font-size: 11px;
+}
+
+body.large-font .tab-icon {
+  font-size: 22px;
+}
+
+/* 애니메이션 감소 선호 */
+@media (prefers-reduced-motion: reduce) {
+  .tab-link,
+  .tab-icon,
+  .nav-control,
+  .scroll-indicator-thumb {
+    transition: none;
+  }
+  
+  .tab-icon {
+    transform: none !important;
+  }
+}
+</style>
+
+<!-- 네비게이션 전용 JavaScript -->
+<script>
+// 네비게이션 스크롤 기능
+function scrollNavigation(direction) {
+  const container = document.querySelector('.nav-scroll-container');
+  const scrollAmount = 200;
+  
+  if (direction === 'left') {
+    container.scrollLeft -= scrollAmount;
+  } else {
+    container.scrollLeft += scrollAmount;
+  }
+  
+  updateScrollIndicator();
+  updateNavigationControls();
+}
+
+// 스크롤 인디케이터 업데이트
+function updateScrollIndicator() {
+  const container = document.querySelector('.nav-scroll-container');
+  const thumb = document.getElementById('scrollThumb');
+  
+  if (!container || !thumb) return;
+  
+  const scrollRatio = container.scrollLeft / (container.scrollWidth - container.clientWidth);
+  const thumbWidth = (container.clientWidth / container.scrollWidth) * 100;
+  const thumbPosition = scrollRatio * (100 - thumbWidth);
+  
+  thumb.style.width = `${thumbWidth}%`;
+  thumb.style.left = `${thumbPosition}%`;
+}
+
+// 네비게이션 컨트롤 업데이트
+function updateNavigationControls() {
+  const container = document.querySelector('.nav-scroll-container');
+  const prevBtn = document.querySelector('.nav-prev');
+  const nextBtn = document.querySelector('.nav-next');
+  
+  if (!container || !prevBtn || !nextBtn) return;
+  
+  prevBtn.disabled = container.scrollLeft <= 0;
+  nextBtn.disabled = container.scrollLeft >= container.scrollWidth - container.clientWidth;
+}
+
+// 현재 페이지에 맞는 탭 활성화
+function setActiveTab(category) {
+  // 모든 탭에서 active 클래스 제거
+  document.querySelectorAll('.tab-link').forEach(link => {
+    link.classList.remove('active');
+  });
+  
+  // 현재 카테고리 탭 활성화
+  const activeTab = document.querySelector(`[data-category="${category}"]`);
+  if (activeTab) {
+    activeTab.classList.add('active');
+    
+    // 활성 탭으로 스크롤
+    scrollToActiveTab(activeTab);
+    
+    // 스크린 리더에 알림
+    updateNavSummary(category);
+  }
+}
+
+// 활성 탭으로 스크롤
+function scrollToActiveTab(tab) {
+  const container = document.querySelector('.nav-scroll-container');
+  const tabRect = tab.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+  
+  if (tabRect.left < containerRect.left || tabRect.right > containerRect.right) {
+    const scrollLeft = tab.offsetLeft - (container.clientWidth / 2) + (tab.offsetWidth / 2);
+    container.scrollTo({
+      left: scrollLeft,
+      behavior: 'smooth'
+    });
+  }
+}
+
+// 네비게이션 요약 업데이트 (접근성)
+function updateNavSummary(category) {
+  const summary = document.getElementById('navSummary');
+  if (!summary) return;
+  
+  const categoryNames = {
+    baby: '신생아 가정',
+    student: '학령기 가정',
+    youth: '청년 독립기',
+    career: '경력 발전기',
+    senior: '은퇴 준비기',
+    disability: '장애인 지원',
+    women: '여성/가족',
+    rural: '농어촌',
+    culture: '문화/여가',
+    emergency: '긴급상황',
+    business: '사업자 지원'
+  };
+  
+  const categoryName = categoryNames[category] || category;
+  summary.textContent = `현재 ${categoryName} 페이지입니다. 총 11개의 카테고리가 있습니다.`;
+}
+
+// 키보드 네비게이션
+function setupKeyboardNavigation() {
+  document.addEventListener('keydown', (e) => {
+    const activeTab = document.querySelector('.tab-link.active');
+    if (!activeTab) return;
+    
+    let nextTab = null;
+    
+    if (e.key === 'ArrowLeft') {
+      nextTab = activeTab.closest('.tab-item').previousElementSibling?.querySelector('.tab-link');
+      e.preventDefault();
+    } else if (e.key === 'ArrowRight') {
+      nextTab = activeTab.closest('.tab-item').nextElementSibling?.querySelector('.tab-link');
+      e.preventDefault();
+    } else if (e.key === 'Home') {
+      nextTab = document.querySelector('.tab-link');
+      e.preventDefault();
+    } else if (e.key === 'End') {
+      const allTabs = document.querySelectorAll('.tab-link');
+      nextTab = allTabs[allTabs.length - 1];
+      e.preventDefault();
+    }
+    
+    if (nextTab) {
+      nextTab.focus();
+      // 실제 페이지 이동은 하지 않고 포커스만 이동
+    }
+  });
+}
+
+// 터치 스와이프 지원
+function setupTouchNavigation() {
+  const container = document.querySelector('.nav-scroll-container');
+  let startX = 0;
+  let scrollStart = 0;
+  
+  container.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    scrollStart = container.scrollLeft;
+  }, { passive: true });
+  
+  container.addEventListener('touchmove', (e) => {
+    if (!startX) return;
+    
+    const currentX = e.touches[0].clientX;
+    const diffX = startX - currentX;
+    
+    container.scrollLeft = scrollStart + diffX;
+    updateScrollIndicator();
+  }, { passive: true });
+  
+  container.addEventListener('touchend', () => {
+    startX = 0;
+    updateNavigationControls();
+  }, { passive: true });
+}
+
+// 스크롤 이벤트 리스너
+function setupScrollListeners() {
+  const container = document.querySelector('.nav-scroll-container');
+  
+  container.addEventListener('scroll', () => {
+    updateScrollIndicator();
+    updateNavigationControls();
+  }, { passive: true });
+}
+
+// 네비게이션 초기화
+function initializeNavigation() {
+  setupKeyboardNavigation();
+  setupTouchNavigation();
+  setupScrollListeners();
+  updateScrollIndicator();
+  updateNavigationControls();
+  
+  // 현재 페이지 카테고리 감지 및 활성화
+  const currentPath = window.location.pathname;
+  const categories = ['baby', 'student', 'youth', 'career', 'senior', 'disability', 'women', 'rural', 'culture', 'emergency', 'business'];
+  
+  for (const category of categories) {
+    if (currentPath.includes(category)) {
+      setActiveTab(category);
+      break;
+    }
+  }
+}
+
+// 페이지 로드 시 초기화
+document.addEventListener('DOMContentLoaded', initializeNavigation);
+
+// 리사이즈 이벤트 처리
+window.addEventListener('resize', () => {
+  updateScrollIndicator();
+  updateNavigationControls();
+}, { passive: true });
+
+// 전역 함수 노출
+window.setActiveTab = setActiveTab;
+window.scrollNavigation = scrollNavigation;
+</script>

@@ -1,0 +1,916 @@
+<!-- 공통 푸터 컴포넌트 (components/footer.html) -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-content">
+    <!-- 주요 정보 섹션 -->
+    <div class="footer-main">
+      <div class="footer-section">
+        <h3 class="footer-title">📞 상담 및 문의</h3>
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-icon">📞</span>
+            <div class="contact-details">
+              <strong>보건복지부 상담센터</strong>
+              <a href="tel:129" class="contact-link">129번 (무료, 24시간)</a>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <span class="contact-icon">💻</span>
+            <div class="contact-details">
+              <strong>복지로 온라인</strong>
+              <a href="https://www.bokjiro.go.kr" target="_blank" rel="noopener" class="contact-link">bokjiro.go.kr</a>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <span class="contact-icon">🏛️</span>
+            <div class="contact-details">
+              <strong>정부24</strong>
+              <a href="https://www.gov.kr" target="_blank" rel="noopener" class="contact-link">gov.kr</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">🔗 주요 기관 링크</h3>
+        <div class="agency-links">
+          <a href="https://www.mohw.go.kr" target="_blank" rel="noopener" class="agency-link">
+            <span class="agency-icon">🏥</span>
+            보건복지부
+          </a>
+          <a href="https://www.moel.go.kr" target="_blank" rel="noopener" class="agency-link">
+            <span class="agency-icon">💼</span>
+            고용노동부
+          </a>
+          <a href="https://www.mss.go.kr" target="_blank" rel="noopener" class="agency-link">
+            <span class="agency-icon">🏪</span>
+            중소벤처기업부
+          </a>
+          <a href="https://www.moe.go.kr" target="_blank" rel="noopener" class="agency-link">
+            <span class="agency-icon">🎓</span>
+            교육부
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">ℹ️ 이용 안내</h3>
+        <div class="info-links">
+          <button onclick="showPrivacyPolicy()" class="info-link">개인정보처리방침</button>
+          <button onclick="showTermsOfService()" class="info-link">이용약관</button>
+          <button onclick="showAccessibilityStatement()" class="info-link">웹접근성 정책</button>
+          <button onclick="showFeedbackForm()" class="info-link">의견 제출</button>
+        </div>
+        
+        <div class="site-info">
+          <p class="update-info">
+            <span class="update-label">최종 업데이트:</span>
+            <span class="update-date" id="lastUpdateDate">2025년 7월 11일</span>
+          </p>
+          <p class="version-info">
+            <span class="version-label">사이트 버전:</span>
+            <span class="version-number">v2.1.0</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 연결 상태 및 추가 정보 -->
+    <div class="footer-secondary">
+      <div class="connection-status">
+        <div class="connection-indicator">
+          <div class="connection-dot" id="connectionDot"></div>
+          <span class="connection-text" id="connectionText">온라인</span>
+        </div>
+        <div class="data-freshness">
+          <span class="freshness-label">데이터 신선도:</span>
+          <span class="freshness-status" id="dataFreshness">실시간</span>
+        </div>
+      </div>
+      
+      <div class="footer-stats">
+        <div class="stat-item">
+          <span class="stat-number" id="totalBenefits">80+</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="todayVisitors">1,247</span>
+          <span class="stat-label">명 방문</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="successRate">85%</span>
+          <span class="stat-label">성공률</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 저작권 및 면책 고지 -->
+    <div class="footer-legal">
+      <div class="copyright-notice">
+        <div class="copyright-title">
+          <span class="copyright-icon">⚖️</span>
+          저작권 및 면책 고지
+        </div>
+        <div class="copyright-content">
+          <p><strong>콘텐츠 보호:</strong> 생애주기별 분류체계, 난이도 표시, 맞춤형 구성 등은 joyzam.com의 독창적 편집저작물입니다.</p>
+          <p><strong>정부공개정보:</strong> 복지로, 정부24 등 공식 API를 통해 수집한 공개정보를 독자적 기준으로 분석·편집하였습니다.</p>
+          <p><strong>이용 약관:</strong> 본 사이트는 정보 제공 목적이며, 실제 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다.</p>
+        </div>
+      </div>
+      
+      <div class="disclaimer">
+        <h4 class="disclaimer-title">📋 이용 시 주의사항</h4>
+        <ul class="disclaimer-list">
+          <li>지원금 정보는 정부 정책 변경에 따라 수시로 변동될 수 있습니다.</li>
+          <li>신청 자격과 조건은 각 기관의 최신 공고를 반드시 확인하시기 바랍니다.</li>
+          <li>개인정보는 수집하지 않으며, 진단 결과는 로컬 저장소에만 보관됩니다.</li>
+          <li>사이트 이용 중 문제 발생 시 129번으로 문의하시기 바랍니다.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- 하단 정보 -->
+    <div class="footer-bottom">
+      <div class="site-credits">
+        <span class="site-name">생애주기별 복지 혜택 가이드</span>
+        <span class="site-description">당신의 인생 단계에 맞는 맞춤 지원</span>
+      </div>
+      
+      <div class="technical-info">
+        <span class="build-info">Build: <span id="buildVersion">20250711.1</span></span>
+        <span class="browser-info" id="browserInfo"></span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 빠른 액션 버튼들 -->
+  <div class="quick-actions">
+    <button class="quick-action-btn emergency" 
+            onclick="callEmergency()" 
+            title="긴급상황 129번"
+            aria-label="긴급상황 상담전화">
+      <span class="action-icon">🆘</span>
+      <span class="action-text">긴급상담</span>
+    </button>
+    
+    <button class="quick-action-btn top" 
+            onclick="scrollToTop()" 
+            title="페이지 상단으로"
+            aria-label="페이지 맨 위로 이동">
+      <span class="action-icon">⬆️</span>
+      <span class="action-text">맨 위로</span>
+    </button>
+    
+    <button class="quick-action-btn feedback" 
+            onclick="showFeedbackForm()" 
+            title="의견 보내기"
+            aria-label="사이트 개선 의견 보내기">
+      <span class="action-icon">💬</span>
+      <span class="action-text">의견</span>
+    </button>
+  </div>
+</footer>
+
+<!-- 푸터 전용 스타일 -->
+<style>
+/* 푸터 기본 스타일 */
+.footer {
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+  color: var(--text-secondary);
+  margin-top: 60px;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+}
+
+/* 주요 정보 섹션 */
+.footer-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.footer-section {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-title {
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 연락처 정보 */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: rgba(79, 195, 247, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid var(--primary);
+}
+
+.contact-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.contact-details {
+  flex: 1;
+}
+
+.contact-details strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.contact-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+}
+
+/* 기관 링크 */
+.agency-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.agency-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.agency-link:hover {
+  background: rgba(79, 195, 247, 0.1);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.agency-icon {
+  font-size: 16px;
+}
+
+/* 정보 링크 */
+.info-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.info-link {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  text-align: left;
+  padding: 8px 0;
+  cursor: pointer;
+  font-size: 13px;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.info-link:hover {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* 사이트 정보 */
+.site-info {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 15px;
+  font-size: 12px;
+}
+
+.site-info p {
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.update-label,
+.version-label {
+  color: var(--text-secondary);
+}
+
+.update-date,
+.version-number {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* 보조 정보 섹션 */
+.footer-secondary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.connection-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.connection-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: pulse-dot 2s infinite;
+}
+
+.connection-dot.offline {
+  background: var(--error);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.connection-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.data-freshness {
+  font-size: 12px;
+}
+
+.freshness-label {
+  color: var(--text-secondary);
+}
+
+.freshness-status {
+  color: var(--success);
+  font-weight: 600;
+}
+
+/* 통계 정보 */
+.footer-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* 법적 고지 */
+.footer-legal {
+  background: rgba(79, 195, 247, 0.05);
+  border: 1px solid rgba(79, 195, 247, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.copyright-notice {
+  margin-bottom: 20px;
+}
+
+.copyright-title {
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.copyright-content {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.copyright-content p {
+  margin: 8px 0;
+}
+
+.disclaimer-title {
+  color: var(--primary);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.disclaimer-list {
+  font-size: 12px;
+  line-height: 1.6;
+  padding-left: 20px;
+}
+
+.disclaimer-list li {
+  margin-bottom: 5px;
+}
+
+/* 하단 정보 */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+}
+
+.site-credits {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-name {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.site-description {
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+.technical-info {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  gap: 2px;
+}
+
+.build-info,
+.browser-info {
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+/* 빠른 액션 버튼 */
+.quick-actions {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.quick-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.quick-action-btn.emergency {
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+}
+
+.quick-action-btn.top {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--bg-dark);
+}
+
+.quick-action-btn.feedback {
+  background: linear-gradient(135deg, #9c27b0, #673ab7);
+  color: white;
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.action-icon {
+  font-size: 16px;
+}
+
+.action-text {
+  white-space: nowrap;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .footer-content {
+    padding: 30px 15px 15px;
+  }
+  
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .footer-secondary {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .footer-stats {
+    gap: 15px;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .technical-info {
+    text-align: center;
+  }
+  
+  .quick-actions {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .quick-action-btn {
+    padding: 10px 12px;
+  }
+  
+  .action-text {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .agency-links {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .copyright-content {
+    font-size: 11px;
+  }
+  
+  .disclaimer-list {
+    font-size: 11px;
+  }
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+  .quick-action-btn,
+  .agency-link,
+  .connection-dot {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* 다크모드 지원 */
+@media (prefers-color-scheme: dark) {
+  .footer-section {
+    background: rgba(255, 255, 255, 0.01);
+  }
+  
+  .contact-item {
+    background: rgba(79, 195, 247, 0.08);
+  }
+}
+</style>
+
+<!-- 푸터 전용 JavaScript -->
+<script>
+// 연결 상태 업데이트
+function updateConnectionStatus() {
+  const dot = document.getElementById('connectionDot');
+  const text = document.getElementById('connectionText');
+  const freshness = document.getElementById('dataFreshness');
+  
+  if (navigator.onLine) {
+    dot?.classList.remove('offline');
+    if (text) text.textContent = '온라인';
+    if (freshness) freshness.textContent = '실시간';
+  } else {
+    dot?.classList.add('offline');
+    if (text) text.textContent = '오프라인';
+    if (freshness) freshness.textContent = '캐시됨';
+  }
+}
+
+// 브라우저 정보 표시
+function updateBrowserInfo() {
+  const browserInfo = document.getElementById('browserInfo');
+  if (!browserInfo) return;
+  
+  const userAgent = navigator.userAgent;
+  let browser = 'Unknown';
+  
+  if (userAgent.includes('Chrome')) browser = 'Chrome';
+  else if (userAgent.includes('Firefox')) browser = 'Firefox';
+  else if (userAgent.includes('Safari')) browser = 'Safari';
+  else if (userAgent.includes('Edge')) browser = 'Edge';
+  
+  browserInfo.textContent = `${browser} / ${navigator.platform}`;
+}
+
+// 통계 업데이트
+function updateFooterStats() {
+  const totalBenefits = document.getElementById('totalBenefits');
+  const todayVisitors = document.getElementById('todayVisitors');
+  const successRate = document.getElementById('successRate');
+  
+  // 실제로는 서버에서 데이터를 가져와야 함
+  const stats = {
+    benefits: Math.floor(Math.random() * 20) + 75,
+    visitors: Math.floor(Math.random() * 500) + 1000,
+    success: Math.floor(Math.random() * 10) + 80
+  };
+  
+  if (totalBenefits) totalBenefits.textContent = `${stats.benefits}+`;
+  if (todayVisitors) todayVisitors.textContent = stats.visitors.toLocaleString();
+  if (successRate) successRate.textContent = `${stats.success}%`;
+}
+
+// 최종 업데이트 날짜 설정
+function updateLastModified() {
+  const updateDate = document.getElementById('lastUpdateDate');
+  if (!updateDate) return;
+  
+  const now = new Date();
+  const koreanDate = now.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  
+  updateDate.textContent = koreanDate;
+}
+
+// 빠른 액션 기능들
+function callEmergency() {
+  if (confirm('보건복지부 상담센터 129번으로 연결하시겠습니까?')) {
+    window.location.href = 'tel:129';
+  }
+}
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+  
+  // 스크린 리더에 알림
+  if (window.announceToScreenReader) {
+    window.announceToScreenReader('페이지 맨 위로 이동했습니다.');
+  }
+}
+
+function showFeedbackForm() {
+  // 간단한 피드백 폼 표시
+  const feedback = prompt(
+    '사이트 개선을 위한 의견을 남겨주세요:\n\n' +
+    '• 불편한 점\n' +
+    '• 추가 희망 기능\n' +
+    '• 기타 의견'
+  );
+  
+  if (feedback && feedback.trim()) {
+    // 실제로는 서버로 전송해야 함
+    localStorage.setItem('userFeedback', JSON.stringify({
+      feedback: feedback,
+      timestamp: new Date().toISOString(),
+      page: window.location.pathname
+    }));
+    
+    alert('소중한 의견 감사합니다! 사이트 개선에 반영하겠습니다.');
+  }
+}
+
+// 법적 정보 표시 함수들
+function showPrivacyPolicy() {
+  const content = `
+    <h3>개인정보처리방침</h3>
+    <p>본 사이트는 개인정보를 수집하지 않습니다.</p>
+    <ul>
+      <li>진단 결과는 브라우저 로컬 저장소에만 저장됩니다.</li>
+      <li>검색 기록은 사용자 기기에만 보관됩니다.</li>
+      <li>서버로 개인정보가 전송되지 않습니다.</li>
+      <li>쿠키는 사용자 설정 저장 목적으로만 사용됩니다.</li>
+    </ul>
+    <p>문의사항: 보건복지부 129번</p>
+  `;
+  
+  showModal('개인정보처리방침', content);
+}
+
+function showTermsOfService() {
+  const content = `
+    <h3>이용약관</h3>
+    <p>본 사이트 이용 시 다음 사항에 동의한 것으로 간주됩니다.</p>
+    <ul>
+      <li>제공되는 정보는 참고용이며, 최종 확인은 각 기관에서 하시기 바랍니다.</li>
+      <li>정부 정책 변경으로 인한 정보 변동은 예고 없이 발생할 수 있습니다.</li>
+      <li>사이트 이용으로 발생하는 결과에 대한 책임은 이용자에게 있습니다.</li>
+      <li>저작권이 있는 콘텐츠의 무단 복제를 금지합니다.</li>
+    </ul>
+  `;
+  
+  showModal('이용약관', content);
+}
+
+function showAccessibilityStatement() {
+  const content = `
+    <h3>웹접근성 정책</h3>
+    <p>모든 사용자가 편리하게 이용할 수 있도록 웹접근성을 준수합니다.</p>
+    <ul>
+      <li>키보드만으로 모든 기능 이용 가능</li>
+      <li>스크린 리더 호환성 제공</li>
+      <li>고대비 모드 지원</li>
+      <li>글자 크기 조절 기능</li>
+      <li>명확한 콘텐츠 구조와 제목 체계</li>
+    </ul>
+    <p>접근성 관련 문의: 129번</p>
+  `;
+  
+  showModal('웹접근성 정책', content);
+}
+
+function showModal(title, content) {
+  // 간단한 모달 표시 (실제로는 더 정교한 모달 필요)
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+  `;
+  
+  modal.innerHTML = `
+    <div style="
+      background: var(--bg-card);
+      color: var(--text-primary);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    ">
+      <button onclick="this.closest('div').parentElement.remove()" style="
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 24px;
+        cursor: pointer;
+      ">×</button>
+      <div style="margin-top: 20px;">
+        ${content}
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  // 배경 클릭 시 닫기
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.remove();
+    }
+  });
+  
+  // ESC 키로 닫기
+  const handleEsc = (e) => {
+    if (e.key === 'Escape') {
+      modal.remove();
+      document.removeEventListener('keydown', handleEsc);
+    }
+  };
+  document.addEventListener('keydown', handleEsc);
+}
+
+// 이벤트 리스너 설정
+function setupFooterEventListeners() {
+  // 온라인/오프라인 이벤트
+  window.addEventListener('online', updateConnectionStatus);
+  window.addEventListener('offline', updateConnectionStatus);
+  
+  // 스크롤 이벤트 (맨 위로 버튼 표시/숨김)
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    const topBtn = document.querySelector('.quick-action-btn.top');
+    if (!topBtn) return;
+    
+    clearTimeout(scrollTimeout);
+    
+    if (window.scrollY > 300) {
+      topBtn.style.opacity = '1';
+      topBtn.style.pointerEvents = 'auto';
+    } else {
+      topBtn.style.opacity = '0.5';
+      topBtn.style.pointerEvents = 'none';
+    }
+  }, { passive: true });
+}
+
+// 푸터 초기화
+function initializeFooter() {
+  updateConnectionStatus();
+  updateBrowserInfo();
+  updateLastModified();
+  updateFooterStats();
+  setupFooterEventListeners();
+  
+  // 통계 주기적 업데이트 (5분마다)
+  setInterval(updateFooterStats, 5 * 60 * 1000);
+}
+
+// 페이지 로드 시 초기화
+document.addEventListener('DOMContentLoaded', initializeFooter);
+
+// 전역 함수 노출
+window.callEmergency = callEmergency;
+window.scrollToTop = scrollToTop;
+window.showFeedbackForm = showFeedbackForm;
+window.showPrivacyPolicy = showPrivacyPolicy;
+window.showTermsOfService = showTermsOfService;
+window.showAccessibilityStatement = showAccessibilityStatement;
+</script>

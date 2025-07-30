@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>장애인 지원 (전연령) - 복지 혜택 안내 센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  
+  <!-- 장애인 지원 전용 스타일 -->
+  <style>
+    .disability-header {
+      background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin: -20px -15px 30px -15px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .disability-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+      animation: accessibility-wave 4s ease-in-out infinite;
+    }
+    
+    @keyframes accessibility-wave {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+    }
+    
+    .disability-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .disability-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .disability-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .disability-type-selector {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .type-selector-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .disability-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .disability-type-card {
+      padding: 20px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+    
+    .disability-type-card:hover {
+      border-color: #9c27b0;
+      transform: translateY(-2px);
+      background: rgba(156, 39, 176, 0.1);
+    }
+    
+    .disability-type-card.selected {
+      border-color: #9c27b0;
+      background: rgba(156, 39, 176, 0.2);
+    }
+    
+    .disability-type-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .disability-type-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .disability-type-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .grade-checker {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .grade-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .grade-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .grade-field {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .grade-field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .grade-field select,
+    .grade-field input {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+    
+    .check-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .check-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+    }
+    
+    .grade-result {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(156, 39, 176, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(156, 39, 176, 0.3);
+      display: none;
+    }
+    
+    .result-summary {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #9c27b0;
+      margin-bottom: 15px;
+    }
+    
+    .result-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    
+    .result-item {
+      background: var(--bg-card);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .result-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    
+    .result-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #9c27b0;
+    }
+    
+    .welfare-services {
+      background: #f3e5f5;
+      border: 1px solid #e1bee7;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .welfare-title {
+      color: #8e24aa;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .welfare-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .welfare-category {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #8e24aa;
+    }
+    
+    .welfare-category-title {
+      font-weight: 600;
+      color: #8e24aa;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .welfare-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .welfare-item {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(142, 36, 170, 0.1);
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .welfare-item:last-child {
+      border-bottom: none;
+    }
+    
+    .welfare-item:hover {
+      color: #8e24aa;
+      cursor: pointer;
+    }
+    
+    .accessibility-guide {
+      background: #e8f5e8;
+      border: 1px solid #c8e6c9;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .accessibility-title {
+      color: #2e7d32;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .accessibility-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .accessibility-feature {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #2e7d32;
+      position: relative;
+    }
+    
+    .feature-icon {
+      background: #2e7d32;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      position: absolute;
+      top: -10px;
+      right: 10px;
+    }
+    
+    .feature-title {
+      font-weight: 600;
+      color: #2e7d32;
+      margin-bottom: 5px;
+    }
+    
+    .feature-desc {
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+  
+  <!-- 메타 태그 -->
+  <meta name="description" content="장애인을 위한 정부 지원금 총정리 - 장애인연금, 활동지원서비스, 의료비 지원 등" />
+  <meta name="keywords" content="장애인연금, 활동지원서비스, 의료비지원, 장애인복지, 재활치료" />
+  <meta property="og:title" content="장애인 지원 혜택" />
+  <meta property="og:description" content="동등한 기회와 자립을 위한 포괄적 지원" />
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header" id="page-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          🎯 생애주기별 복지 혜택 가이드<br />
+          <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+        </a>
+      </h1>
+      
+      <!-- 검색창 -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="장애인 지원금 검색 (예: 장애인연금, 활동지원...)" 
+            type="text" 
+          />
+          <button class="search-btn" onclick="performSearch()" title="검색">
+            🔍
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-container">
+    <ul class="tab-list">
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/baby.html">
+          👶 신생아 가정
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/student.html">
+          🎒 학령기 가정
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/youth.html">
+          🎓 청년 독립기
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/career.html">
+          💼 경력 발전기
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/senior.html">
+          🌅 은퇴 준비기
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link active" href="../pages/disability.html">
+          🦽 장애인 지원
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/women.html">
+          👩 여성/가족
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/rural.html">
+          🌾 농어촌
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/culture.html">
+          🎭 문화/여가
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/emergency.html">
+          🆘 긴급상황
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/business.html">
+          🏪 사업자 지원
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- 장애인 지원 헤더 -->
+    <section class="disability-header">
+      <div class="disability-content">
+        <h1 class="disability-title">🦽 장애인 지원</h1>
+        <p class="disability-subtitle">동등한 기회와 자립을 위한 포괄적 지원 (전연령)</p>
+      </div>
+    </section>
+
+    <!-- 장애 유형 선택 -->
+    <section class="disability-type-selector">
+      <h2 class="type-selector-title">♿ 장애 유형을 선택하세요</h2>
+      <div class="disability-types">
+        <div class="disability-type-card" data-type="physical" onclick="selectDisabilityType('physical')">
+          <span class="disability-type-icon">🦽</span>
+          <div class="disability-type-name">지체장애</div>
+          <div class="disability-type-desc">팔다리 기능 장애</div>
+        </div>
+        
+        <div class="disability-type-card" data-type="visual" onclick="selectDisabilityType('visual')">
+          <span class="disability-type-icon">👁️</span>
+          <div class="disability-type-name">시각장애</div>
+          <div class="disability-type-desc">시력 및 시야 장애</div>
+        </div>
+        
+        <div class="disability-type-card" data-type="hearing" onclick="selectDisabilityType('hearing')">
+          <span class="disability-type-icon">👂</span>
+          <div class="disability-type-name">청각장애</div>
+          <div class="disability-type-desc">청력 및 언어 장애</div>
+        </div>
+        
+        <div class="disability-type-card" data-type="mental" onclick="selectDisabilityType('mental')">
+          <span class="disability-type-icon">🧠</span>
+          <div class="disability-type-name">지적장애</div>
+          <div class="disability-type-desc">인지능력 장애</div>
+        </div>
+        
+        <div class="disability-type-card" data-type="development" onclick="selectDisabilityType('development')">
+          <span class="disability-type-icon">👶</span>
+          <div class="disability-type-name">발달장애</div>
+          <div class="disability-type-desc">자폐성 장애</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 등급별 혜택 확인 -->
+    <section class="grade-checker">
+      <h2 class="grade-title">📋 장애등급별 혜택 확인</h2>
+      <div class="grade-form">
+        <div class="grade-field">
+          <label for="disabilityGrade">장애등급</label>
+          <select id="disabilityGrade">
+            <option value="">선택하세요</option>
+            <option value="severe">중증 (1-3급)</option>
+            <option value="mild">경증 (4-6급)</option>
+            <option value="none">등급외</option>
+          </select>
+        </div>
+        
+        <div class="grade-field">
+          <label for="age">연령대</label>
+          <select id="age">
+            <option value="">선택하세요</option>
+            <option value="child">18세 미만</option>
+            <option value="adult">18-64세</option>
+            <option value="senior">65세 이상</option>
+          </select>
+        </div>
+        
+        <div class="grade-field">
+          <label for="livingStatus">거주형태</label>
+          <select id="livingStatus">
+            <option value="">선택하세요</option>
+            <option value="family">가정 거주</option>
+            <option value="facility">시설 거주</option>
+            <option value="independent">독립 거주</option>
+          </select>
+        </div>
+        
+        <div class="grade-field">
+          <label for="incomeLevel">소득수준</label>
+          <select id="incomeLevel">
+            <option value="">선택하세요</option>
+            <option value="basic">기초생활수급자</option>
+            <option value="near">차상위계층</option>
+            <option value="middle">중위소득 이하</option>
+            <option value="over">중위소득 초과</option>
+          </select>
+        </div>
+      </div>
+      
+      <button class="check-btn" onclick="checkDisabilityBenefits()">
+        🔍 받을 수 있는 혜택 확인하기
+      </button>
+      
+      <div class="grade-result" id="gradeResult">
+        <div class="result-summary" id="gradeResultSummary"></div>
+        <div class="result-details" id="gradeResultDetails"></div>
+      </div>
+    </section>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a> > <span>장애인 지원</span>
+      </div>
+      
+      <!-- 카테고리 통계 -->
+      <div class="category-stats">
+        <div class="stat-item">
+          <span class="stat-number">10</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">월 최대 150만원</span>
+          <span class="stat-label">지원 금액</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">92%</span>
+          <span class="stat-label">평균 성공률</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 이 페이지 맞춤 검색 -->
+    <section class="category-search">
+      <div class="search-card">
+        <h3>🔍 장애인 지원금 빠른 찾기</h3>
+        <div class="quick-filters">
+          <button class="filter-btn active" onclick="filterBenefits('all')">전체</button>
+          <button class="filter-btn" onclick="filterBenefits('pension')">연금</button>
+          <button class="filter-btn" onclick="filterBenefits('medical')">의료</button>
+          <button class="filter-btn" onclick="filterBenefits('support')">활동지원</button>
+          <button class="filter-btn" onclick="filterBenefits('equipment')">보장구</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 혜택 카드들 -->
+    <section class="benefits-section">
+      <div class="benefit-grid" id="benefitGrid">
+        
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_11.html" 
+           rel="noopener" target="_blank" data-category="pension">
+          <span class="benefit-icon">💰</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💰 월 33만원</div>
+            <div class="benefit-title">장애인연금</div>
+            <div class="benefit-desc">국민연금공단</div>
+            <div class="benefit-target">🦽 중증장애인</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 94%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/07/blog-post_71.html" 
+           rel="noopener" target="_blank" data-category="support">
+          <span class="benefit-icon">🤝</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👥 월 150만원</div>
+            <div class="benefit-title">장애인활동지원서비스</div>
+            <div class="benefit-desc">국민연금공단</div>
+            <div class="benefit-target">🆘 활동지원 등급자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 88%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.nhis.or.kr/" 
+           rel="noopener" target="_blank" data-category="medical">
+          <span class="benefit-icon">🏥</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏥 본인부담금 면제</div>
+            <div class="benefit-title">의료급여</div>
+            <div class="benefit-desc">국민건강보험공단</div>
+            <div class="benefit-target">🩺 1종 수급자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 96%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="equipment">
+          <span class="benefit-icon">🦽</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🦽 최대 200만원</div>
+            <div class="benefit-title">장애인보조기구 지원</div>
+            <div class="benefit-desc">보건복지부</div>
+            <div class="benefit-target">🔧 보조기구 필요자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 91%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="medical">
+          <span class="benefit-icon">🚗</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🚗 최대 200만원</div>
+            <div class="benefit-title">장애인 자동차 취득세 감면</div>
+            <div class="benefit-desc">지자체</div>
+            <div class="benefit-target">🚙 장애인 본인/가족</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 98%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.moe.go.kr/" 
+           rel="noopener" target="_blank" data-category="support">
+          <span class="benefit-icon">🎓</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">📚 등록금 전액</div>
+            <div class="benefit-title">장애인 대학 특례입학</div>
+            <div class="benefit-desc">교육부</div>
+            <div class="benefit-target">🎓 장애학생</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 85%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.moel.go.kr/" 
+           rel="noopener" target="_blank" data-category="support">
+          <span class="benefit-icon">💼</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💼 월 100만원</div>
+            <div class="benefit-title">장애인 직업재활</div>
+            <div class="benefit-desc">고용노동부</div>
+            <div class="benefit-target">👨‍💼 취업 희망자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 79%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="medical">
+          <span class="benefit-icon">🧠</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🧠 월 30만원</div>
+            <div class="benefit-title">발달재활서비스</div>
+            <div class="benefit-desc">보건복지부</div>
+            <div class="benefit-target">👶 발달장애 아동</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 90%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.nhis.or.kr/" 
+           rel="noopener" target="_blank" data-category="equipment">
+          <span class="benefit-icon">👓</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👓 최대 131만원</div>
+            <div class="benefit-title">시각장애인 안경 지원</div>
+            <div class="benefit-desc">국민건강보험공단</div>
+            <div class="benefit-target">👁️ 시각장애인</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 93%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="support">
+          <span class="benefit-icon">🏠</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏠 최대 1200만원</div>
+            <div class="benefit-title">주거환경 개선사업</div>
+            <div class="benefit-desc">LH공사</div>
+            <div class="benefit-target">🔧 주거 개선 필요자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 87%</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 복지 서비스 정보 -->
+    <section class="welfare-services">
+      <h2 class="welfare-title">
+        🏥 장애인 복지 서비스
+      </h2>
+      <div class="welfare-categories">
+        <div class="welfare-category">
+          <h3 class="welfare-category-title">
+            <span>💰</span>
+            소득 지원
+          </h3>
+          <ul class="welfare-list">
+            <li class="welfare-item">• 장애인연금 (중증장애인)</li>
+            <li class="welfare-item">• 장애수당 (경증장애인)</li>
+            <li class="welfare-item">• 장애아동수당</li>
+            <li class="welfare-item">• 생계급여 추가지급</li>
+            <li class="welfare-item">• 근로장려금 가산</li>
+          </ul>
+        </div>
+        
+        <div class="welfare-category">
+          <h3 class="welfare-category-title">
+            <span>🏥</span>
+            의료 지원
+          </h3>
+          <ul class="welfare-list">
+            <li class="welfare-item">• 의료급여 (본인부담금 면제)</li>
+            <li class="welfare-item">• 장애인 건강주치의</li>
+            <li class="welfare-item">• 재활치료 바우처</li>
+            <li class="welfare-item">• 보조기구 급여 지원</li>
+            <li class="welfare-item">• 장애인 건강검진</li>
+          </ul>
+        </div>
+        
+        <div class="welfare-category">
+          <h3 class="welfare-category-title">
+            <span>🤝</span>
+            돌봄 지원
+          </h3>
+          <ul class="welfare-list">
+            <li class="welfare-item">• 활동지원서비스</li>
+            <li class="welfare-item">• 발달재활서비스</li>
+            <li class="welfare-item">• 언어발달지원</li>
+            <li class="welfare-item">• 가족상담지원</li>
+            <li class="welfare-item">• 돌봄휴가제</li>
+          </ul>
+        </div>
+        
+        <div class="welfare-category">
+          <h3 class="welfare-category-title">
+            <span>🎓</span>
+            교육 지원
+          </h3>
+          <ul class="welfare-list">
+            <li class="welfare-item">• 특수교육 지원</li>
+            <li class="welfare-item">• 대학 특례입학</li>
+            <li class="welfare-item">• 교육보조인력 지원</li>
+            <li class="welfare-item">• 학습도구 지원</li>
+            <li class="welfare-item">• 진로직업교육</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 접근성 가이드 -->
+    <section class="accessibility-guide">
+      <h2 class="accessibility-title">
+        <span>♿</span>
+        웹 접근성 기능 안내
+      </h2>
+      <div class="accessibility-features">
+        <div class="accessibility-feature">
+          <div class="feature-icon">🔍</div>
+          <div class="feature-title">화면 확대</div>
+          <div class="feature-desc">Ctrl + 마우스 휠로 화면을 확대/축소할 수 있습니다</div>
+        </div>
+        
+        <div class="accessibility-feature">
+          <div class="feature-icon">📖</div>
+          <div class="feature-title">스크린 리더</div>
+          <div class="feature-desc">NVDA, JAWS 등 스크린 리더 프로그램과 호환됩니다</div>
+        </div>
+        
+        <div class="accessibility-feature">
+          <div class="feature-icon">⌨️</div>
+          <div class="feature-title">키보드 탐색</div>
+          <div class="feature-desc">Tab 키로 모든 요소를 순차적으로 탐색할 수 있습니다</div>
+        </div>
+        
+        <div class="accessibility-feature">
+          <div class="feature-icon">🎨</div>
+          <div class="feature-title">고대비 모드</div>
+          <div class="feature-desc">Windows 고대비 모드를 지원합니다</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 성공 사례 -->
+    <section class="success-stories">
+      <h2 class="section-title">🌟 장애인 지원 성공 사례</h2>
+      <div class="stories-grid">
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">🦽</span>
+            <div class="story-info">
+              <h4>김○○님 (35세, 지체장애 1급)</h4>
+              <span class="story-date">종합 지원 수혜자</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"장애인연금과 활동지원서비스 덕분에 독립적인 생활이 가능해졌어요. 매월 안정적인 수입과 활동보조인의 도움으로 사회활동도 활발히 하고 있습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 장애인연금 월 33만원, 활동지원 월 150만원, 의료급여
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">👁️</span>
+            <div class="story-info">
+              <h4>박○○님 (28세, 시각장애 2급)</h4>
+              <span class="story-date">교육·취업 성공</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"대학 특례입학으로 교육기회를 얻었고, 직업재활 프로그램을 통해 IT 분야에 취업했어요. 이제 경제적으로도 자립할 수 있게 되었습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 대학 등록금 면제, 직업재활 월 100만원, 보조기구 지원
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 카테고리 추천 -->
+    <section class="related-section">
+      <h2 class="section-title">💡 함께 보면 좋은 카테고리</h2>
+      <div class="related-grid">
+        <a href="./senior.html" class="related-card">
+          <span class="related-icon">🌅</span>
+          <div class="related-content">
+            <div class="related-title">은퇴 준비기</div>
+            <div class="related-desc">노인 의료지원</div>
+          </div>
+        </a>
+        
+        <a href="./emergency.html" class="related-card">
+          <span class="related-icon">🆘</span>
+          <div class="related-content">
+            <div class="related-title">긴급상황</div>
+            <div class="related-desc">위기상황 대응</div>
+          </div>
+        </a>
+        
+        <a href="./women.html" class="related-card">
+          <span class="related-icon">👩</span>
+          <div class="related-content">
+            <div class="related-title">여성/가족</div>
+            <div class="related-desc">가족 돌봄 지원</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 홈으로 돌아가기 -->
+    <section class="back-home">
+      <a href="../index.html" class="home-btn">
+        🏠 홈으로 돌아가기
+      </a>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p>📞 장애인 관련 문의는 보건복지상담센터 129번으로 연락주세요</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+      본 사이트는 정부 지원금 정보 제공을 목적으로 하며, 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다
+    </p>
+  </footer>
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/category-filter.js"></script>
+  
+  <!-- 장애인 지원 페이지 전용 스크립트 -->
+  <script>
+    // 장애 유형 선택 기능
+    function selectDisabilityType(type) {
+      // 모든 카드에서 선택 해제
+      document.querySelectorAll('.disability-type-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // 선택된 카드 활성화
+      document.querySelector(`[data-type="${type}"]`).classList.add('selected');
+      
+      // 해당 장애 유형에 맞는 혜택 필터링
+      filterBenefitsByType(type);
+      
+      // 선택 이벤트 추적
+      console.log('장애 유형 선택:', type);
+    }
+    
+    function filterBenefitsByType(type) {
+      const cards = document.querySelectorAll('.benefit-card');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('.benefit-title').textContent;
+        const target = card.querySelector('.benefit-target').textContent;
+        let shouldShow = true;
+        
+        switch(type) {
+          case 'physical':
+            // 지체장애 관련
+            shouldShow = title.includes('보조기구') || title.includes('주거환경') || 
+                        title.includes('자동차') || title.includes('활동지원');
+            break;
+          case 'visual':
+            // 시각장애 관련
+            shouldShow = title.includes('안경') || title.includes('보조기구') || 
+                        title.includes('활동지원') || target.includes('시각');
+            break;
+          case 'hearing':
+            // 청각장애 관련
+            shouldShow = title.includes('보조기구') || title.includes('언어') || 
+                        title.includes('특례입학');
+            break;
+          case 'mental':
+            // 지적장애 관련
+            shouldShow = title.includes('활동지원') || title.includes('직업재활') || 
+                        title.includes('발달재활');
+            break;
+          case 'development':
+            // 발달장애 관련
+            shouldShow = title.includes('발달재활') || title.includes('활동지원') || 
+                        target.includes('발달장애') || target.includes('아동');
+            break;
+        }
+        
+        if (shouldShow) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.opacity = '0.3';
+        }
+      });
+    }
+    
+    // 장애등급별 혜택 확인
+    function checkDisabilityBenefits() {
+      const grade = document.getElementById('disabilityGrade').value;
+      const age = document.getElementById('age').value;
+      const living = document.getElementById('livingStatus').value;
+      const income = document.getElementById('incomeLevel').value;
+      
+      if (!grade || !age || !living || !income) {
+        alert('모든 항목을 선택해주세요.');
+        return;
+      }
+      
+      // 등급과 조건에 따른 혜택 계산
+      let totalBenefits = 0;
+      let benefitList = [];
+      
+      // 장애인연금 (중증장애인, 18세 이상)
+      if (grade === 'severe' && age !== 'child') {
+        let pensionAmount = 33;
+        totalBenefits += pensionAmount;
+        benefitList.push(`장애인연금: ${pensionAmount}만원`);
+      }
+      
+      // 장애수당 (경증장애인)
+      if (grade === 'mild') {
+        let allowanceAmount = 4;
+        totalBenefits += allowanceAmount;
+        benefitList.push(`장애수당: ${allowanceAmount}만원`);
+      }
+      
+      // 활동지원서비스 (중증장애인)
+      if (grade === 'severe') {
+        let activityAmount = 150;
+        totalBenefits += activityAmount;
+        benefitList.push(`활동지원서비스: ${activityAmount}만원`);
+      }
+      
+      // 의료급여 (기초생활수급자)
+      if (income === 'basic') {
+        benefitList.push('의료급여: 본인부담금 면제');
+      }
+      
+      // 발달재활서비스 (아동)
+      if (age === 'child') {
+        let rehabAmount = 30;
+        totalBenefits += rehabAmount;
+        benefitList.push(`발달재활서비스: ${rehabAmount}만원`);
+      }
+      
+      // 교육 지원 (학생)
+      if (age === 'child' || age === 'adult') {
+        benefitList.push('교육비 지원: 등록금 감면');
+      }
+      
+      // 결과 표시
+      document.getElementById('gradeResultSummary').textContent = 
+        `예상 월 지원금: ${totalBenefits.toLocaleString()}만원`;
+      
+      document.getElementById('gradeResultDetails').innerHTML = `
+        <div class="result-item">
+          <div class="result-label">총 월지원금</div>
+          <div class="result-value">${totalBenefits}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">연간 지원금</div>
+          <div class="result-value">${(totalBenefits * 12).toLocaleString()}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">지원 항목</div>
+          <div class="result-value">${benefitList.length}개</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">자립 지원도</div>
+          <div class="result-value">${totalBenefits >= 100 ? '높음' : totalBenefits >= 50 ? '보통' : '기초'}</div>
+        </div>
+      `;
+      
+      document.getElementById('gradeResult').style.display = 'block';
+      document.getElementById('gradeResult').scrollIntoView({ behavior: 'smooth' });
+      
+      // 추가 권장사항 표시
+      if (totalBenefits >= 150) {
+        setTimeout(() => {
+          alert('매우 포괄적인 지원을 받을 수 있습니다!\n\n추가 확인사항:\n• 보조기구 신청\n• 주거환경 개선 신청\n• 직업재활 프로그램 참여\n• 지역별 추가 지원 확인');
+        }, 1000);
+      }
+    }
+    
+    // 복지 항목 클릭 이벤트
+    function setupWelfareInteraction() {
+      const welfareItems = document.querySelectorAll('.welfare-item');
+      welfareItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const itemName = this.textContent.replace('• ', '');
+          
+          // 복지 항목별 정보 표시
+          const infoMap = {
+            '장애인연금 (중증장애인)': '💰 만 18세 이상 중증장애인에게 월 33만원을 지급합니다.',
+            '활동지원서비스': '🤝 일상생활과 사회활동을 위한 활동보조인 서비스를 제공합니다.',
+            '의료급여 (본인부담금 면제)': '🏥 1종 수급자는 의료비 본인부담금이 없습니다.',
+            '발달재활서비스': '🧠 만 18세 미만 발달장애 아동에게 언어, 인지, 행동 치료를 지원합니다.',
+            '장애인 건강주치의': '👨‍⚕️ 전담 주치의가 지속적인 건강관리를 제공합니다.'
+          };
+          
+          const info = infoMap[itemName] || '💡 해당 서비스에 대한 자세한 정보는 보건복지상담센터 129번으로 문의해보세요!';
+          
+          alert(info);
+        });
+      });
+    }
+    
+    // 장애인 지원 페이지 전용 기능
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCategoryPage('disability');
+      trackPageView('disability');
+      setupWelfareInteraction();
+      
+      // 장애 유형 카드 애니메이션
+      const typeCards = document.querySelectorAll('.disability-type-card');
+      typeCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 120);
+      });
+      
+      // 접근성 기능 향상
+      document.addEventListener('keydown', function(e) {
+        // 스페이스바로 카드 선택
+        if (e.code === 'Space' && e.target.classList.contains('disability-type-card')) {
+          e.preventDefault();
+          e.target.click();
+        }
+      });
+      
+      // URL 파라미터에 따른 자동 선택
+      const urlParams = new URLSearchParams(window.location.search);
+      const type = urlParams.get('type');
+      if (type) {
+        selectDisabilityType(type);
+      }
+    });
+  </script>
+</body>
+</html>

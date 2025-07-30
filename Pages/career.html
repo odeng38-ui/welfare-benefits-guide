@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>경력 발전기 지원 (35-54세) - 복지 혜택 안내 센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  
+  <!-- 경력발전기 전용 스타일 -->
+  <style>
+    .career-header {
+      background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin: -20px -15px 30px -15px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .career-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+      animation: career-shine 3s ease-in-out infinite;
+    }
+    
+    @keyframes career-shine {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+    }
+    
+    .career-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .career-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .career-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .career-path-selector {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .path-selector-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .career-paths {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .career-path-card {
+      padding: 20px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+    
+    .career-path-card:hover {
+      border-color: #1976d2;
+      transform: translateY(-2px);
+      background: rgba(25, 118, 210, 0.1);
+    }
+    
+    .career-path-card.selected {
+      border-color: #1976d2;
+      background: rgba(25, 118, 210, 0.2);
+    }
+    
+    .career-path-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .career-path-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .career-path-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .skill-development {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .skill-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .skill-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .skill-category {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid #1976d2;
+    }
+    
+    .skill-category-title {
+      font-weight: 600;
+      color: #1976d2;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .skill-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .skill-item {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    
+    .skill-item:last-child {
+      border-bottom: none;
+    }
+    
+    .skill-item:hover {
+      color: var(--primary);
+      cursor: pointer;
+    }
+    
+    .career-transition {
+      background: #e8f5e8;
+      border: 1px solid #c8e6c9;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .transition-title {
+      color: #2e7d32;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .transition-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .transition-step {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #2e7d32;
+      position: relative;
+    }
+    
+    .step-number {
+      background: #2e7d32;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      position: absolute;
+      top: -10px;
+      left: -12px;
+    }
+    
+    .step-title {
+      font-weight: 600;
+      color: #2e7d32;
+      margin-bottom: 5px;
+      margin-left: 15px;
+    }
+    
+    .step-desc {
+      font-size: 13px;
+      color: #666;
+      margin-left: 15px;
+    }
+    
+    .employment-support {
+      background: #fff3e0;
+      border: 1px solid #ffcc02;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .employment-title {
+      color: #ef6c00;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .employment-services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+    }
+    
+    .employment-service {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #ef6c00;
+    }
+    
+    .service-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    
+    .service-name {
+      font-weight: 600;
+      color: #ef6c00;
+      flex: 1;
+    }
+    
+    .service-badge {
+      background: #ef6c00;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    
+    .service-desc {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .service-contact {
+      font-size: 12px;
+      color: #ef6c00;
+      font-weight: 600;
+    }
+  </style>
+  
+  <!-- 메타 태그 -->
+  <meta name="description" content="35-54세 경력 발전기를 위한 정부 지원금 총정리 - 근로장려금, 취업지원, 직업훈련 등" />
+  <meta name="keywords" content="경력발전, 재취업, 직업훈련, 근로장려금, 이직지원" />
+  <meta property="og:title" content="경력 발전기 지원 혜택" />
+  <meta property="og:description" content="안정적인 커리어와 가족 생활을 위한 든든한 지원" />
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header" id="page-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          🎯 생애주기별 복지 혜택 가이드<br />
+          <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+        </a>
+      </h1>
+      
+      <!-- 검색창 -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="경력발전 지원금 검색 (예: 근로장려금, 취업...)" 
+            type="text" 
+          />
+          <button class="search-btn" onclick="performSearch()" title="검색">
+            🔍
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-container">
+    <ul class="tab-list">
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/baby.html">
+          👶 신생아 가정
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/student.html">
+          🎒 학령기 가정
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/youth.html">
+          🎓 청년 독립기
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link active" href="../pages/career.html">
+          💼 경력 발전기
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/senior.html">
+          🌅 은퇴 준비기
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/disability.html">
+          🦽 장애인 지원
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/women.html">
+          👩 여성/가족
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/rural.html">
+          🌾 농어촌
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/culture.html">
+          🎭 문화/여가
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/emergency.html">
+          🆘 긴급상황
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/business.html">
+          🏪 사업자 지원
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- 경력발전기 헤더 -->
+    <section class="career-header">
+      <div class="career-content">
+        <h1 class="career-title">💼 경력 발전기 지원</h1>
+        <p class="career-subtitle">안정적인 커리어와 가족 생활을 위한 든든한 지원 (35-54세)</p>
+      </div>
+    </section>
+
+    <!-- 경력 경로 선택 -->
+    <section class="career-path-selector">
+      <h2 class="path-selector-title">🛤️ 현재 상황을 선택하세요</h2>
+      <div class="career-paths">
+        <div class="career-path-card" data-path="employed" onclick="selectCareerPath('employed')">
+          <span class="career-path-icon">💼</span>
+          <div class="career-path-name">재직중</div>
+          <div class="career-path-desc">승진, 전직 준비</div>
+        </div>
+        
+        <div class="career-path-card" data-path="job-seeking" onclick="selectCareerPath('job-seeking')">
+          <span class="career-path-icon">🔍</span>
+          <div class="career-path-name">구직중</div>
+          <div class="career-path-desc">재취업, 이직 준비</div>
+        </div>
+        
+        <div class="career-path-card" data-path="career-break" onclick="selectCareerPath('career-break')">
+          <span class="career-path-icon">🔄</span>
+          <div class="career-path-name">경력단절</div>
+          <div class="career-path-desc">복직, 재시작</div>
+        </div>
+        
+        <div class="career-path-card" data-path="self-employed" onclick="selectCareerPath('self-employed')">
+          <span class="career-path-icon">🏪</span>
+          <div class="career-path-name">자영업</div>
+          <div class="career-path-desc">사업 운영, 확장</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 스킬 개발 영역 -->
+    <section class="skill-development">
+      <h2 class="skill-title">🎓 스킬 개발 지원 프로그램</h2>
+      <div class="skill-categories">
+        <div class="skill-category">
+          <h3 class="skill-category-title">
+            <span>💻</span>
+            디지털 스킬
+          </h3>
+          <ul class="skill-list">
+            <li class="skill-item">• 데이터 분석 (Excel, SQL)</li>
+            <li class="skill-item">• 디지털 마케팅</li>
+            <li class="skill-item">• 업무 자동화 (RPA)</li>
+            <li class="skill-item">• 프로그래밍 기초</li>
+            <li class="skill-item">• 클라우드 서비스</li>
+          </ul>
+        </div>
+        
+        <div class="skill-category">
+          <h3 class="skill-category-title">
+            <span>🗣️</span>
+            소프트 스킬
+          </h3>
+          <ul class="skill-list">
+            <li class="skill-item">• 리더십 개발</li>
+            <li class="skill-item">• 프레젠테이션</li>
+            <li class="skill-item">• 협상 기술</li>
+            <li class="skill-item">• 프로젝트 관리</li>
+            <li class="skill-item">• 외국어 (영어, 중국어)</li>
+          </ul>
+        </div>
+        
+        <div class="skill-category">
+          <h3 class="skill-category-title">
+            <span>🔧</span>
+            전문 기술
+          </h3>
+          <ul class="skill-list">
+            <li class="skill-item">• 자격증 취득 지원</li>
+            <li class="skill-item">• 기술직 재교육</li>
+            <li class="skill-item">• 산업별 전문교육</li>
+            <li class="skill-item">• 멘토링 프로그램</li>
+            <li class="skill-item">• 현장 실습</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a> > <span>경력 발전기</span>
+      </div>
+      
+      <!-- 카테고리 통계 -->
+      <div class="category-stats">
+        <div class="stat-item">
+          <span class="stat-number">6</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">최대 330만원</span>
+          <span class="stat-label">지원 금액</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">87%</span>
+          <span class="stat-label">평균 성공률</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 이 페이지 맞춤 검색 -->
+    <section class="category-search">
+      <div class="search-card">
+        <h3>🔍 경력발전 지원금 빠른 찾기</h3>
+        <div class="quick-filters">
+          <button class="filter-btn active" onclick="filterBenefits('all')">전체</button>
+          <button class="filter-btn" onclick="filterBenefits('job')">취업</button>
+          <button class="filter-btn" onclick="filterBenefits('education')">교육</button>
+          <button class="filter-btn" onclick="filterBenefits('incentive')">장려금</button>
+          <button class="filter-btn" onclick="filterBenefits('family')">가족</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 혜택 카드들 -->
+    <section class="benefits-section">
+      <div class="benefit-grid" id="benefitGrid">
+        
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/2025_18.html" 
+           rel="noopener" target="_blank" data-category="incentive">
+          <span class="benefit-icon">💼</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💰 최대 330만원</div>
+            <div class="benefit-title">근로장려금</div>
+            <div class="benefit-desc">국세청 홈택스</div>
+            <div class="benefit-target">💼 근로소득자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 89%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_33.html" 
+           rel="noopener" target="_blank" data-category="job">
+          <span class="benefit-icon">📝</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎯 월 50만원</div>
+            <div class="benefit-title">국민취업지원제도</div>
+            <div class="benefit-desc">고용24</div>
+            <div class="benefit-target">🔍 실업자 대상</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 82%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_34.html" 
+           rel="noopener" target="_blank" data-category="family">
+          <span class="benefit-icon">👩‍👧</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💙 월 20만원</div>
+            <div class="benefit-title">한부모가족지원금</div>
+            <div class="benefit-desc">복지로</div>
+            <div class="benefit-target">👩‍👧‍👦 한부모 가족</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 85%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_6.html" 
+           rel="noopener" target="_blank" data-category="education">
+          <span class="benefit-icon">🎓</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">📚 최대 300만원</div>
+            <div class="benefit-title">직장인 내일배움카드</div>
+            <div class="benefit-desc">HRD-Net</div>
+            <div class="benefit-target">👨‍💼 재직자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 91%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/07/blog-post_52.html" 
+           rel="noopener" target="_blank" data-category="job">
+          <span class="benefit-icon">🔄</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎯 월 70만원</div>
+            <div class="benefit-title">전직지원서비스</div>
+            <div class="benefit-desc">고용24</div>
+            <div class="benefit-target">💼 이직 준비자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 78%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/07/blog-post_3.html" 
+           rel="noopener" target="_blank" data-category="job family">
+          <span class="benefit-icon">👩‍💼</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💼 최대 200만원</div>
+            <div class="benefit-title">경력단절여성 재취업 지원</div>
+            <div class="benefit-desc">여성가족부</div>
+            <div class="benefit-target">👩 경력단절여성</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 86%</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 취업 지원 서비스 -->
+    <section class="employment-support">
+      <h2 class="employment-title">
+        🎯 전문 취업 지원 서비스
+      </h2>
+      <div class="employment-services">
+        <div class="employment-service">
+          <div class="service-header">
+            <div class="service-name">🔍 맞춤형 일자리 매칭</div>
+            <div class="service-badge">무료</div>
+          </div>
+          <div class="service-desc">AI 기반 개인 맞춤 일자리 추천 및 연결 서비스</div>
+          <div class="service-contact">🌐 work.go.kr (워크넷)</div>
+        </div>
+        
+        <div class="employment-service">
+          <div class="service-header">
+            <div class="service-name">📝 이력서/면접 컨설팅</div>
+            <div class="service-badge">무료</div>
+          </div>
+          <div class="service-desc">전문 컨설턴트의 1:1 맞춤 이력서 작성 및 면접 코칭</div>
+          <div class="service-contact">📞 1588-1919 (고용센터)</div>
+        </div>
+        
+        <div class="employment-service">
+          <div class="service-header">
+            <div class="service-name">💼 경력 전환 프로그램</div>
+            <div class="service-badge">지원</div>
+          </div>
+          <div class="service-desc">기존 경력을 활용한 새로운 분야 진출 지원</div>
+          <div class="service-contact">🏢 폴리텍대학 (www.polytech.ac.kr)</div>
+        </div>
+        
+        <div class="employment-service">
+          <div class="service-header">
+            <div class="service-name">🌐 온라인 네트워킹</div>
+            <div class="service-badge">무료</div>
+          </div>
+          <div class="service-desc">업계 전문가와의 네트워킹 및 멘토링 기회 제공</div>
+          <div class="service-contact">💬 링크드인, 원티드 등</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 커리어 전환 가이드 -->
+    <section class="career-transition">
+      <h2 class="transition-title">
+        <span>🔄</span>
+        성공적인 커리어 전환 5단계
+      </h2>
+      <div class="transition-steps">
+        <div class="transition-step">
+          <div class="step-number">1</div>
+          <div class="step-title">자기 분석</div>
+          <div class="step-desc">강점, 관심사, 가치관 파악하고 목표 설정</div>
+        </div>
+        
+        <div class="transition-step">
+          <div class="step-number">2</div>
+          <div class="step-title">시장 조사</div>
+          <div class="step-desc">희망 분야의 채용 동향과 요구 역량 조사</div>
+        </div>
+        
+        <div class="transition-step">
+          <div class="step-number">3</div>
+          <div class="step-title">역량 개발</div>
+          <div class="step-desc">부족한 스킬 교육받고 자격증 취득</div>
+        </div>
+        
+        <div class="transition-step">
+          <div class="step-number">4</div>
+          <div class="step-title">네트워킹</div>
+          <div class="step-desc">업계 관계자들과 연결하고 정보 수집</div>
+        </div>
+        
+        <div class="transition-step">
+          <div class="step-number">5</div>
+          <div class="step-title">전략적 지원</div>
+          <div class="step-desc">맞춤형 지원서 작성하고 면접 준비</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 성공 사례 -->
+    <section class="success-stories">
+      <h2 class="section-title">🌟 경력 발전 성공 사례</h2>
+      <div class="stories-grid">
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">💼</span>
+            <div class="story-info">
+              <h4>김○○님 (42세, 마케팅팀장)</h4>
+              <span class="story-date">내일배움카드 활용</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"내일배움카드로 디지털 마케팅 과정을 수강했어요. 300만원 지원받아서 구글 애즈, 페이스북 광고 등을 배웠고, 덕분에 팀장으로 승진할 수 있었습니다!"</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 내일배움카드 300만원, 근로장려금 150만원
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">👩‍💼</span>
+            <div class="story-info">
+              <h4>박○○님 (38세, 경력단절)</h4>
+              <span class="story-date">재취업 성공</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"10년간 육아로 쉬었는데, 경력단절여성 지원프로그램 덕분에 재취업에 성공했어요. 직업 상담부터 면접 코칭까지 체계적으로 도움받았습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 재취업 지원금 200만원, 직업훈련 비용 지원
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 카테고리 추천 -->
+    <section class="related-section">
+      <h2 class="section-title">💡 함께 보면 좋은 카테고리</h2>
+      <div class="related-grid">
+        <a href="./youth.html" class="related-card">
+          <span class="related-icon">🎓</span>
+          <div class="related-content">
+            <div class="related-title">청년 독립기</div>
+            <div class="related-desc">취업 초기 지원</div>
+          </div>
+        </a>
+        
+        <a href="./business.html" class="related-card">
+          <span class="related-icon">🏪</span>
+          <div class="related-content">
+            <div class="related-title">사업자 지원</div>
+            <div class="related-desc">창업 전환 지원</div>
+          </div>
+        </a>
+        
+        <a href="./women.html" class="related-card">
+          <span class="related-icon">👩</span>
+          <div class="related-content">
+            <div class="related-title">여성/가족</div>
+            <div class="related-desc">여성 경력 지원</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 홈으로 돌아가기 -->
+    <section class="back-home">
+      <a href="../index.html" class="home-btn">
+        🏠 홈으로 돌아가기
+      </a>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p>📞 취업 관련 문의는 고용센터 1588-1919번으로 연락주세요</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+      본 사이트는 정부 지원금 정보 제공을 목적으로 하며, 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다
+    </p>
+  </footer>
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/category-filter.js"></script>
+  
+  <!-- 경력발전기 페이지 전용 스크립트 -->
+  <script>
+    // 경력 경로 선택 기능
+    function selectCareerPath(path) {
+      // 모든 카드에서 선택 해제
+      document.querySelectorAll('.career-path-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // 선택된 카드 활성화
+      document.querySelector(`[data-path="${path}"]`).classList.add('selected');
+      
+      // 해당 경로에 맞는 혜택 필터링
+      filterBenefitsByPath(path);
+      
+      // 맞춤 조언 표시
+      showCareerAdvice(path);
+      
+      // 선택 이벤트 추적
+      console.log('경력 경로 선택:', path);
+    }
+    
+    function filterBenefitsByPath(path) {
+      const cards = document.querySelectorAll('.benefit-card');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('.benefit-title').textContent;
+        const target = card.querySelector('.benefit-target').textContent;
+        let shouldShow = true;
+        
+        switch(path) {
+          case 'employed':
+            // 재직자 위주
+            shouldShow = title.includes('내일배움') || title.includes('근로장려') || 
+                        target.includes('재직자') || target.includes('근로소득');
+            break;
+          case 'job-seeking':
+            // 구직자 위주
+            shouldShow = title.includes('취업지원') || title.includes('전직') || 
+                        target.includes('실업자') || target.includes('구직') || 
+                        target.includes('이직');
+            break;
+          case 'career-break':
+            // 경력단절 위주
+            shouldShow = title.includes('경력단절') || title.includes('재취업') || 
+                        target.includes('여성') || title.includes('복직');
+            break;
+          case 'self-employed':
+            // 자영업 관련
+            shouldShow = title.includes('사업') || title.includes('창업') || 
+                        target.includes('자영업') || path === 'business';
+            break;
+        }
+        
+        if (shouldShow) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.opacity = '0.3';
+        }
+      });
+    }
+    
+    function showCareerAdvice(path) {
+      const adviceMap = {
+        'employed': '재직중이시군요! 근로장려금과 직장인 내일배움카드로 스킬업하면서 안정적인 경력 발전을 꾀해보세요.',
+        'job-seeking': '새로운 기회를 찾고 계시는군요! 국민취업지원제도와 전직지원서비스를 적극 활용해보세요.',
+        'career-break': '새로운 시작을 준비하시는군요! 경력단절여성 지원프로그램으로 체계적인 복직 준비를 해보세요.',
+        'self-employed': '사업을 하고 계시는군요! 사업자 지원 카테고리에서 더 많은 혜택을 확인해보세요.'
+      };
+      
+      const advice = adviceMap[path];
+      if (advice) {
+        // 3초간 조언 메시지 표시
+        const adviceElement = document.createElement('div');
+        adviceElement.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: #1976d2;
+          color: white;
+          padding: 20px 30px;
+          border-radius: 12px;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+          z-index: 10000;
+          max-width: 400px;
+          text-align: center;
+          font-size: 14px;
+          line-height: 1.5;
+        `;
+        adviceElement.textContent = advice;
+        
+        document.body.appendChild(adviceElement);
+        
+        setTimeout(() => {
+          adviceElement.style.opacity = '0';
+          adviceElement.style.transform = 'translate(-50%, -50%) scale(0.8)';
+          setTimeout(() => {
+            adviceElement.remove();
+          }, 300);
+        }, 3000);
+      }
+    }
+    
+    // 스킬 아이템 클릭 이벤트
+    function setupSkillInteraction() {
+      const skillItems = document.querySelectorAll('.skill-item');
+      skillItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const skillName = this.textContent.replace('• ', '');
+          
+          // 스킬 관련 정보 표시
+          const infoMap = {
+            '데이터 분석 (Excel, SQL)': '📊 데이터 분석은 현재 가장 수요가 높은 스킬 중 하나입니다. 내일배움카드로 관련 교육을 받아보세요!',
+            '디지털 마케팅': '🎯 디지털 마케팅 전문가 수요가 급증하고 있습니다. 구글/페이스북 광고 자격증 취득을 추천합니다!',
+            '리더십 개발': '👥 팀장급 이상 승진을 위한 필수 스킬입니다. 사내 교육과 외부 과정을 병행하세요!',
+            '프로그래밍 기초': '💻 비전공자도 쉽게 배울 수 있는 파이썬부터 시작해보세요. 업무 자동화에 큰 도움이 됩니다!'
+          };
+          
+          const info = infoMap[skillName] || '💡 해당 스킬에 대한 자세한 정보는 고용센터나 관련 교육기관에 문의해보세요!';
+          
+          alert(info);
+        });
+      });
+    }
+    
+    // 경력발전기 페이지 전용 기능
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCategoryPage('career');
+      trackPageView('career');
+      setupSkillInteraction();
+      
+      // 경력 경로 카드 애니메이션
+      const pathCards = document.querySelectorAll('.career-path-card');
+      pathCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+      
+      // URL 파라미터에 따른 자동 선택
+      const urlParams = new URLSearchParams(window.location.search);
+      const path = urlParams.get('path');
+      if (path) {
+        selectCareerPath(path);
+      }
+    });
+  </script>
+</body>
+</html>

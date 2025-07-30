@@ -1,0 +1,466 @@
+<!-- 공통 헤더 컴포넌트 (components/header.html) -->
+<header class="header" id="common-header">
+  <div class="header-content">
+    <h1 class="site-title">
+      <a href="{{baseUrl}}index.html" style="text-decoration: none; color: inherit;">
+        🎯 생애주기별 복지 혜택 가이드<br />
+        <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+      </a>
+    </h1>
+    
+    <!-- 검색창 -->
+    <div class="search-container">
+      <div class="search-box">
+        <input 
+          class="search-input" 
+          id="searchInput" 
+          placeholder="{{searchPlaceholder}}" 
+          type="text" 
+          autocomplete="off"
+        />
+        <button class="search-btn" onclick="performSearch()" title="검색" aria-label="검색하기">
+          🔍
+        </button>
+      </div>
+      <div class="search-results" id="searchResults" role="listbox" aria-label="검색 결과"></div>
+    </div>
+    
+    <!-- 접근성 메뉴 -->
+    <div class="accessibility-menu">
+      <button class="accessibility-btn" onclick="toggleAccessibilityMenu()" title="접근성 메뉴" aria-label="접근성 옵션">
+        ♿
+      </button>
+      <div class="accessibility-options" id="accessibilityOptions">
+        <button onclick="adjustFontSize('increase')" title="글자 크기 늘리기">🔍+</button>
+        <button onclick="adjustFontSize('decrease')" title="글자 크기 줄이기">🔍-</button>
+        <button onclick="toggleHighContrast()" title="고대비 모드">🌓</button>
+        <button onclick="toggleScreenReader()" title="스크린 리더 모드">🔊</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 알림 배너 (필요시 표시) -->
+  <div class="notification-banner" id="notificationBanner" style="display: none;">
+    <div class="banner-content">
+      <span class="banner-icon">📢</span>
+      <span class="banner-text" id="bannerText"></span>
+      <button class="banner-close" onclick="closeBanner()" aria-label="알림 닫기">×</button>
+    </div>
+  </div>
+</header>
+
+<!-- 헤더 전용 스타일 -->
+<style>
+/* 접근성 메뉴 스타일 */
+.accessibility-menu {
+  position: relative;
+  margin-left: 10px;
+}
+
+.accessibility-btn {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accessibility-btn:hover {
+  border-color: var(--primary);
+  background: rgba(79, 195, 247, 0.1);
+}
+
+.accessibility-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 5px;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+}
+
+.accessibility-options.show {
+  display: flex;
+}
+
+.accessibility-options button {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 12px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.accessibility-options button:hover {
+  background: var(--primary);
+  color: var(--bg-dark);
+}
+
+/* 알림 배너 스타일 */
+.notification-banner {
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+  padding: 10px 15px;
+  position: relative;
+  animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: auto;
+    opacity: 1;
+  }
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+.banner-icon {
+  font-size: 18px;
+  animation: bounce 2s infinite;
+}
+
+.banner-text {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.banner-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.banner-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 고대비 모드 */
+body.high-contrast {
+  --bg-dark: #000000;
+  --bg-card: #1a1a1a;
+  --bg-light: #333333;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --border: #666666;
+  --primary: #00ffff;
+  --secondary: #ffff00;
+  --accent: #ff00ff;
+}
+
+/* 큰 글자 모드 */
+body.large-font {
+  font-size: 18px;
+}
+
+body.large-font .site-title {
+  font-size: 22px;
+}
+
+body.large-font .tab-link {
+  font-size: 16px;
+}
+
+body.large-font .benefit-title {
+  font-size: 18px;
+}
+
+/* 작은 글자 모드 */
+body.small-font {
+  font-size: 14px;
+}
+
+body.small-font .site-title {
+  font-size: 16px;
+}
+
+body.small-font .tab-link {
+  font-size: 11px;
+}
+
+/* 스크린 리더 모드 */
+body.screen-reader-mode .hidden-text {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 2px 4px;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: var(--bg-dark);
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+/* 반응형 헤더 */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .search-container {
+    order: 2;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .accessibility-menu {
+    order: 3;
+    margin-left: 0;
+  }
+  
+  .banner-content {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  
+  .banner-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    min-height: 140px;
+  }
+  
+  .site-title {
+    font-size: 14px;
+  }
+  
+  .search-container {
+    min-width: 240px;
+  }
+  
+  .accessibility-options {
+    right: auto;
+    left: 0;
+  }
+}
+</style>
+
+<!-- 헤더 전용 JavaScript -->
+<script>
+// 접근성 기능들
+function toggleAccessibilityMenu() {
+  const options = document.getElementById('accessibilityOptions');
+  options.classList.toggle('show');
+}
+
+function adjustFontSize(action) {
+  const body = document.body;
+  
+  if (action === 'increase') {
+    body.classList.remove('small-font');
+    body.classList.add('large-font');
+    localStorage.setItem('fontSize', 'large');
+  } else if (action === 'decrease') {
+    body.classList.remove('large-font');
+    body.classList.add('small-font');
+    localStorage.setItem('fontSize', 'small');
+  }
+  
+  // 접근성 메뉴 닫기
+  document.getElementById('accessibilityOptions').classList.remove('show');
+}
+
+function toggleHighContrast() {
+  const body = document.body;
+  body.classList.toggle('high-contrast');
+  
+  const isEnabled = body.classList.contains('high-contrast');
+  localStorage.setItem('highContrast', isEnabled);
+  
+  // 접근성 메뉴 닫기
+  document.getElementById('accessibilityOptions').classList.remove('show');
+}
+
+function toggleScreenReader() {
+  const body = document.body;
+  body.classList.toggle('screen-reader-mode');
+  
+  const isEnabled = body.classList.contains('screen-reader-mode');
+  localStorage.setItem('screenReaderMode', isEnabled);
+  
+  // 접근성 메뉴 닫기
+  document.getElementById('accessibilityOptions').classList.remove('show');
+  
+  if (isEnabled) {
+    announceToScreenReader('스크린 리더 모드가 활성화되었습니다.');
+  }
+}
+
+function announceToScreenReader(message) {
+  const announcement = document.createElement('div');
+  announcement.setAttribute('aria-live', 'polite');
+  announcement.setAttribute('aria-atomic', 'true');
+  announcement.style.position = 'absolute';
+  announcement.style.left = '-10000px';
+  announcement.style.width = '1px';
+  announcement.style.height = '1px';
+  announcement.style.overflow = 'hidden';
+  
+  document.body.appendChild(announcement);
+  announcement.textContent = message;
+  
+  setTimeout(() => {
+    document.body.removeChild(announcement);
+  }, 1000);
+}
+
+// 접근성 설정 복원
+function restoreAccessibilitySettings() {
+  const fontSize = localStorage.getItem('fontSize');
+  const highContrast = localStorage.getItem('highContrast') === 'true';
+  const screenReaderMode = localStorage.getItem('screenReaderMode') === 'true';
+  
+  if (fontSize === 'large') {
+    document.body.classList.add('large-font');
+  } else if (fontSize === 'small') {
+    document.body.classList.add('small-font');
+  }
+  
+  if (highContrast) {
+    document.body.classList.add('high-contrast');
+  }
+  
+  if (screenReaderMode) {
+    document.body.classList.add('screen-reader-mode');
+  }
+}
+
+// 알림 배너 기능
+function showNotificationBanner(message, type = 'info', duration = 5000) {
+  const banner = document.getElementById('notificationBanner');
+  const text = document.getElementById('bannerText');
+  
+  text.textContent = message;
+  banner.style.display = 'block';
+  
+  // 타입에 따른 스타일 적용
+  switch(type) {
+    case 'warning':
+      banner.style.background = 'linear-gradient(135deg, #ff9800, #f57c00)';
+      break;
+    case 'error':
+      banner.style.background = 'linear-gradient(135deg, #f44336, #d32f2f)';
+      break;
+    case 'success':
+      banner.style.background = 'linear-gradient(135deg, #4caf50, #388e3c)';
+      break;
+    default:
+      banner.style.background = 'linear-gradient(135deg, #2196f3, #1976d2)';
+  }
+  
+  // 자동 닫기
+  if (duration > 0) {
+    setTimeout(closeBanner, duration);
+  }
+}
+
+function closeBanner() {
+  const banner = document.getElementById('notificationBanner');
+  banner.style.animation = 'slideUp 0.5s ease forwards';
+  
+  setTimeout(() => {
+    banner.style.display = 'none';
+    banner.style.animation = '';
+  }, 500);
+}
+
+// 외부 클릭 시 접근성 메뉴 닫기
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.accessibility-menu')) {
+    document.getElementById('accessibilityOptions').classList.remove('show');
+  }
+});
+
+// 키보드 접근성
+document.addEventListener('keydown', (e) => {
+  // ESC 키로 메뉴 닫기
+  if (e.key === 'Escape') {
+    document.getElementById('accessibilityOptions').classList.remove('show');
+    closeBanner();
+  }
+  
+  // Ctrl + = : 글자 크기 늘리기
+  if (e.ctrlKey && e.key === '=') {
+    e.preventDefault();
+    adjustFontSize('increase');
+  }
+  
+  // Ctrl + - : 글자 크기 줄이기
+  if (e.ctrlKey && e.key === '-') {
+    e.preventDefault();
+    adjustFontSize('decrease');
+  }
+  
+  // Ctrl + Shift + C : 고대비 모드
+  if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+    e.preventDefault();
+    toggleHighContrast();
+  }
+});
+
+// 페이지 로드 시 접근성 설정 복원
+document.addEventListener('DOMContentLoaded', restoreAccessibilitySettings);
+
+// 전역 함수 노출
+window.showNotificationBanner = showNotificationBanner;
+window.closeBanner = closeBanner;
+window.announceToScreenReader = announceToScreenReader;
+</script>
+
+<!-- 슬라이드업 애니메이션 -->
+<style>
+@keyframes slideUp {
+  from {
+    height: auto;
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+</style>

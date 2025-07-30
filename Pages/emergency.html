@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>긴급상황 지원 - 복지 혜택 안내 센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  
+  <!-- 긴급상황 전용 스타일 -->
+  <style>
+    .emergency-header {
+      background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin: -20px -15px 30px -15px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .emergency-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.1) 10px,
+        rgba(255, 255, 255, 0.1) 20px
+      );
+      animation: emergency-stripe 2s linear infinite;
+    }
+    
+    @keyframes emergency-stripe {
+      0% { transform: translateX(-20px); }
+      100% { transform: translateX(20px); }
+    }
+    
+    .emergency-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .emergency-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .emergency-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    
+    .emergency-hotline {
+      background: #ff6b6b;
+      color: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 20px 0;
+      text-align: center;
+      border: 2px solid #ff4444;
+      animation: pulse-red 2s infinite;
+    }
+    
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7); }
+      50% { box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
+    }
+    
+    .hotline-number {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    .hotline-desc {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    
+    .emergency-benefit-card {
+      border-left: 4px solid #ff4444;
+      background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+      position: relative;
+    }
+    
+    .emergency-benefit-card::before {
+      content: '🚨';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 12px;
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    
+    .emergency-steps {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .emergency-steps h3 {
+      color: #e17055;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .step-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .step-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      background: white;
+      border-radius: 8px;
+      border-left: 3px solid #ff7675;
+    }
+    
+    .step-number {
+      background: #ff7675;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    
+    .quick-access {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .quick-btn {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background: linear-gradient(135deg, #ff6b6b, #ff5252);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    }
+    
+    .quick-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+      color: white;
+    }
+    
+    .quick-btn-icon {
+      font-size: 24px;
+      margin-right: 12px;
+    }
+  </style>
+  
+  <!-- 메타 태그 -->
+  <meta name="description" content="위기상황 긴급지원 - 긴급복지지원, 의료비 지원, 임시주거지원 등 즉시 도움받을 수 있는 혜택" />
+  <meta name="keywords" content="긴급지원, 위기상황, 긴급복지, 의료비지원, 생계지원" />
+  <meta property="og:title" content="긴급상황 지원 혜택" />
+  <meta property="og:description" content="갑작스런 어려움에 처한 분들을 위한 즉시 지원" />
+  <style>
+    /* 긴급상황 페이지 전용 개선 */
+    .emergency-benefit-card {
+      background: rgba(45, 45, 45, 0.95) !important;
+      border-left: 4px solid #ff4444 !important;
+    }
+
+    .hotline-number {
+      color: #FFFFFF !important;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .quick-btn {
+      color: #FFFFFF !important;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+    }
+    </style>
+
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header" id="page-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          🎯 생애주기별 복지 혜택 가이드<br />
+          <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+        </a>
+      </h1>
+      
+      <!-- 검색창 -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="긴급지원 검색 (예: 의료비, 생계비...)" 
+            type="text" 
+          />
+          <button class="search-btn" onclick="performSearch()" title="검색">
+            🔍
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-container">
+    <ul class="tab-list">
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/baby.html">
+          👶 신생아 가정
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/student.html">
+          🎒 학령기 가정
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/youth.html">
+          🎓 청년 독립기
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/career.html">
+          💼 경력 발전기
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/senior.html">
+          🌅 은퇴 준비기
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/disability.html">
+          🦽 장애인 지원
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/women.html">
+          👩 여성/가족
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/rural.html">
+          🌾 농어촌
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/culture.html">
+          🎭 문화/여가
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link active" href="../pages/emergency.html">
+          🆘 긴급상황
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/business.html">
+          🏪 사업자 지원
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- 긴급상황 헤더 -->
+    <section class="emergency-header">
+      <div class="emergency-content">
+        <h1 class="emergency-title">🆘 긴급상황 지원</h1>
+        <p class="emergency-subtitle">갑작스런 어려움에 처한 분들을 위한 즉시 지원</p>
+      </div>
+    </section>
+
+    <!-- 긴급 핫라인 -->
+    <section class="emergency-hotline">
+      <div class="hotline-number">📞 129</div>
+      <div class="hotline-desc">보건복지부 상담센터 (24시간 운영)</div>
+    </section>
+
+    <!-- 긴급 신청 단계 -->
+    <section class="emergency-steps">
+      <h3>⚡ 긴급지원 신청 3단계</h3>
+      <ol class="step-list">
+        <li class="step-item">
+          <div class="step-number">1</div>
+          <div>
+            <strong>129번 전화</strong> - 상황 설명 및 상담
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-number">2</div>
+          <div>
+            <strong>서류 제출</strong> - 신분증, 위기상황 증빙서류
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-number">3</div>
+          <div>
+            <strong>지원 결정</strong> - 3일 이내 지원 여부 결정
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 빠른 연결 -->
+    <section class="quick-access-section">
+      <h2 class="section-title">🚀 빠른 연결</h2>
+      <div class="quick-access">
+        <a href="tel:129" class="quick-btn">
+          <span class="quick-btn-icon">📞</span>
+          <div>
+            <div>복지상담센터</div>
+            <small>129 (무료)</small>
+          </div>
+        </a>
+        
+        <a href="https://www.bokjiro.go.kr" class="quick-btn" target="_blank">
+          <span class="quick-btn-icon">💻</span>
+          <div>
+            <div>복지로 사이트</div>
+            <small>온라인 신청</small>
+          </div>
+        </a>
+        
+        <a href="tel:112" class="quick-btn">
+          <span class="quick-btn-icon">🚨</span>
+          <div>
+            <div>응급상황</div>
+            <small>112/119</small>
+          </div>
+        </a>
+        
+        <a href="https://www.gov.kr/portal/service/serviceInfo/SD0000055570" class="quick-btn" target="_blank">
+          <span class="quick-btn-icon">🏥</span>
+          <div>
+            <div>의료급여</div>
+            <small>즉시 신청</small>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a> > <span>긴급상황</span>
+      </div>
+      
+      <!-- 카테고리 통계 -->
+      <div class="category-stats">
+        <div class="stat-item">
+          <span class="stat-number">6</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">최대 300만원</span>
+          <span class="stat-label">지원 금액</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">3일</span>
+          <span class="stat-label">평균 처리시간</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 혜택 카드들 -->
+    <section class="benefits-section">
+      <div class="benefit-grid" id="benefitGrid">
+        
+        <a class="benefit-card emergency-benefit-card" href="https://www.bokjiro.go.kr/" 
+           rel="noopener" target="_blank" data-category="emergency">
+          <span class="benefit-icon">🚨</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💰 최대 100만원</div>
+            <div class="benefit-title">긴급복지지원</div>
+            <div class="benefit-desc">복지로</div>
+            <div class="benefit-target">🆘 위기상황 가구</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge urgent">긴급</span>
+          <span class="success-rate">성공률 85%</span>
+        </a>
+
+        <a class="benefit-card emergency-benefit-card" href="https://www.bokjiro.go.kr/" 
+           rel="noopener" target="_blank" data-category="health emergency">
+          <span class="benefit-icon">🏥</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🩺 최대 300만원</div>
+            <div class="benefit-title">의료비 긴급지원</div>
+            <div class="benefit-desc">복지로</div>
+            <div class="benefit-target">🏥 의료비 부담 가구</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge urgent">긴급</span>
+          <span class="success-rate">성공률 78%</span>
+        </a>
+
+        <a class="benefit-card emergency-benefit-card" href="https://www.bokjiro.go.kr/" 
+           rel="noopener" target="_blank" data-category="housing emergency">
+          <span class="benefit-icon">🏠</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏘️ 월 50만원</div>
+            <div class="benefit-title">임시주거지원</div>
+            <div class="benefit-desc">복지로</div>
+            <div class="benefit-target">🏠 주거위기 가구</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge urgent">긴급</span>
+          <span class="success-rate">성공률 72%</span>
+        </a>
+
+        <a class="benefit-card emergency-benefit-card" href="https://www.bokjiro.go.kr/" 
+           rel="noopener" target="_blank" data-category="emergency">
+          <span class="benefit-icon">🍚</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🍽️ 월 30만원</div>
+            <div class="benefit-title">식료품 긴급지원</div>
+            <div class="benefit-desc">복지로</div>
+            <div class="benefit-target">🍚 생계곤란 가구</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge urgent">긴급</span>
+          <span class="success-rate">성공률 88%</span>
+        </a>
+
+        <a class="benefit-card emergency-benefit-card" href="https://www.mohw.go.kr/" 
+           rel="noopener" target="_blank" data-category="childcare emergency">
+          <span class="benefit-icon">👶</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👶 월 40만원</div>
+            <div class="benefit-title">위기아동 긴급보호</div>
+            <div class="benefit-desc">보건복지부</div>
+            <div class="benefit-target">🆘 위기상황 아동</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge urgent">긴급</span>
+          <span class="success-rate">성공률 91%</span>
+        </a>
+
+        <a class="benefit-card emergency-benefit-card" href="tel:129" 
+           rel="noopener" target="_blank" data-category="emergency">
+          <span class="benefit-icon">☎️</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">📞 24시간 상담</div>
+            <div class="benefit-title">복지 상담 콜센터</div>
+            <div class="benefit-desc">보건복지부 129</div>
+            <div class="benefit-target">📞 상담 필요자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge urgent">긴급</span>
+          <span class="success-rate">접속률 99%</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 위기상황별 안내 -->
+    <section class="crisis-guide">
+      <h2 class="section-title">📋 위기상황별 대응 가이드</h2>
+      <div class="crisis-grid">
+        
+        <div class="crisis-card">
+          <div class="crisis-header">
+            <span class="crisis-icon">💔</span>
+            <h3>가족 위기</h3>
+          </div>
+          <div class="crisis-content">
+            <h4>주요 사례</h4>
+            <ul>
+              <li>가구주 사망 또는 실종</li>
+              <li>이혼으로 인한 생계곤란</li>
+              <li>가정폭력 피해</li>
+            </ul>
+            <h4>지원 내용</h4>
+            <ul>
+              <li>생계급여: 월 최대 100만원</li>
+              <li>의료급여: 연 300만원</li>
+              <li>주거급여: 월 50만원</li>
+            </ul>
+          </div>
+          <div class="crisis-action">
+            <a href="tel:129" class="crisis-btn">즉시 상담받기</a>
+          </div>
+        </div>
+        
+        <div class="crisis-card">
+          <div class="crisis-header">
+            <span class="crisis-icon">🏥</span>
+            <h3>의료 위기</h3>
+          </div>
+          <div class="crisis-content">
+            <h4>주요 사례</h4>
+            <ul>
+              <li>중증질환 발생</li>
+              <li>응급의료비 부담</li>
+              <li>수술비 마련 곤란</li>
+            </ul>
+            <h4>지원 내용</h4>
+            <ul>
+              <li>의료비 지원: 최대 300만원</li>
+              <li>의료급여 신청</li>
+              <li>희귀질환 의료비 지원</li>
+            </ul>
+          </div>
+          <div class="crisis-action">
+            <a href="https://www.bokjiro.go.kr" class="crisis-btn" target="_blank">온라인 신청</a>
+          </div>
+        </div>
+        
+        <div class="crisis-card">
+          <div class="crisis-header">
+            <span class="crisis-icon">🏠</span>
+            <h3>주거 위기</h3>
+          </div>
+          <div class="crisis-content">
+            <h4>주요 사례</h4>
+            <ul>
+              <li>강제퇴거 위기</li>
+              <li>화재·재해 피해</li>
+              <li>임시거처 필요</li>
+            </ul>
+            <h4>지원 내용</h4>
+            <ul>
+              <li>임시거처 제공</li>
+              <li>주거급여: 월 50만원</li>
+              <li>전세자금 지원</li>
+            </ul>
+          </div>
+          <div class="crisis-action">
+            <a href="tel:129" class="crisis-btn">즉시 상담받기</a>
+          </div>
+        </div>
+        
+        <div class="crisis-card">
+          <div class="crisis-header">
+            <span class="crisis-icon">💼</span>
+            <h3>실업 위기</h3>
+          </div>
+          <div class="crisis-content">
+            <h4>주요 사례</h4>
+            <ul>
+              <li>갑작스런 해고</li>
+              <li>사업 중단</li>
+              <li>소득 급감</li>
+            </ul>
+            <h4>지원 내용</h4>
+            <ul>
+              <li>생계급여: 월 100만원</li>
+              <li>구직급여 신청</li>
+              <li>재취업 지원</li>
+            </ul>
+          </div>
+          <div class="crisis-action">
+            <a href="https://www.work.go.kr" class="crisis-btn" target="_blank">고용센터 방문</a>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- 긴급 신청 체크리스트 -->
+    <section class="emergency-checklist">
+      <h2 class="section-title">✅ 긴급지원 신청 체크리스트</h2>
+      <div class="checklist-container">
+        <div class="checklist-section">
+          <h3>📄 필수 서류</h3>
+          <div class="checklist-items">
+            <label class="checklist-item">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              신분증 (주민등록증, 운전면허증)
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              가족관계증명서
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              위기상황 증빙서류 (진단서, 해고통지서 등)
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              통장 사본
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              소득 증빙서류 (급여명세서, 사업자등록증 등)
+            </label>
+          </div>
+        </div>
+        
+        <div class="checklist-section">
+          <h3>📞 연락처 확인</h3>
+          <div class="checklist-items">
+            <label class="checklist-item">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              보건복지부 129 (24시간)
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              거주지 주민센터
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              복지로 사이트 (bokjiro.go.kr)
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              응급의료정보센터 1339
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 주의사항 -->
+    <section class="emergency-warning">
+      <h2 class="section-title">⚠️ 중요 안내사항</h2>
+      <div class="warning-grid">
+        <div class="warning-card">
+          <div class="warning-icon">⏰</div>
+          <div class="warning-content">
+            <h4>신속한 신청</h4>
+            <p>위기상황 발생 즉시 신청하세요. 늦으면 지원이 어려울 수 있습니다.</p>
+          </div>
+        </div>
+        
+        <div class="warning-card">
+          <div class="warning-icon">📋</div>
+          <div class="warning-content">
+            <h4>정확한 정보</h4>
+            <p>허위 신고 시 지원이 중단되고 환수 조치될 수 있습니다.</p>
+          </div>
+        </div>
+        
+        <div class="warning-card">
+          <div class="warning-icon">🔄</div>
+          <div class="warning-content">
+            <h4>사후 관리</h4>
+            <p>지원 후에도 정기적인 상담과 사후관리를 받으실 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 카테고리 추천 -->
+    <section class="related-section">
+      <h2 class="section-title">💡 함께 보면 좋은 카테고리</h2>
+      <div class="related-grid">
+        <a href="./disability.html" class="related-card">
+          <span class="related-icon">🦽</span>
+          <div class="related-content">
+            <div class="related-title">장애인 지원</div>
+            <div class="related-desc">장애인 전용 지원</div>
+          </div>
+        </a>
+        
+        <a href="./women.html" class="related-card">
+          <span class="related-icon">👩</span>
+          <div class="related-content">
+            <div class="related-title">여성/가족</div>
+            <div class="related-desc">가족 위기 지원</div>
+          </div>
+        </a>
+        
+        <a href="./senior.html" class="related-card">
+          <span class="related-icon">🌅</span>
+          <div class="related-content">
+            <div class="related-title">은퇴 준비기</div>
+            <div class="related-desc">노인 위기 지원</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 홈으로 돌아가기 -->
+    <section class="back-home">
+      <a href="../index.html" class="home-btn">
+        🏠 홈으로 돌아가기
+      </a>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p>📞 긴급상황 시 보건복지부 상담센터 129번 (24시간 운영)</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+      본 사이트는 정부 지원금 정보 제공을 목적으로 하며, 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다
+    </p>
+  </footer>
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/category-filter.js"></script>
+  
+  <!-- 긴급상황 전용 스크립트 -->
+  <script>
+    // 긴급상황 페이지 전용 기능
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCategoryPage('emergency');
+      trackPageView('emergency');
+      
+      // 긴급 알림 효과
+      showEmergencyAlert();
+      
+      // 체크리스트 기능 초기화
+      initializeChecklist();
+    });
+    
+    function showEmergencyAlert() {
+      // 페이지 로드 시 긴급성 강조
+      const emergencyCards = document.querySelectorAll('.emergency-benefit-card');
+      emergencyCards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.animation = 'pulse-red 1s ease-in-out';
+        }, index * 200);
+      });
+    }
+    
+    function initializeChecklist() {
+      const checkboxes = document.querySelectorAll('.checklist-item input');
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          updateChecklistProgress();
+        });
+      });
+    }
+    
+    function updateChecklistProgress() {
+      const total = document.querySelectorAll('.checklist-item input').length;
+      const checked = document.querySelectorAll('.checklist-item input:checked').length;
+      const progress = Math.round((checked / total) * 100);
+      
+      // 진행률 표시 (실제로는 UI 요소 추가 필요)
+      console.log(`체크리스트 진행률: ${progress}%`);
+      
+      if (progress === 100) {
+        showNotification('체크리스트 완료! 이제 신청하실 수 있습니다.', 'success');
+      }
+    }
+    
+    function showNotification(message, type) {
+      // 간단한 알림 표시
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#4CAF50' : '#ff6b6b'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        z-index: 10000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      `;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+  </script>
+  
+  <!-- 추가 CSS for 체크리스트 -->
+  <style>
+    .emergency-checklist {
+      margin: 40px 0;
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    
+    .checklist-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .checklist-section h3 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+    
+    .checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .checklist-item:hover {
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(79, 195, 247, 0.2);
+    }
+    
+    .checklist-item input {
+      margin-right: 12px;
+      transform: scale(1.2);
+    }
+    
+    .emergency-warning {
+      margin: 40px 0;
+    }
+    
+    .warning-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .warning-card {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 12px;
+      border-left: 4px solid #e17055;
+    }
+    
+    .warning-icon {
+      font-size: 24px;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    
+    .warning-content h4 {
+      color: #e17055;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+    
+    .warning-content p {
+      font-size: 14px;
+      color: #6c757d;
+      margin: 0;
+    }
+    
+    .crisis-guide {
+      margin: 40px 0;
+    }
+    
+    .crisis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .crisis-card {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .crisis-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    
+    .crisis-header {
+      background: linear-gradient(135deg, #ff6b6b, #ff5252);
+      color: white;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .crisis-icon {
+      font-size: 24px;
+      margin-right: 12px;
+    }
+    
+    .crisis-header h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    
+    .crisis-content {
+      padding: 20px;
+    }
+    
+    .crisis-content h4 {
+      color: var(--primary);
+      margin: 15px 0 10px 0;
+      font-size: 14px;
+    }
+    
+    .crisis-content ul {
+      margin: 0 0 15px 0;
+      padding-left: 20px;
+    }
+    
+    .crisis-content li {
+      font-size: 13px;
+      margin-bottom: 5px;
+      color: #6c757d;
+    }
+    
+    .crisis-action {
+      padding: 0 20px 20px 20px;
+    }
+    
+    .crisis-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .crisis-btn:hover {
+      background: var(--secondary);
+      transform: translateY(-1px);
+      color: white;
+    }
+  </style>
+</body>
+</html>

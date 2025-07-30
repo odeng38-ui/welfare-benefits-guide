@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>사업자 지원 (창업/운영) - 복지 혜택 안내 센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  
+  <!-- 사업자 지원 전용 스타일 -->
+  <style>
+    .business-header {
+      background: linear-gradient(135deg, #f57c00 0%, #e65100 100%);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin: -20px -15px 30px -15px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .business-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        transparent 0%, 
+        rgba(255,255,255,0.1) 25%, 
+        transparent 50%,
+        rgba(255,255,255,0.1) 75%, 
+        transparent 100%);
+      animation: business-growth 6s linear infinite;
+    }
+    
+    @keyframes business-growth {
+      0% { transform: translateX(-200%); }
+      100% { transform: translateX(200%); }
+    }
+    
+    .business-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .business-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .business-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .business-stage-selector {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .stage-selector-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .business-stages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .business-stage-card {
+      padding: 20px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+    
+    .business-stage-card:hover {
+      border-color: #f57c00;
+      transform: translateY(-2px);
+      background: rgba(245, 124, 0, 0.1);
+    }
+    
+    .business-stage-card.selected {
+      border-color: #f57c00;
+      background: rgba(245, 124, 0, 0.2);
+    }
+    
+    .business-stage-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .business-stage-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .business-stage-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .startup-funding-calculator {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .funding-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .funding-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .funding-field {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .funding-field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .funding-field select,
+    .funding-field input {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+    
+    .calc-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #f57c00, #e65100);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .calc-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 124, 0, 0.4);
+    }
+    
+    .funding-result {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(245, 124, 0, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(245, 124, 0, 0.3);
+      display: none;
+    }
+    
+    .result-summary {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #f57c00;
+      margin-bottom: 15px;
+    }
+    
+    .result-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    
+    .result-item {
+      background: var(--bg-card);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .result-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    
+    .result-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f57c00;
+    }
+    
+    .support-programs {
+      background: #fff3e0;
+      border: 1px solid #ffcc02;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .support-title {
+      color: #ef6c00;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .support-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .support-category {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #ef6c00;
+    }
+    
+    .support-category-title {
+      font-weight: 600;
+      color: #ef6c00;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .support-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .support-item {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(239, 108, 0, 0.1);
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .support-item:last-child {
+      border-bottom: none;
+    }
+    
+    .support-item:hover {
+      color: #ef6c00;
+      cursor: pointer;
+    }
+    
+    .tax-benefits {
+      background: #e8f5e8;
+      border: 1px solid #c8e6c9;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .tax-benefits-title {
+      color: #2e7d32;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .tax-benefit-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .tax-benefit-type {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #2e7d32;
+      position: relative;
+    }
+    
+    .benefit-percentage {
+      background: #2e7d32;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+    
+    .benefit-type-title {
+      font-weight: 600;
+      color: #2e7d32;
+      margin-bottom: 5px;
+    }
+    
+    .benefit-desc {
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .industry-specific {
+      background: #f3e5f5;
+      border: 1px solid #e1bee7;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .industry-title {
+      color: #8e24aa;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .industry-sectors {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .industry-sector {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #8e24aa;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .industry-sector:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(142, 36, 170, 0.2);
+    }
+    
+    .sector-name {
+      font-weight: 600;
+      color: #8e24aa;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .sector-support {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.3;
+    }
+    
+    .funding-roadmap {
+      background: #e3f2fd;
+      border: 1px solid #bbdefb;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .roadmap-title {
+      color: #1976d2;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .roadmap-stages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .roadmap-stage {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #1976d2;
+      position: relative;
+    }
+    
+    .stage-number {
+      background: #1976d2;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      position: absolute;
+      top: -10px;
+      left: -12px;
+    }
+    
+    .stage-name {
+      font-weight: 600;
+      color: #1976d2;
+      margin-bottom: 5px;
+      margin-left: 15px;
+    }
+    
+    .stage-support {
+      font-size: 13px;
+      color: #666;
+      margin-left: 15px;
+      line-height: 1.3;
+    }
+  </style>
+  
+  <!-- 메타 태그 -->
+  <meta name="description" content="사업자를 위한 정부 지원금 총정리 - 창업지원금, 중소기업 지원, 세금혜택, 운영자금 등" />
+  <meta name="keywords" content="창업지원금, 중소기업지원, 사업자대출, 세금감면, 창업보육센터, 기술개발지원" />
+  <meta property="og:title" content="사업자 지원 혜택" />
+  <meta property="og:description" content="성공적인 창업과 사업 성장을 위한 종합 지원" />
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header" id="page-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          🎯 생애주기별 복지 혜택 가이드<br />
+          <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+        </a>
+      </h1>
+      
+      <!-- 검색창 -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="사업자 지원금 검색 (예: 창업지원금, 대출...)" 
+            type="text" 
+          />
+          <button class="search-btn" onclick="performSearch()" title="검색">
+            🔍
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-container">
+    <ul class="tab-list">
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/baby.html">
+          👶 신생아 가정
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/student.html">
+          🎒 학령기 가정
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/youth.html">
+          🎓 청년 독립기
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/career.html">
+          💼 경력 발전기
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/senior.html">
+          🌅 은퇴 준비기
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/disability.html">
+          🦽 장애인 지원
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/women.html">
+          👩 여성/가족
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/rural.html">
+          🌾 농어촌
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/culture.html">
+          🎭 문화/여가
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/emergency.html">
+          🆘 긴급상황
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link active" href="../pages/business.html">
+          🏪 사업자 지원
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- 사업자 지원 헤더 -->
+    <section class="business-header">
+      <div class="business-content">
+        <h1 class="business-title">🏪 사업자 지원</h1>
+        <p class="business-subtitle">성공적인 창업과 사업 성장을 위한 종합 지원 (창업/운영)</p>
+      </div>
+    </section>
+
+    <!-- 사업 단계 선택 -->
+    <section class="business-stage-selector">
+      <h2 class="stage-selector-title">🚀 현재 사업 단계를 선택하세요</h2>
+      <div class="business-stages">
+        <div class="business-stage-card" data-stage="planning" onclick="selectBusinessStage('planning')">
+          <span class="business-stage-icon">💡</span>
+          <div class="business-stage-name">창업 준비</div>
+          <div class="business-stage-desc">아이디어, 사업계획</div>
+        </div>
+        
+        <div class="business-stage-card" data-stage="startup" onclick="selectBusinessStage('startup')">
+          <span class="business-stage-icon">🚀</span>
+          <div class="business-stage-name">창업 초기</div>
+          <div class="business-stage-desc">사업자등록, 초기자금</div>
+        </div>
+        
+        <div class="business-stage-card" data-stage="growth" onclick="selectBusinessStage('growth')">
+          <span class="business-stage-icon">📈</span>
+          <div class="business-stage-name">성장 단계</div>
+          <div class="business-stage-desc">사업확장, 투자유치</div>
+        </div>
+        
+        <div class="business-stage-card" data-stage="mature" onclick="selectBusinessStage('mature')">
+          <span class="business-stage-icon">🏢</span>
+          <div class="business-stage-name">안정 운영</div>
+          <div class="business-stage-desc">운영자금, 세무관리</div>
+        </div>
+        
+        <div class="business-stage-card" data-stage="restructure" onclick="selectBusinessStage('restructure')">
+          <span class="business-stage-icon">🔄</span>
+          <div class="business-stage-name">구조조정</div>
+          <div class="business-stage-desc">경영개선, 회생지원</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 창업자금 계산기 -->
+    <section class="startup-funding-calculator">
+      <h2 class="funding-title">💰 창업자금 지원 계산기</h2>
+      <div class="funding-form">
+        <div class="funding-field">
+          <label for="businessType">사업 분야</label>
+          <select id="businessType">
+            <option value="">선택하세요</option>
+            <option value="tech">기술·IT</option>
+            <option value="manufacturing">제조업</option>
+            <option value="service">서비스업</option>
+            <option value="retail">도소매업</option>
+            <option value="food">음식업</option>
+            <option value="social">사회적기업</option>
+          </select>
+        </div>
+        
+        <div class="funding-field">
+          <label for="founderAge">대표자 연령</label>
+          <select id="founderAge">
+            <option value="">선택하세요</option>
+            <option value="young">만 39세 이하</option>
+            <option value="middle">40-54세</option>
+            <option value="senior">55세 이상</option>
+          </select>
+        </div>
+        
+        <div class="funding-field">
+          <label for="businessScale">사업 규모</label>
+          <select id="businessScale">
+            <option value="">선택하세요</option>
+            <option value="micro">개인사업자</option>
+            <option value="small">소규모 법인</option>
+            <option value="medium">중간 규모</option>
+            <option value="large">대규모 사업</option>
+          </select>
+        </div>
+        
+        <div class="funding-field">
+          <label for="location">사업장 위치</label>
+          <select id="location">
+            <option value="">선택하세요</option>
+            <option value="seoul">서울/수도권</option>
+            <option value="regional">지방 중소도시</option>
+            <option value="rural">농어촌 지역</option>
+            <option value="special">특별지역/개발구역</option>
+          </select>
+        </div>
+      </div>
+      
+      <button class="calc-btn" onclick="calculateStartupFunding()">
+        📊 받을 수 있는 창업지원금 계산하기
+      </button>
+      
+      <div class="funding-result" id="fundingResult">
+        <div class="result-summary" id="fundingResultSummary"></div>
+        <div class="result-details" id="fundingResultDetails"></div>
+      </div>
+    </section>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a> > <span>사업자 지원</span>
+      </div>
+      
+      <!-- 카테고리 통계 -->
+      <div class="category-stats">
+        <div class="stat-item">
+          <span class="stat-number">18</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">최대 10억원</span>
+          <span class="stat-label">지원 금액</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">85%</span>
+          <span class="stat-label">평균 성공률</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 이 페이지 맞춤 검색 -->
+    <section class="category-search">
+      <div class="search-card">
+        <h3>🔍 사업자 지원금 빠른 찾기</h3>
+        <div class="quick-filters">
+          <button class="filter-btn active" onclick="filterBenefits('all')">전체</button>
+          <button class="filter-btn" onclick="filterBenefits('startup_funding')">창업자금</button>
+          <button class="filter-btn" onclick="filterBenefits('loan')">대출</button>
+          <button class="filter-btn" onclick="filterBenefits('tax_benefit')">세금혜택</button>
+          <button class="filter-btn" onclick="filterBenefits('tech_support')">기술지원</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 혜택 카드들 -->
+    <section class="benefits-section">
+      <div class="benefit-grid" id="benefitGrid">
+        
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="startup_funding">
+          <span class="benefit-icon">🚀</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🚀 최대 1억원</div>
+            <div class="benefit-title">청년창업사관학교</div>
+            <div class="benefit-desc">중소벤처기업부</div>
+            <div class="benefit-target">👨‍💼 만 39세 이하</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 78%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="loan">
+          <span class="benefit-icon">💳</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💳 최대 5억원</div>
+            <div class="benefit-title">중소기업 정책자금</div>
+            <div class="benefit-desc">중소벤처기업부</div>
+            <div class="benefit-target">🏢 중소기업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 89%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="startup_funding">
+          <span class="benefit-icon">💡</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💡 최대 3000만원</div>
+            <div class="benefit-title">창업지원금</div>
+            <div class="benefit-desc">창업진흥원</div>
+            <div class="benefit-target">🌟 예비창업자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 82%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="tech_support">
+          <span class="benefit-icon">🔬</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🔬 최대 10억원</div>
+            <div class="benefit-title">기술개발 지원사업</div>
+            <div class="benefit-desc">중소벤처기업부</div>
+            <div class="benefit-target">🧪 기술개발 기업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 75%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="tax_benefit">
+          <span class="benefit-icon">📊</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">📊 최대 50% 감면</div>
+            <div class="benefit-title">중소기업 세금감면</div>
+            <div class="benefit-desc">국세청</div>
+            <div class="benefit-target">🏢 중소기업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 95%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="startup_funding">
+          <span class="benefit-icon">👩‍💼</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👩‍💼 최대 5000만원</div>
+            <div class="benefit-title">여성기업 지원</div>
+            <div class="benefit-desc">중소벤처기업부</div>
+            <div class="benefit-target">👩 여성 대표</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 84%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="loan">
+          <span class="benefit-icon">🏦</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏦 최대 3억원</div>
+            <div class="benefit-title">소상공인 정책자금</div>
+            <div class="benefit-desc">소상공인시장진흥공단</div>
+            <div class="benefit-target">🏪 소상공인</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 91%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="tech_support">
+          <span class="benefit-icon">🤖</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🤖 최대 2억원</div>
+            <div class="benefit-title">스마트공장 구축</div>
+            <div class="benefit-desc">산업통상자원부</div>
+            <div class="benefit-target">🏭 제조업체</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 79%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="startup_funding">
+          <span class="benefit-icon">🌱</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🌱 최대 2억원</div>
+            <div class="benefit-title">사회적기업 지원</div>
+            <div class="benefit-desc">고용노동부</div>
+            <div class="benefit-target">🤝 사회적기업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 77%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="loan">
+          <span class="benefit-icon">⚡</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">⚡ 최대 1억원</div>
+            <div class="benefit-title">긴급경영안정자금</div>
+            <div class="benefit-desc">중소벤처기업부</div>
+            <div class="benefit-target">🆘 경영위기 기업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge urgent">긴급</span>
+          <span class="success-rate">성공률 88%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="tax_benefit">
+          <span class="benefit-icon">🎯</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎯 최대 30% 감면</div>
+            <div class="benefit-title">창업기업 세액감면</div>
+            <div class="benefit-desc">국세청</div>
+            <div class="benefit-target">🚀 창업 5년 이내</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 93%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="tech_support">
+          <span class="benefit-icon">📈</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">📈 최대 5000만원</div>
+            <div class="benefit-title">수출기업 지원</div>
+            <div class="benefit-desc">무역협회</div>
+            <div class="benefit-target">🌍 수출기업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 83%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="startup_funding">
+          <span class="benefit-icon">🏡</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏡 최대 1억원</div>
+            <div class="benefit-title">지역특화 창업지원</div>
+            <div class="benefit-desc">지자체</div>
+            <div class="benefit-target">🌾 지역 특화산업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 81%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="loan">
+          <span class="benefit-icon">🔄</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🔄 최대 10억원</div>
+            <div class="benefit-title">기업회생 지원자금</div>
+            <div class="benefit-desc">산업은행</div>
+            <div class="benefit-target">🔄 구조조정 기업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge urgent">긴급</span>
+          <span class="success-rate">성공률 73%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="tech_support">
+          <span class="benefit-icon">🌐</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🌐 최대 3000만원</div>
+            <div class="benefit-title">디지털 전환 지원</div>
+            <div class="benefit-desc">과학기술정보통신부</div>
+            <div class="benefit-target">💻 디지털 전환</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 86%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="startup_funding">
+          <span class="benefit-icon">🎓</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎓 최대 2000만원</div>
+            <div class="benefit-title">대학생 창업지원</div>
+            <div class="benefit-desc">교육부</div>
+            <div class="benefit-target">🎓 대학생·졸업생</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 79%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="tax_benefit">
+          <span class="benefit-icon">🏭</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏭 최대 200% 공제</div>
+            <div class="benefit-title">연구개발비 세액공제</div>
+            <div class="benefit-desc">국세청</div>
+            <div class="benefit-target">🔬 R&D 투자기업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 90%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="loan">
+          <span class="benefit-icon">🌱</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🌱 최대 7000만원</div>
+            <div class="benefit-title">신용보증 지원</div>
+            <div class="benefit-desc">신용보증기금</div>
+            <div class="benefit-target">💳 신용등급 낮은 기업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 87%</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 지원 프로그램 정보 -->
+    <section class="support-programs">
+      <h2 class="support-title">
+        🏢 사업자 지원 프로그램
+      </h2>
+      <div class="support-categories">
+        <div class="support-category">
+          <h3 class="support-category-title">
+            <span>💰</span>
+            창업 자금
+          </h3>
+          <ul class="support-list">
+            <li class="support-item">• 청년창업사관학교</li>
+            <li class="support-item">• 창업지원금</li>
+            <li class="support-item">• 여성기업 지원</li>
+            <li class="support-item">• 사회적기업 지원</li>
+            <li class="support-item">• 지역특화 창업지원</li>
+          </ul>
+        </div>
+        
+        <div class="support-category">
+          <h3 class="support-category-title">
+            <span>🏦</span>
+            운영 자금
+          </h3>
+          <ul class="support-list">
+            <li class="support-item">• 중소기업 정책자금</li>
+            <li class="support-item">• 소상공인 정책자금</li>
+            <li class="support-item">• 긴급경영안정자금</li>
+            <li class="support-item">• 신용보증 지원</li>
+            <li class="support-item">• 기업회생 지원</li>
+          </ul>
+        </div>
+        
+        <div class="support-category">
+          <h3 class="support-category-title">
+            <span>📊</span>
+            세제 혜택
+          </h3>
+          <ul class="support-list">
+            <li class="support-item">• 중소기업 세금감면</li>
+            <li class="support-item">• 창업기업 세액감면</li>
+            <li class="support-item">• 연구개발비 세액공제</li>
+            <li class="support-item">• 고용증대 세액공제</li>
+            <li class="support-item">• 투자세액공제</li>
+          </ul>
+        </div>
+        
+        <div class="support-category">
+          <h3 class="support-category-title">
+            <span>🔬</span>
+            기술 지원
+          </h3>
+          <ul class="support-list">
+            <li class="support-item">• 기술개발 지원사업</li>
+            <li class="support-item">• 스마트공장 구축</li>
+            <li class="support-item">• 디지털 전환 지원</li>
+            <li class="support-item">• 수출기업 지원</li>
+            <li class="support-item">• 특허 출원 지원</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 세제 혜택 정보 -->
+    <section class="tax-benefits">
+      <h2 class="tax-benefits-title">
+        <span>📊</span>
+        사업자 세제 혜택
+      </h2>
+      <div class="tax-benefit-types">
+        <div class="tax-benefit-type">
+          <div class="benefit-percentage">최대 50%</div>
+          <div class="benefit-type-title">중소기업 법인세 감면</div>
+          <div class="benefit-desc">매출액 400억원 이하 중소기업 대상 법인세율 우대</div>
+        </div>
+        
+        <div class="tax-benefit-type">
+          <div class="benefit-percentage">최대 30%</div>
+          <div class="benefit-type-title">창업기업 세액감면</div>
+          <div class="benefit-desc">창업 후 5년간 소득세·법인세 감면</div>
+        </div>
+        
+        <div class="tax-benefit-type">
+          <div class="benefit-percentage">최대 200%</div>
+          <div class="benefit-type-title">연구개발비 세액공제</div>
+          <div class="benefit-desc">R&D 투자비용의 최대 200%까지 세액공제</div>
+        </div>
+        
+        <div class="tax-benefit-type">
+          <div class="benefit-percentage">최대 30%</div>
+          <div class="benefit-type-title">고용증대 세액공제</div>
+          <div class="benefit-desc">정규직 신규 채용 시 1인당 최대 900만원 공제</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 업종별 특화 지원 -->
+    <section class="industry-specific">
+      <h2 class="industry-title">
+        <span>🏭</span>
+        업종별 특화 지원
+      </h2>
+      <div class="industry-sectors">
+        <div class="industry-sector" onclick="exploreIndustry('tech')">
+          <div class="sector-name">
+            <span>💻</span>
+            IT·소프트웨어
+          </div>
+          <div class="sector-support">
+            SW산업 진흥지원<br>
+            K-디지털 트레이닝<br>
+            ICT 바우처 지원
+          </div>
+        </div>
+        
+        <div class="industry-sector" onclick="exploreIndustry('manufacturing')">
+          <div class="sector-name">
+            <span>🏭</span>
+            제조업
+          </div>
+          <div class="sector-support">
+            스마트공장 구축<br>
+            뿌리산업 고도화<br>
+            에너지효율 지원
+          </div>
+        </div>
+        
+        <div class="industry-sector" onclick="exploreIndustry('service')">
+          <div class="sector-name">
+            <span>🛎️</span>
+            서비스업
+          </div>
+          <div class="sector-support">
+            서비스업 혁신지원<br>
+            온라인 플랫폼 구축<br>
+            디지털 전환 지원
+          </div>
+        </div>
+        
+        <div class="industry-sector" onclick="exploreIndustry('bio')">
+          <div class="sector-name">
+            <span>🧬</span>
+            바이오·헬스
+          </div>
+          <div class="sector-support">
+            바이오헬스 펀드<br>
+            신약개발 지원<br>
+            의료기기 인증지원
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 창업 로드맵 -->
+    <section class="funding-roadmap">
+      <h2 class="roadmap-title">
+        <span>🗺️</span>
+        창업 성장 단계별 지원 로드맵
+      </h2>
+      <div class="roadmap-stages">
+        <div class="roadmap-stage">
+          <div class="stage-number">1</div>
+          <div class="stage-name">아이디어 단계</div>
+          <div class="stage-support">
+            • 창업보육센터 입주<br>
+            • 아이디어 검증 지원<br>
+            • 초기 멘토링
+          </div>
+        </div>
+        
+        <div class="roadmap-stage">
+          <div class="stage-number">2</div>
+          <div class="stage-name">창업 준비</div>
+          <div class="stage-support">
+            • 사업계획서 작성지원<br>
+            • 창업교육 프로그램<br>
+            • 초기 자금 지원
+          </div>
+        </div>
+        
+        <div class="roadmap-stage">
+          <div class="stage-number">3</div>
+          <div class="stage-name">사업 시작</div>
+          <div class="stage-support">
+            • 창업지원금<br>
+            • 세제혜택<br>
+            • 공간 및 인프라 지원
+          </div>
+        </div>
+        
+        <div class="roadmap-stage">
+          <div class="stage-number">4</div>
+          <div class="stage-name">성장·확장</div>
+          <div class="stage-support">
+            • 기술개발 지원<br>
+            • 투자 연계<br>
+            • 해외진출 지원
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 성공 사례 -->
+    <section class="success-stories">
+      <h2 class="section-title">🌟 사업자 지원 성공 사례</h2>
+      <div class="stories-grid">
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">🚀</span>
+            <div class="story-info">
+              <h4>김○○님 (29세, IT 스타트업)</h4>
+              <span class="story-date">청년창업사관학교 수료</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"청년창업사관학교를 통해 1억원 투자를 받고 AI 스타트업을 설립했어요. 체계적인 창업교육과 멘토링을 받아 2년 만에 매출 10억원을 달성했습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 투자금 1억원, 창업 세액감면, 기술개발 지원 5000만원
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">🏭</span>
+            <div class="story-info">
+              <h4>박○○님 (45세, 제조업체)</h4>
+              <span class="story-date">스마트공장 구축 성공</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"스마트공장 구축사업에 선정되어 2억원 지원을 받았어요. 자동화 시설 도입으로 생산성이 40% 향상되었고, 품질 불량률도 크게 줄었습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 스마트공장 구축 2억원, 중소기업 세금감면
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 카테고리 추천 -->
+    <section class="related-section">
+      <h2 class="section-title">💡 함께 보면 좋은 카테고리</h2>
+      <div class="related-grid">
+        <a href="./youth.html" class="related-card">
+          <span class="related-icon">🎓</span>
+          <div class="related-content">
+            <div class="related-title">청년 독립기</div>
+            <div class="related-desc">청년 창업지원</div>
+          </div>
+        </a>
+        
+        <a href="./rural.html" class="related-card">
+          <span class="related-icon">🌾</span>
+          <div class="related-content">
+            <div class="related-title">농어촌</div>
+            <div class="related-desc">농업 창업지원</div>
+          </div>
+        </a>
+        
+        <a href="./career.html" class="related-card">
+          <span class="related-icon">💼</span>
+          <div class="related-content">
+            <div class="related-title">경력 발전기</div>
+            <div class="related-desc">전직 창업지원</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 홈으로 돌아가기 -->
+    <section class="back-home">
+      <a href="../index.html" class="home-btn">
+        🏠 홈으로 돌아가기
+      </a>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p>📞 창업 관련 문의는 중소벤처기업부 상담센터 1357번으로 연락주세요</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+      본 사이트는 정부 지원금 정보 제공을 목적으로 하며, 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다
+    </p>
+  </footer>
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/category-filter.js"></script>
+  
+  <!-- 사업자 지원 페이지 전용 스크립트 -->
+  <script>
+    // 사업 단계 선택 기능
+    function selectBusinessStage(stage) {
+      // 모든 카드에서 선택 해제
+      document.querySelectorAll('.business-stage-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // 선택된 카드 활성화
+      document.querySelector(`[data-stage="${stage}"]`).classList.add('selected');
+      
+      // 해당 사업 단계에 맞는 혜택 필터링
+      filterBenefitsByStage(stage);
+      
+      // 선택 이벤트 추적
+      console.log('사업 단계 선택:', stage);
+    }
+    
+    function filterBenefitsByStage(stage) {
+      const cards = document.querySelectorAll('.benefit-card');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('.benefit-title').textContent;
+        const target = card.querySelector('.benefit-target').textContent;
+        let shouldShow = true;
+        
+        switch(stage) {
+          case 'planning':
+            // 창업 준비 관련
+            shouldShow = title.includes('창업지원금') || title.includes('청년창업') || 
+                        title.includes('대학생') || target.includes('예비창업');
+            break;
+          case 'startup':
+            // 창업 초기 관련
+            shouldShow = title.includes('창업') || title.includes('세액감면') || 
+                        target.includes('창업') || title.includes('지원');
+            break;
+          case 'growth':
+            // 성장 단계 관련
+            shouldShow = title.includes('기술개발') || title.includes('수출') || 
+                        title.includes('스마트공장') || title.includes('투자');
+            break;
+          case 'mature':
+            // 안정 운영 관련
+            shouldShow = title.includes('정책자금') || title.includes('세금감면') || 
+                        title.includes('신용보증') || target.includes('중소기업');
+            break;
+          case 'restructure':
+            // 구조조정 관련
+            shouldShow = title.includes('긴급') || title.includes('회생') || 
+                        title.includes('안정자금') || target.includes('위기');
+            break;
+        }
+        
+        if (shouldShow) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.opacity = '0.3';
+        }
+      });
+    }
+    
+    // 창업자금 계산기
+    function calculateStartupFunding() {
+      const businessType = document.getElementById('businessType').value;
+      const founderAge = document.getElementById('founderAge').value;
+      const businessScale = document.getElementById('businessScale').value;
+      const location = document.getElementById('location').value;
+      
+      if (!businessType || !founderAge || !businessScale || !location) {
+        alert('모든 항목을 선택해주세요.');
+        return;
+      }
+      
+      // 조건에 따른 지원금 계산
+      let totalFunding = 0;
+      let fundingList = [];
+      
+      // 청년창업사관학교 (39세 이하)
+      if (founderAge === 'young') {
+        const youthStartup = 10000; // 1억원
+        totalFunding += youthStartup;
+        fundingList.push(`청년창업사관학교: ${youthStartup}만원`);
+      }
+      
+      // 창업지원금 (기본)
+      let basicStartup = 3000;
+      if (businessType === 'tech') basicStartup += 2000;
+      if (businessType === 'social') basicStartup += 1000;
+      totalFunding += basicStartup;
+      fundingList.push(`창업지원금: ${basicStartup}만원`);
+      
+      // 여성기업 지원
+      if (businessType === 'service' || businessType === 'retail') {
+        const womenBusiness = 5000;
+        totalFunding += womenBusiness;
+        fundingList.push(`여성기업 지원: ${womenBusiness}만원`);
+      }
+      
+      // 기술개발 지원
+      if (businessType === 'tech' || businessType === 'manufacturing') {
+        const techSupport = 10000; // 1억원
+        totalFunding += techSupport;
+        fundingList.push(`기술개발 지원: ${techSupport}만원`);
+      }
+      
+      // 중소기업 정책자금
+      if (businessScale === 'small' || businessScale === 'medium') {
+        const policyFund = 50000; // 5억원
+        totalFunding += policyFund;
+        fundingList.push(`중소기업 정책자금: ${policyFund}만원`);
+      }
+      
+      // 지역별 추가 지원
+      let regionBonus = 0;
+      switch(location) {
+        case 'rural': regionBonus = 5000; break;
+        case 'special': regionBonus = 7000; break;
+        case 'regional': regionBonus = 3000; break;
+      }
+      if (regionBonus > 0) {
+        totalFunding += regionBonus;
+        fundingList.push(`지역특화 지원: ${regionBonus}만원`);
+      }
+      
+      // 세제 혜택 계산 (연간 예상 절감액)
+      let taxBenefit = 0;
+      if (founderAge === 'young') taxBenefit += 500; // 창업기업 세액감면
+      if (businessType === 'tech') taxBenefit += 1000; // R&D 세액공제
+      totalFunding += taxBenefit;
+      if (taxBenefit > 0) {
+        fundingList.push(`세제혜택 (연간): ${taxBenefit}만원`);
+      }
+      
+      // 결과 표시
+      document.getElementById('fundingResultSummary').textContent = 
+        `예상 총 지원금: ${totalFunding.toLocaleString()}만원`;
+      
+      document.getElementById('fundingResultDetails').innerHTML = `
+        <div class="result-item">
+          <div class="result-label">총 지원금</div>
+          <div class="result-value">${(totalFunding/10000).toFixed(1)}억원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">지원 항목</div>
+          <div class="result-value">${fundingList.length}개</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">창업 성공률</div>
+          <div class="result-value">${totalFunding >= 50000 ? '높음' : totalFunding >= 20000 ? '보통' : '낮음'}</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">추천 단계</div>
+          <div class="result-value">${founderAge === 'young' ? '청년창업' : businessType === 'tech' ? '기술창업' : '일반창업'}</div>
+        </div>
+      `;
+      
+      document.getElementById('fundingResult').style.display = 'block';
+      document.getElementById('fundingResult').scrollIntoView({ behavior: 'smooth' });
+      
+      // 추가 권장사항 표시
+      if (totalFunding >= 50000) {
+        setTimeout(() => {
+          alert('매우 많은 창업지원을 받을 수 있습니다!\n\n추가 확인사항:\n• 창업보육센터 입주 신청\n• 투자 연계 프로그램 참여\n• 멘토링 프로그램 신청\n• 특허 출원 지원 검토');
+        }, 1000);
+      }
+    }
+    
+    // 업종별 정보 탐색
+    function exploreIndustry(industry) {
+      const industryInfo = {
+        'tech': '💻 IT·소프트웨어 분야는 정부의 핵심 육성 산업입니다. K-디지털 트레이닝, SW산업 진흥지원 등 다양한 프로그램이 있습니다.',
+        'manufacturing': '🏭 제조업은 스마트공장 구축지원과 뿌리산업 고도화 사업을 통해 경쟁력을 강화할 수 있습니다.',
+        'service': '🛎️ 서비스업은 디지털 전환 지원과 온라인 플랫폼 구축 지원을 통해 혁신할 수 있습니다.',
+        'bio': '🧬 바이오·헬스 분야는 K-바이오 라곤 프로젝트와 신약개발 지원 등 대규모 투자가 이루어지고 있습니다.'
+      };
+      
+      alert(industryInfo[industry]);
+    }
+    
+    // 지원 프로그램 항목 클릭 이벤트
+    function setupSupportInteraction() {
+      const supportItems = document.querySelectorAll('.support-item');
+      supportItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const itemName = this.textContent.replace('• ', '');
+          
+          // 지원 프로그램별 정보 표시
+          const infoMap = {
+            '청년창업사관학교': '🚀 만 39세 이하 예비창업자를 대상으로 최대 1억원을 투자하는 프로그램입니다.',
+            '중소기업 정책자금': '🏦 중소기업 운영에 필요한 자금을 저금리로 대출해주는 정책자금입니다.',
+            '중소기업 세금감면': '📊 매출액 400억원 이하 중소기업의 법인세율을 10-20%로 우대합니다.',
+            '기술개발 지원사업': '🔬 중소기업의 기술혁신을 위해 최대 10억원까지 지원하는 사업입니다.',
+            '창업기업 세액감면': '🎯 창업 후 5년간 소득세·법인세를 최대 30%까지 감면해줍니다.'
+          };
+          
+          const info = infoMap[itemName] || '💡 해당 프로그램에 대한 자세한 정보는 중소벤처기업부나 관련 기관에 문의해보세요!';
+          
+          alert(info);
+        });
+      });
+    }
+    
+    // 사업자 지원 페이지 전용 기능
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCategoryPage('business');
+      trackPageView('business');
+      setupSupportInteraction();
+      
+      // 사업 단계 카드 애니메이션
+      const stageCards = document.querySelectorAll('.business-stage-card');
+      stageCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 120);
+      });
+      
+      // URL 파라미터에 따른 자동 선택
+      const urlParams = new URLSearchParams(window.location.search);
+      const stage = urlParams.get('stage');
+      if (stage) {
+        selectBusinessStage(stage);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>신생아 가정 지원 (0-2세) - 복지 혜택 안내 센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  
+  <!-- 메타 태그 -->
+  <meta name="description" content="0-2세 신생아 가정을 위한 정부 지원금 총정리 - 아동수당, 첫만남이용권, 출산전후휴가급여 등" />
+  <meta name="keywords" content="신생아지원금, 아동수당, 첫만남이용권, 출산지원, 육아지원" />
+  <meta property="og:title" content="신생아 가정 지원 혜택" />
+  <meta property="og:description" content="출산과 육아의 첫 걸음, 든든한 지원으로 함께합니다" />
+  
+  <!-- 구조화된 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "신생아 가정 지원 혜택",
+    "description": "0-2세 신생아를 위한 정부 지원금 정보",
+    "mainEntity": {
+      "@type": "GovernmentService",
+      "name": "신생아 지원 프로그램",
+      "provider": {
+        "@type": "Government",
+        "name": "대한민국 정부"
+      }
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header" id="page-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          🎯 생애주기별 복지 혜택 가이드<br />
+          <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+        </a>
+      </h1>
+      
+      <!-- 검색창 -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="신생아 지원금 검색 (예: 아동수당, 출산...)" 
+            type="text" 
+          />
+          <button class="search-btn" onclick="performSearch()" title="검색">
+            🔍
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-container">
+    <ul class="tab-list">
+      <li class="tab-item">
+        <a class="tab-link active" href="../pages/baby.html">
+          👶 신생아 가정
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/student.html">
+          🎒 학령기 가정
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/youth.html">
+          🎓 청년 독립기
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/career.html">
+          💼 경력 발전기
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/senior.html">
+          🌅 은퇴 준비기
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/disability.html">
+          🦽 장애인 지원
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/women.html">
+          👩 여성/가족
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/rural.html">
+          🌾 농어촌
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/culture.html">
+          🎭 문화/여가
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/emergency.html">
+          🆘 긴급상황
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/business.html">
+          🏪 사업자 지원
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a> > <span>신생아 가정</span>
+      </div>
+      <h1 class="section-title">👶 신생아 가정 지원</h1>
+      <p class="section-subtitle">출산과 육아의 첫 걸음, 든든한 지원으로 함께합니다 (0-2세 대상)</p>
+      
+      <!-- 카테고리 통계 -->
+      <div class="category-stats">
+        <div class="stat-item">
+          <span class="stat-number">6</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">월 최대 100만원</span>
+          <span class="stat-label">지원 금액</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">94%</span>
+          <span class="stat-label">평균 성공률</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 특별 공지 -->
+    <section class="special-notice">
+      <div class="notice-card special">
+        <div class="notice-content">
+          <div class="notice-title">🎉 2025년 신생아 지원 확대!</div>
+          <div class="notice-desc">
+            • 첫만남이용권 100만원 지급 (기존 200만원)<br>
+            • 아동수당 지급 연령 확대 (만 8세까지)<br>
+            • 출산전후휴가 급여 인상
+          </div>
+        </div>
+        <span class="notice-icon">🎁</span>
+      </div>
+    </section>
+
+    <!-- 이 페이지 맞춤 검색 -->
+    <section class="category-search">
+      <div class="search-card">
+        <h3>🔍 신생아 지원금 빠른 찾기</h3>
+        <div class="quick-filters">
+          <button class="filter-btn active" onclick="filterBenefits('all')">전체</button>
+          <button class="filter-btn" onclick="filterBenefits('childcare')">육아</button>
+          <button class="filter-btn" onclick="filterBenefits('maternity')">임신출산</button>
+          <button class="filter-btn" onclick="filterBenefits('health')">의료</button>
+          <button class="filter-btn" onclick="filterBenefits('urgent')">마감임박</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 혜택 카드들 -->
+    <section class="benefits-section">
+      <div class="benefit-grid" id="benefitGrid">
+        
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_4.html" 
+           rel="noopener" target="_blank" data-category="childcare">
+          <span class="benefit-icon">🍼</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👶 월 10만원</div>
+            <div class="benefit-title">아동수당</div>
+            <div class="benefit-desc">복지로</div>
+            <div class="benefit-target">🧒 만 8세 미만</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 94%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_44.html" 
+           rel="noopener" target="_blank" data-category="childcare">
+          <span class="benefit-icon">👶</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👶 최대 100만원</div>
+            <div class="benefit-title">자녀장려금</div>
+            <div class="benefit-desc">국세청 홈택스</div>
+            <div class="benefit-target">👨‍👩‍👧‍👦 자녀 양육 가구</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 87%</span>
+        </a>
+          
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_49.html" 
+           rel="noopener" target="_blank" data-category="childcare">
+          <span class="benefit-icon">🧑‍⚕️</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💰 월 50만원</div>
+            <div class="benefit-title">긴급돌봄서비스</div>
+            <div class="benefit-desc">복지로</div>
+            <div class="benefit-target">👶 영유아 가정</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 76%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/07/2025.html" 
+           rel="noopener" target="_blank" data-category="maternity health">
+          <span class="benefit-icon">🤰</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🍼 100만원</div>
+            <div class="benefit-title">임신출산진료비</div>
+            <div class="benefit-desc">복지로</div>
+            <div class="benefit-target">🤱 임신부</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 98%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/07/2025_32.html" 
+           rel="noopener" target="_blank" data-category="maternity">
+          <span class="benefit-icon">🤱</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🤱 월 70만원</div>
+            <div class="benefit-title">출산전후휴가급여</div>
+            <div class="benefit-desc">고용보험</div>
+            <div class="benefit-target">👩 임신한 여성 근로자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 96%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/07/2025_2.html" 
+           rel="noopener" target="_blank" data-category="childcare">
+          <span class="benefit-icon">👶</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👶 100만원</div>
+            <div class="benefit-title">첫만남이용권</div>
+            <div class="benefit-desc">복지로</div>
+            <div class="benefit-target">👶 신생아 가정</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 92%</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 신청 가이드 -->
+    <section class="application-guide">
+      <h2 class="section-title">📋 신생아 혜택 신청 가이드</h2>
+      <div class="guide-grid">
+        <div class="guide-card">
+          <div class="guide-step">1</div>
+          <div class="guide-content">
+            <h3>출생신고</h3>
+            <p>먼저 출생신고를 완료하세요. 출생 후 1개월 이내에 주민센터에서 신고 가능합니다.</p>
+            <ul>
+              <li>출생증명서</li>
+              <li>부모 신분증</li>
+              <li>혼인관계증명서</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="guide-card">
+          <div class="guide-step">2</div>
+          <div class="guide-content">
+            <h3>복지로 가입</h3>
+            <p>대부분의 신생아 혜택은 복지로(bokjiro.go.kr)에서 신청할 수 있습니다.</p>
+            <ul>
+              <li>공동인증서 또는 간편인증</li>
+              <li>가족관계증명서</li>
+              <li>통장 사본</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="guide-card">
+          <div class="guide-step">3</div>
+          <div class="guide-content">
+            <h3>혜택별 신청</h3>
+            <p>각 혜택별로 신청 조건과 필요 서류가 다르니 사전에 확인하세요.</p>
+            <ul>
+              <li>아동수당: 출생 즉시</li>
+              <li>첫만남이용권: 출생 후 60일 이내</li>
+              <li>출산급여: 출산 전 신청</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 카테고리 추천 -->
+    <section class="related-section">
+      <h2 class="section-title">💡 함께 보면 좋은 카테고리</h2>
+      <div class="related-grid">
+        <a href="./women.html" class="related-card">
+          <span class="related-icon">👩</span>
+          <div class="related-content">
+            <div class="related-title">여성/가족</div>
+            <div class="related-desc">육아휴직, 가족 지원</div>
+          </div>
+        </a>
+        
+        <a href="./student.html" class="related-card">
+          <span class="related-icon">🎒</span>
+          <div class="related-content">
+            <div class="related-title">학령기 가정</div>
+            <div class="related-desc">3세 이후 교육 지원</div>
+          </div>
+        </a>
+        
+        <a href="./emergency.html" class="related-card">
+          <span class="related-icon">🆘</span>
+          <div class="related-content">
+            <div class="related-title">긴급상황</div>
+            <div class="related-desc">위기상황 즉시 지원</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 성공 사례 -->
+    <section class="success-stories">
+      <h2 class="section-title">🌟 신청 성공 사례</h2>
+      <div class="stories-grid">
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">👶</span>
+            <div class="story-info">
+              <h4>김○○님 (신생아 부모)</h4>
+              <span class="story-date">2025년 1월 신청</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"출생신고와 동시에 아동수당, 첫만남이용권을 모두 신청했어요. 복지로에서 한 번에 처리되어서 정말 편했습니다. 총 200만원 지원받았습니다!"</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 아동수당, 첫만남이용권, 임신출산진료비
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">🤱</span>
+            <div class="story-info">
+              <h4>박○○님 (직장맘)</h4>
+              <span class="story-date">2024년 12월 신청</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"출산전후휴가급여와 육아휴직급여를 연계해서 받았어요. 고용보험 홈페이지에서 쉽게 신청할 수 있었고, 매월 정기적으로 입금됩니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 출산전후휴가급여, 육아휴직급여
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 자주 묻는 질문 -->
+    <section class="faq-section">
+      <h2 class="section-title">❓ 자주 묻는 질문</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Q. 아동수당은 언제부터 받을 수 있나요?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>출생신고 완료 후 복지로에서 신청하면 다음 달부터 받을 수 있습니다. 출생 후 60일 이내 신청 시 출생월부터 소급 지급됩니다.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Q. 첫만남이용권은 어디서 사용할 수 있나요?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>국민행복카드 가맹점에서 사용 가능합니다. 기저귀, 분유, 이유식, 의류, 장난감 등 육아용품 구매에 사용할 수 있습니다.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Q. 소득이 많아도 신청할 수 있나요?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>아동수당과 첫만남이용권은 소득에 관계없이 모든 아동에게 지급됩니다. 자녀장려금 등 일부 혜택은 소득 기준이 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 홈으로 돌아가기 -->
+    <section class="back-home">
+      <a href="../index.html" class="home-btn">
+        🏠 홈으로 돌아가기
+      </a>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p>📞 문의사항이 있으시면 보건복지부 상담센터 129번으로 연락주세요</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+      본 사이트는 정부 지원금 정보 제공을 목적으로 하며, 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다
+    </p>
+  </footer>
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/category-filter.js"></script>
+  
+  <!-- 페이지별 스크립트 -->
+  <script>
+    // FAQ 토글 기능
+    function toggleFAQ(element) {
+      const faqItem = element.parentElement;
+      const answer = faqItem.querySelector('.faq-answer');
+      const toggle = element.querySelector('.faq-toggle');
+      
+      faqItem.classList.toggle('active');
+      
+      if (faqItem.classList.contains('active')) {
+        answer.style.display = 'block';
+        toggle.textContent = '-';
+      } else {
+        answer.style.display = 'none';
+        toggle.textContent = '+';
+      }
+    }
+    
+    // 신생아 페이지 전용 기능
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCategoryPage('baby');
+      trackPageView('baby');
+      
+      // 특별 공지 자동 숨김 (5초 후)
+      setTimeout(() => {
+        const specialNotice = document.querySelector('.special-notice');
+        if (specialNotice) {
+          specialNotice.style.transition = 'all 0.5s ease';
+          specialNotice.style.opacity = '0.8';
+        }
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

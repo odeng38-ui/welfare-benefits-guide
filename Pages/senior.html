@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>은퇴 준비기 지원 (55세+) - 복지 혜택 안내 센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  
+  <!-- 시니어 전용 스타일 -->
+  <style>
+    .senior-header {
+      background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin: -20px -15px 30px -15px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .senior-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+      opacity: 0.6;
+    }
+    
+    .senior-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .senior-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .senior-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .age-selector {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .age-selector-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .age-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+    }
+    
+    .age-group-card {
+      padding: 20px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+    
+    .age-group-card:hover {
+      border-color: #ff9800;
+      transform: translateY(-2px);
+      background: rgba(255, 152, 0, 0.1);
+    }
+    
+    .age-group-card.selected {
+      border-color: #ff9800;
+      background: rgba(255, 152, 0, 0.2);
+    }
+    
+    .age-group-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .age-group-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .age-group-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .retirement-planner {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .planner-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .planner-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .planner-field {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .planner-field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .planner-field select,
+    .planner-field input {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+    
+    .plan-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #ff9800, #f57c00);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .plan-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+    }
+    
+    .planning-result {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(255, 152, 0, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 152, 0, 0.3);
+      display: none;
+    }
+    
+    .result-summary {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #ff9800;
+      margin-bottom: 15px;
+    }
+    
+    .result-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .result-item {
+      background: var(--bg-card);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .result-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    
+    .result-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ff9800;
+    }
+    
+    .health-care-info {
+      background: #f3e5f5;
+      border: 1px solid #e1bee7;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .health-care-title {
+      color: #8e24aa;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .health-services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .health-service-card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #8e24aa;
+    }
+    
+    .service-name {
+      font-weight: 600;
+      color: #8e24aa;
+      margin-bottom: 5px;
+    }
+    
+    .service-desc {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .service-contact {
+      font-size: 12px;
+      color: #8e24aa;
+      font-weight: 600;
+    }
+  </style>
+  
+  <!-- 메타 태그 -->
+  <meta name="description" content="55세 이상 은퇴 준비기를 위한 정부 지원금 총정리 - 기초연금, 시니어 일자리, 건강검진 등" />
+  <meta name="keywords" content="기초연금, 시니어일자리, 노인복지, 은퇴준비, 건강검진" />
+  <meta property="og:title" content="은퇴 준비기 지원 혜택" />
+  <meta property="og:description" content="여유롭고 건강한 노후를 위한 필수 혜택들" />
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header" id="page-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          🎯 생애주기별 복지 혜택 가이드<br />
+          <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+        </a>
+      </h1>
+      
+      <!-- 검색창 -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="시니어 지원금 검색 (예: 기초연금, 일자리...)" 
+            type="text" 
+          />
+          <button class="search-btn" onclick="performSearch()" title="검색">
+            🔍
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-container">
+    <ul class="tab-list">
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/baby.html">
+          👶 신생아 가정
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/student.html">
+          🎒 학령기 가정
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/youth.html">
+          🎓 청년 독립기
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/career.html">
+          💼 경력 발전기
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link active" href="../pages/senior.html">
+          🌅 은퇴 준비기
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/disability.html">
+          🦽 장애인 지원
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/women.html">
+          👩 여성/가족
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/rural.html">
+          🌾 농어촌
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/culture.html">
+          🎭 문화/여가
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/emergency.html">
+          🆘 긴급상황
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/business.html">
+          🏪 사업자 지원
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- 시니어 헤더 -->
+    <section class="senior-header">
+      <div class="senior-content">
+        <h1 class="senior-title">🌅 은퇴 준비기 지원</h1>
+        <p class="senior-subtitle">여유롭고 건강한 노후를 위한 필수 혜택들 (55세 이상)</p>
+      </div>
+    </section>
+
+    <!-- 연령대 선택 -->
+    <section class="age-selector">
+      <h2 class="age-selector-title">👥 연령대를 선택하세요</h2>
+      <div class="age-groups">
+        <div class="age-group-card" data-age="55-64" onclick="selectAgeGroup('55-64')">
+          <span class="age-group-icon">💼</span>
+          <div class="age-group-name">은퇴 준비기</div>
+          <div class="age-group-desc">55-64세 (일자리 중심)</div>
+        </div>
+        
+        <div class="age-group-card" data-age="65-74" onclick="selectAgeGroup('65-74')">
+          <span class="age-group-icon">🏡</span>
+          <div class="age-group-name">활동적 노년기</div>
+          <div class="age-group-desc">65-74세 (연금 + 건강)</div>
+        </div>
+        
+        <div class="age-group-card" data-age="75+" onclick="selectAgeGroup('75+')">
+          <span class="age-group-icon">🩺</span>
+          <div class="age-group-name">돌봄 필요기</div>
+          <div class="age-group-desc">75세 이상 (의료 중심)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 은퇴 계획 도구 -->
+    <section class="retirement-planner">
+      <h2 class="planner-title">📊 은퇴 후 수입 계산기</h2>
+      <div class="planner-form">
+        <div class="planner-field">
+          <label for="currentAge">현재 나이</label>
+          <select id="currentAge">
+            <option value="">선택하세요</option>
+            <option value="55">55세</option>
+            <option value="60">60세</option>
+            <option value="65">65세</option>
+            <option value="70">70세</option>
+            <option value="75">75세 이상</option>
+          </select>
+        </div>
+        
+        <div class="planner-field">
+          <label for="workStatus">근무 상태</label>
+          <select id="workStatus">
+            <option value="">선택하세요</option>
+            <option value="working">현재 근무중</option>
+            <option value="retired">은퇴함</option>
+            <option value="preparing">은퇴 준비중</option>
+            <option value="seeking">일자리 찾는 중</option>
+          </select>
+        </div>
+        
+        <div class="planner-field">
+          <label for="nationalPension">국민연금 가입기간</label>
+          <select id="nationalPension">
+            <option value="">선택하세요</option>
+            <option value="10">10년 미만</option>
+            <option value="15">10-20년</option>
+            <option value="25">20-30년</option>
+            <option value="35">30년 이상</option>
+          </select>
+        </div>
+        
+        <div class="planner-field">
+          <label for="assets">보유 자산</label>
+          <select id="assets">
+            <option value="">선택하세요</option>
+            <option value="low">5천만원 미만</option>
+            <option value="medium">5천만원-2억원</option>
+            <option value="high">2억원 이상</option>
+          </select>
+        </div>
+      </div>
+      
+      <button class="plan-btn" onclick="calculateRetirement()">
+        📋 은퇴 후 예상 수입 계산하기
+      </button>
+      
+      <div class="planning-result" id="planningResult">
+        <div class="result-summary" id="resultSummary"></div>
+        <div class="result-details" id="resultDetails"></div>
+      </div>
+    </section>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a> > <span>은퇴 준비기</span>
+      </div>
+      
+      <!-- 카테고리 통계 -->
+      <div class="category-stats">
+        <div class="stat-item">
+          <span class="stat-number">6</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">월 최대 70만원</span>
+          <span class="stat-label">지원 금액</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">98%</span>
+          <span class="stat-label">평균 성공률</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 이 페이지 맞춤 검색 -->
+    <section class="category-search">
+      <div class="search-card">
+        <h3>🔍 시니어 지원금 빠른 찾기</h3>
+        <div class="quick-filters">
+          <button class="filter-btn active" onclick="filterBenefits('all')">전체</button>
+          <button class="filter-btn" onclick="filterBenefits('pension')">연금</button>
+          <button class="filter-btn" onclick="filterBenefits('job')">일자리</button>
+          <button class="filter-btn" onclick="filterBenefits('senior_health')">건강관리</button>
+          <button class="filter-btn" onclick="filterBenefits('culture')">문화</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 혜택 카드들 -->
+    <section class="benefits-section">
+      <div class="benefit-grid" id="benefitGrid">
+        
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_10.html" 
+           rel="noopener" target="_blank" data-category="pension">
+          <span class="benefit-icon">👴</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💰 월 34만원</div>
+            <div class="benefit-title">기초연금</div>
+            <div class="benefit-desc">복지로</div>
+            <div class="benefit-target">👴 만 65세 이상</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 98%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/07/blog-post_91.html" 
+           rel="noopener" target="_blank" data-category="job">
+          <span class="benefit-icon">💼</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👨‍💼 월 59만원</div>
+            <div class="benefit-title">시니어 일자리 지원</div>
+            <div class="benefit-desc">고용24</div>
+            <div class="benefit-target">⚡ 만 60세 이상</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 82%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.nhis.or.kr/" 
+           rel="noopener" target="_blank" data-category="senior_health">
+          <span class="benefit-icon">🦷</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🦷 최대 100만원</div>
+            <div class="benefit-title">노인 틀니 지원</div>
+            <div class="benefit-desc">국민건강보험공단</div>
+            <div class="benefit-target">👴 만 65세 이상</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 91%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.longtermcare.or.kr/" 
+           rel="noopener" target="_blank" data-category="senior_health">
+          <span class="benefit-icon">🏥</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🩺 월 150만원</div>
+            <div class="benefit-title">노인장기요양보험</div>
+            <div class="benefit-desc">국민건강보험공단</div>
+            <div class="benefit-target">🏥 장기요양 등급자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 89%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="culture">
+          <span class="benefit-icon">🚌</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🚇 연 36만원</div>
+            <div class="benefit-title">교통비 할인 (경로우대)</div>
+            <div class="benefit-desc">지자체</div>
+            <div class="benefit-target">🎫 만 65세 이상</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 99%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.nhis.or.kr/" 
+           rel="noopener" target="_blank" data-category="senior_health">
+          <span class="benefit-icon">🩺</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏥 무료</div>
+            <div class="benefit-title">생애전환기 건강검진</div>
+            <div class="benefit-desc">국민건강보험공단</div>
+            <div class="benefit-target">👨‍⚕️ 만 66세</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 95%</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 건강 관리 정보 -->
+    <section class="health-care-info">
+      <h2 class="health-care-title">
+        🏥 시니어 건강 관리 서비스
+      </h2>
+      <div class="health-services">
+        <div class="health-service-card">
+          <div class="service-name">📞 시니어 건강상담</div>
+          <div class="service-desc">24시간 전화 상담 및 응급상황 대응</div>
+          <div class="service-contact">☎️ 1339 (응급의료정보센터)</div>
+        </div>
+        
+        <div class="health-service-card">
+          <div class="service-name">🏠 방문 건강관리</div>
+          <div class="service-desc">보건소 방문간호사 건강관리 서비스</div>
+          <div class="service-contact">📍 거주지 보건소 문의</div>
+        </div>
+        
+        <div class="health-service-card">
+          <div class="service-name">💊 복용약물 관리</div>
+          <div class="service-desc">약사 상담 및 복용법 안내 서비스</div>
+          <div class="service-contact">💊 근처 약국 또는 ☎️ 129</div>
+        </div>
+        
+        <div class="health-service-card">
+          <div class="service-name">🧠 치매 예방 프로그램</div>
+          <div class="service-desc">인지기능 향상 및 치매 예방 활동</div>
+          <div class="service-contact">🏛️ 치매안심센터</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 성공 사례 -->
+    <section class="success-stories">
+      <h2 class="section-title">🌟 시니어 지원 성공 사례</h2>
+      <div class="stories-grid">
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">👴</span>
+            <div class="story-info">
+              <h4>이○○님 (67세)</h4>
+              <span class="story-date">기초연금 수급자</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"기초연금 덕분에 매월 34만원을 받고 있어요. 국민연금과 합쳐서 생활비 걱정이 많이 줄었습니다. 신청도 간단했고, 매월 정기적으로 입금되어 안심이에요."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 기초연금 월 34만원, 건강검진 무료
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">💼</span>
+            <div class="story-info">
+              <h4>박○○님 (62세)</h4>
+              <span class="story-date">시니어 일자리 참여</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"시니어 일자리 프로그램에 참여해서 월 59만원을 받고 있어요. 일하는 보람도 있고, 건강도 유지할 수 있어서 정말 좋습니다. 새로운 사람들도 만날 수 있어요."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 시니어 일자리 월 59만원, 교통비 할인
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 카테고리 추천 -->
+    <section class="related-section">
+      <h2 class="section-title">💡 함께 보면 좋은 카테고리</h2>
+      <div class="related-grid">
+        <a href="./disability.html" class="related-card">
+          <span class="related-icon">🦽</span>
+          <div class="related-content">
+            <div class="related-title">장애인 지원</div>
+            <div class="related-desc">건강 관련 지원</div>
+          </div>
+        </a>
+        
+        <a href="./culture.html" class="related-card">
+          <span class="related-icon">🎭</span>
+          <div class="related-content">
+            <div class="related-title">문화/여가</div>
+            <div class="related-desc">시니어 문화생활</div>
+          </div>
+        </a>
+        
+        <a href="./emergency.html" class="related-card">
+          <span class="related-icon">🆘</span>
+          <div class="related-content">
+            <div class="related-title">긴급상황</div>
+            <div class="related-desc">위기상황 대응</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 홈으로 돌아가기 -->
+    <section class="back-home">
+      <a href="../index.html" class="home-btn">
+        🏠 홈으로 돌아가기
+      </a>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p>📞 시니어 관련 문의는 보건복지부 상담센터 129번으로 연락주세요</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+      본 사이트는 정부 지원금 정보 제공을 목적으로 하며, 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다
+    </p>
+  </footer>
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/category-filter.js"></script>
+  
+  <!-- 시니어 페이지 전용 스크립트 -->
+  <script>
+    // 연령대 선택 기능
+    function selectAgeGroup(ageGroup) {
+      // 모든 카드에서 선택 해제
+      document.querySelectorAll('.age-group-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // 선택된 카드 활성화
+      document.querySelector(`[data-age="${ageGroup}"]`).classList.add('selected');
+      
+      // 해당 연령대에 맞는 혜택 필터링
+      filterBenefitsByAge(ageGroup);
+      
+      // 선택 이벤트 추적
+      console.log('연령대 선택:', ageGroup);
+    }
+    
+    function filterBenefitsByAge(ageGroup) {
+      const cards = document.querySelectorAll('.benefit-card');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('.benefit-title').textContent;
+        const target = card.querySelector('.benefit-target').textContent;
+        let shouldShow = true;
+        
+        switch(ageGroup) {
+          case '55-64':
+            // 일자리 중심
+            shouldShow = title.includes('일자리') || title.includes('취업') || 
+                        target.includes('60세') || target.includes('55세');
+            break;
+          case '65-74':
+            // 연금 + 건강
+            shouldShow = title.includes('연금') || title.includes('건강') || 
+                        target.includes('65세') || title.includes('교통');
+            break;
+          case '75+':
+            // 의료 중심
+            shouldShow = title.includes('요양') || title.includes('의료') || 
+                        title.includes('틀니') || title.includes('건강');
+            break;
+        }
+        
+        if (shouldShow) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.opacity = '0.3';
+        }
+      });
+    }
+    
+    // 은퇴 후 수입 계산기
+    function calculateRetirement() {
+      const age = document.getElementById('currentAge').value;
+      const workStatus = document.getElementById('workStatus').value;
+      const pension = document.getElementById('nationalPension').value;
+      const assets = document.getElementById('assets').value;
+      
+      if (!age || !workStatus || !pension || !assets) {
+        alert('모든 항목을 선택해주세요.');
+        return;
+      }
+      
+      // 간단한 계산 로직
+      let monthlyIncome = 0;
+      let benefits = [];
+      
+      // 기초연금 (65세 이상)
+      if (parseInt(age) >= 65) {
+        monthlyIncome += 34; // 34만원
+        benefits.push('기초연금: 34만원');
+      }
+      
+      // 국민연금 (가입기간에 따라)
+      let nationalPensionAmount = 0;
+      switch(pension) {
+        case '10': nationalPensionAmount = 30; break;
+        case '15': nationalPensionAmount = 50; break;
+        case '25': nationalPensionAmount = 80; break;
+        case '35': nationalPensionAmount = 120; break;
+      }
+      monthlyIncome += nationalPensionAmount;
+      if (nationalPensionAmount > 0) {
+        benefits.push(`국민연금: ${nationalPensionAmount}만원`);
+      }
+      
+      // 시니어 일자리 (근무 상태에 따라)
+      if (workStatus === 'working' || workStatus === 'seeking') {
+        monthlyIncome += 59; // 59만원
+        benefits.push('시니어 일자리: 59만원');
+      }
+      
+      // 자산 수익 (대략적 계산)
+      let assetIncome = 0;
+      switch(assets) {
+        case 'low': assetIncome = 5; break;
+        case 'medium': assetIncome = 15; break;
+        case 'high': assetIncome = 30; break;
+      }
+      monthlyIncome += assetIncome;
+      if (assetIncome > 0) {
+        benefits.push(`자산 수익: ${assetIncome}만원`);
+      }
+      
+      // 결과 표시
+      document.getElementById('resultSummary').textContent = 
+        `예상 월 수입: ${monthlyIncome.toLocaleString()}만원`;
+      
+      document.getElementById('resultDetails').innerHTML = `
+        <div class="result-item">
+          <div class="result-label">총 월수입</div>
+          <div class="result-value">${monthlyIncome}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">연간 수입</div>
+          <div class="result-value">${(monthlyIncome * 12).toLocaleString()}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">수입원 개수</div>
+          <div class="result-value">${benefits.length}개</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">생활 안정도</div>
+          <div class="result-value">${monthlyIncome >= 150 ? '양호' : monthlyIncome >= 100 ? '보통' : '보완필요'}</div>
+        </div>
+      `;
+      
+      document.getElementById('planningResult').style.display = 'block';
+      document.getElementById('planningResult').scrollIntoView({ behavior: 'smooth' });
+      
+      // 추가 권장사항 표시
+      if (monthlyIncome < 100) {
+        setTimeout(() => {
+          alert('월 수입이 부족합니다. 추가 지원금 신청을 검토해보세요!\n\n권장사항:\n• 기초생활수급자 신청 검토\n• 의료급여 신청\n• 주거급여 신청');
+        }, 1000);
+      }
+    }
+    
+    // 시니어 페이지 전용 기능
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCategoryPage('senior');
+      trackPageView('senior');
+      
+      // 65세 이상이면 자동으로 해당 연령대 선택
+      const urlParams = new URLSearchParams(window.location.search);
+      const age = urlParams.get('age');
+      if (age && age >= 65) {
+        selectAgeGroup('65-74');
+      }
+      
+      // 연령대 카드 애니메이션
+      const ageCards = document.querySelectorAll('.age-group-card');
+      ageCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 150);
+      });
+    });
+  </script>
+</body>
+</html>

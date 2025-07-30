@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>문화/여가 지원 (문화생활) - 복지 혜택 안내 센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  
+  <!-- 문화/여가 전용 스타일 -->
+  <style>
+    .culture-header {
+      background: linear-gradient(135deg, #673ab7 0%, #512da8 100%);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin: -20px -15px 30px -15px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .culture-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, 
+        transparent 20%, 
+        rgba(255,255,255,0.05) 30%, 
+        transparent 40%,
+        transparent 60%, 
+        rgba(255,255,255,0.05) 70%, 
+        transparent 80%);
+      animation: cultural-rhythm 8s linear infinite;
+    }
+    
+    @keyframes cultural-rhythm {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .culture-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .culture-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .culture-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .interest-selector {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .interest-selector-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .cultural-interests {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+    }
+    
+    .interest-card {
+      padding: 20px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+    
+    .interest-card:hover {
+      border-color: #673ab7;
+      transform: translateY(-2px);
+      background: rgba(103, 58, 183, 0.1);
+    }
+    
+    .interest-card.selected {
+      border-color: #673ab7;
+      background: rgba(103, 58, 183, 0.2);
+    }
+    
+    .interest-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .interest-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .interest-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .cultural-voucher-info {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .voucher-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .voucher-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .voucher-type {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid #673ab7;
+      position: relative;
+    }
+    
+    .voucher-amount {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: #673ab7;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    
+    .voucher-type-title {
+      font-weight: 600;
+      color: #673ab7;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .voucher-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    
+    .voucher-eligibility {
+      font-size: 12px;
+      color: #673ab7;
+      font-weight: 600;
+      background: rgba(103, 58, 183, 0.1);
+      padding: 5px 8px;
+      border-radius: 6px;
+    }
+    
+    .age-based-programs {
+      background: #fff3e0;
+      border: 1px solid #ffcc02;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .age-programs-title {
+      color: #ef6c00;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .age-programs-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .age-program-category {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #ef6c00;
+    }
+    
+    .age-program-title {
+      font-weight: 600;
+      color: #ef6c00;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .age-program-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .age-program-item {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(239, 108, 0, 0.1);
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .age-program-item:last-child {
+      border-bottom: none;
+    }
+    
+    .age-program-item:hover {
+      color: #ef6c00;
+      cursor: pointer;
+    }
+    
+    .local-culture-map {
+      background: #e8f5e8;
+      border: 1px solid #c8e6c9;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .culture-map-title {
+      color: #2e7d32;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .culture-regions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .culture-region {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #2e7d32;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .culture-region:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+    }
+    
+    .region-badge {
+      background: #2e7d32;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+    
+    .region-name {
+      font-weight: 600;
+      color: #2e7d32;
+      margin-bottom: 5px;
+    }
+    
+    .region-highlights {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.3;
+    }
+    
+    .cultural-calculator {
+      background: #f3e5f5;
+      border: 1px solid #e1bee7;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .calculator-title {
+      color: #8e24aa;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .calculator-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .calculator-field {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .calculator-field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #8e24aa;
+      margin-bottom: 5px;
+    }
+    
+    .calculator-field select {
+      padding: 10px;
+      border: 1px solid #e1bee7;
+      border-radius: 8px;
+      background: white;
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+    
+    .calc-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #8e24aa, #7b1fa2);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .calc-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(142, 36, 170, 0.4);
+    }
+    
+    .calculator-result {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(142, 36, 170, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(142, 36, 170, 0.3);
+      display: none;
+    }
+    
+    .result-summary {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #8e24aa;
+      margin-bottom: 15px;
+    }
+    
+    .result-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    
+    .result-item {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .result-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    
+    .result-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #8e24aa;
+    }
+  </style>
+  
+  <!-- 메타 태그 -->
+  <meta name="description" content="문화생활을 위한 정부 지원금 총정리 - 문화누리카드, 스포츠강좌 이용권, 통합문화이용권 등" />
+  <meta name="keywords" content="문화누리카드, 스포츠강좌이용권, 통합문화이용권, 문화예술교육, 도서관프로그램" />
+  <meta property="og:title" content="문화/여가 지원 혜택" />
+  <meta property="og:description" content="풍요로운 문화생활과 여가활동을 위한 다양한 지원" />
+  <style>
+/* 문화/여가 페이지 전용 개선 */
+.interest-card {
+  background: rgba(45, 45, 45, 0.95) !important;
+  color: #FFFFFF !important;
+  border: 2px solid #673ab7 !important;
+}
+
+.interest-name {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+.voucher-title, .calculator-title {
+  color: #673ab7 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+</style>
+
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header" id="page-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          🎯 생애주기별 복지 혜택 가이드<br />
+          <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+        </a>
+      </h1>
+      
+      <!-- 검색창 -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="문화/여가 지원금 검색 (예: 문화누리카드, 스포츠...)" 
+            type="text" 
+          />
+          <button class="search-btn" onclick="performSearch()" title="검색">
+            🔍
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-container">
+    <ul class="tab-list">
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/baby.html">
+          👶 신생아 가정
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/student.html">
+          🎒 학령기 가정
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/youth.html">
+          🎓 청년 독립기
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/career.html">
+          💼 경력 발전기
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/senior.html">
+          🌅 은퇴 준비기
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/disability.html">
+          🦽 장애인 지원
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/women.html">
+          👩 여성/가족
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/rural.html">
+          🌾 농어촌
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link active" href="../pages/culture.html">
+          🎭 문화/여가
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/emergency.html">
+          🆘 긴급상황
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/business.html">
+          🏪 사업자 지원
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- 문화/여가 헤더 -->
+    <section class="culture-header">
+      <div class="culture-content">
+        <h1 class="culture-title">🎭 문화/여가 지원</h1>
+        <p class="culture-subtitle">풍요로운 문화생활과 여가활동을 위한 다양한 지원 (문화생활)</p>
+      </div>
+    </section>
+
+    <!-- 관심분야 선택 -->
+    <section class="interest-selector">
+      <h2 class="interest-selector-title">🎨 관심있는 문화분야를 선택하세요</h2>
+      <div class="cultural-interests">
+        <div class="interest-card" data-interest="performance" onclick="selectInterest('performance')">
+          <span class="interest-icon">🎭</span>
+          <div class="interest-name">공연예술</div>
+          <div class="interest-desc">연극, 뮤지컬, 콘서트</div>
+        </div>
+        
+        <div class="interest-card" data-interest="visual" onclick="selectInterest('visual')">
+          <span class="interest-icon">🎨</span>
+          <div class="interest-name">미술/전시</div>
+          <div class="interest-desc">전시회, 박물관, 갤러리</div>
+        </div>
+        
+        <div class="interest-card" data-interest="sports" onclick="selectInterest('sports')">
+          <span class="interest-icon">⚽</span>
+          <div class="interest-name">스포츠</div>
+          <div class="interest-desc">체육시설, 강좌, 관람</div>
+        </div>
+        
+        <div class="interest-card" data-interest="education" onclick="selectInterest('education')">
+          <span class="interest-icon">📚</span>
+          <div class="interest-name">문화교육</div>
+          <div class="interest-desc">도서관, 평생교육</div>
+        </div>
+        
+        <div class="interest-card" data-interest="travel" onclick="selectInterest('travel')">
+          <span class="interest-icon">🏛️</span>
+          <div class="interest-name">관광/체험</div>
+          <div class="interest-desc">문화유적, 체험프로그램</div>
+        </div>
+        
+        <div class="interest-card" data-interest="digital" onclick="selectInterest('digital')">
+          <span class="interest-icon">💻</span>
+          <div class="interest-name">디지털문화</div>
+          <div class="interest-desc">온라인 콘텐츠, VR체험</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 문화누리카드 정보 -->
+    <section class="cultural-voucher-info">
+      <h2 class="voucher-title">💳 문화이용권 정보</h2>
+      <div class="voucher-types">
+        <div class="voucher-type">
+          <div class="voucher-amount">13만원</div>
+          <h3 class="voucher-type-title">
+            <span>🎫</span>
+            문화누리카드
+          </h3>
+          <div class="voucher-desc">
+            도서·공연·영화·박물관·미술관 등 문화예술 프로그램 및 국내여행 상품 이용 가능
+          </div>
+          <div class="voucher-eligibility">기초생활수급자, 차상위계층</div>
+        </div>
+        
+        <div class="voucher-type">
+          <div class="voucher-amount">8.5만원</div>
+          <h3 class="voucher-type-title">
+            <span>🏃‍♂️</span>
+            스포츠강좌이용권
+          </h3>
+          <div class="voucher-desc">
+            수영, 헬스, 요가, 태권도 등 다양한 생활체육 프로그램 수강료 지원
+          </div>
+          <div class="voucher-eligibility">유·청소년, 저소득층 성인</div>
+        </div>
+        
+        <div class="voucher-type">
+          <div class="voucher-amount">20만원</div>
+          <h3 class="voucher-type-title">
+            <span>📚</span>
+            통합문화이용권
+          </h3>
+          <div class="voucher-desc">
+            문화예술, 관광, 체육활동을 통합한 종합 문화이용권으로 자유롭게 이용
+          </div>
+          <div class="voucher-eligibility">중위소득 50% 이하 가구</div>
+        </div>
+        
+        <div class="voucher-type">
+          <div class="voucher-amount">5만원</div>
+          <h3 class="voucher-type-title">
+            <span>🎼</span>
+            문화예술교육 지원
+          </h3>
+          <div class="voucher-desc">
+            악기, 미술, 댄스 등 문화예술교육 프로그램 수강료 지원
+          </div>
+          <div class="voucher-eligibility">아동·청소년, 성인</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 문화활동 계산기 -->
+    <section class="cultural-calculator">
+      <h2 class="calculator-title">
+        <span>🧮</span>
+        내가 받을 수 있는 문화혜택 계산기
+      </h2>
+      <div class="calculator-form">
+        <div class="calculator-field">
+          <label for="householdIncome">가구소득 수준</label>
+          <select id="householdIncome">
+            <option value="">선택하세요</option>
+            <option value="basic">기초생활수급자</option>
+            <option value="near-poor">차상위계층</option>
+            <option value="low">중위소득 50% 이하</option>
+            <option value="middle">중위소득 50-80%</option>
+            <option value="high">중위소득 80% 초과</option>
+          </select>
+        </div>
+        
+        <div class="calculator-field">
+          <label for="familyMembers">가구원 수</label>
+          <select id="familyMembers">
+            <option value="">선택하세요</option>
+            <option value="1">1인</option>
+            <option value="2">2인</option>
+            <option value="3">3인</option>
+            <option value="4">4인 이상</option>
+          </select>
+        </div>
+        
+        <div class="calculator-field">
+          <label for="userAge">나이</label>
+          <select id="userAge">
+            <option value="">선택하세요</option>
+            <option value="child">5-18세</option>
+            <option value="young">19-34세</option>
+            <option value="adult">35-64세</option>
+            <option value="senior">65세 이상</option>
+          </select>
+        </div>
+        
+        <div class="calculator-field">
+          <label for="culturalInterest">주요 관심분야</label>
+          <select id="culturalInterest">
+            <option value="">선택하세요</option>
+            <option value="performance">공연예술</option>
+            <option value="sports">체육활동</option>
+            <option value="education">문화교육</option>
+            <option value="travel">관광/체험</option>
+          </select>
+        </div>
+      </div>
+      
+      <button class="calc-btn" onclick="calculateCulturalBenefits()">
+        🎨 받을 수 있는 문화혜택 확인하기
+      </button>
+      
+      <div class="calculator-result" id="calculatorResult">
+        <div class="result-summary" id="calcResultSummary"></div>
+        <div class="result-details" id="calcResultDetails"></div>
+      </div>
+    </section>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a> > <span>문화/여가</span>
+      </div>
+      
+      <!-- 카테고리 통계 -->
+      <div class="category-stats">
+        <div class="stat-item">
+          <span class="stat-number">10</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">연 최대 20만원</span>
+          <span class="stat-label">지원 금액</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">96%</span>
+          <span class="stat-label">평균 성공률</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 이 페이지 맞춤 검색 -->
+    <section class="category-search">
+      <div class="search-card">
+        <h3>🔍 문화/여가 지원금 빠른 찾기</h3>
+        <div class="quick-filters">
+          <button class="filter-btn active" onclick="filterBenefits('all')">전체</button>
+          <button class="filter-btn" onclick="filterBenefits('voucher')">이용권</button>
+          <button class="filter-btn" onclick="filterBenefits('sports_program')">체육</button>
+          <button class="filter-btn" onclick="filterBenefits('arts_education')">예술교육</button>
+          <button class="filter-btn" onclick="filterBenefits('library')">도서관</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 혜택 카드들 -->
+    <section class="benefits-section">
+      <div class="benefit-grid" id="benefitGrid">
+        
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="voucher">
+          <span class="benefit-icon">🎫</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎫 연 13만원</div>
+            <div class="benefit-title">문화누리카드</div>
+            <div class="benefit-desc">문화체육관광부</div>
+            <div class="benefit-target">💳 기초생활수급자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 98%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="sports_program">
+          <span class="benefit-icon">🏃‍♂️</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏃‍♂️ 연 8.5만원</div>
+            <div class="benefit-title">스포츠강좌이용권</div>
+            <div class="benefit-desc">문화체육관광부</div>
+            <div class="benefit-target">⚽ 유청소년·저소득층</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 95%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="voucher">
+          <span class="benefit-icon">📚</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">📚 연 20만원</div>
+            <div class="benefit-title">통합문화이용권</div>
+            <div class="benefit-desc">문화체육관광부</div>
+            <div class="benefit-target">🎭 중위소득 50% 이하</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 92%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="arts_education">
+          <span class="benefit-icon">🎼</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎼 월 5만원</div>
+            <div class="benefit-title">문화예술교육 지원</div>
+            <div class="benefit-desc">한국문화예술교육진흥원</div>
+            <div class="benefit-target">🎨 아동·청소년·성인</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 89%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="library">
+          <span class="benefit-icon">📖</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">📖 무료</div>
+            <div class="benefit-title">도서관 문화프로그램</div>
+            <div class="benefit-desc">지자체</div>
+            <div class="benefit-target">📚 전 연령층</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 99%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="sports_program">
+          <span class="benefit-icon">🏊‍♀️</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏊‍♀️ 월 3만원</div>
+            <div class="benefit-title">공공체육시설 할인</div>
+            <div class="benefit-desc">지자체</div>
+            <div class="benefit-target">🏋️‍♀️ 시설 이용자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 97%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="voucher">
+          <span class="benefit-icon">🎪</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎪 월 2만원</div>
+            <div class="benefit-title">청소년 문화예술 지원</div>
+            <div class="benefit-desc">여성가족부</div>
+            <div class="benefit-target">🎭 13-24세 청소년</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 91%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="arts_education">
+          <span class="benefit-icon">🎨</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎨 무료</div>
+            <div class="benefit-title">시민 문화교실</div>
+            <div class="benefit-desc">문화원</div>
+            <div class="benefit-target">🖌️ 지역주민</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 94%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="library">
+          <span class="benefit-icon">👴</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👴 무료</div>
+            <div class="benefit-title">시니어 평생학습</div>
+            <div class="benefit-desc">평생학습관</div>
+            <div class="benefit-target">📚 50세 이상</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 96%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="sports_program">
+          <span class="benefit-icon">🧘‍♀️</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🧘‍♀️ 월 4만원</div>
+            <div class="benefit-title">생활체육 동호회 지원</div>
+            <div class="benefit-desc">대한체육회</div>
+            <div class="benefit-target">🏃‍♂️ 동호회 회원</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 88%</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 연령별 프로그램 -->
+    <section class="age-based-programs">
+      <h2 class="age-programs-title">
+        👶 연령별 문화프로그램
+      </h2>
+      <div class="age-programs-categories">
+        <div class="age-program-category">
+          <h3 class="age-program-title">
+            <span>👶</span>
+            영유아 (0-7세)
+          </h3>
+          <ul class="age-program-list">
+            <li class="age-program-item">• 베이비 콘서트</li>
+            <li class="age-program-item">• 유아 체험 프로그램</li>
+            <li class="age-program-item">• 책 읽어주기 프로그램</li>
+            <li class="age-program-item">• 영유아 수영교실</li>
+            <li class="age-program-item">• 부모-자녀 문화활동</li>
+          </ul>
+        </div>
+        
+        <div class="age-program-category">
+          <h3 class="age-program-title">
+            <span>🎒</span>
+            아동·청소년 (8-24세)
+          </h3>
+          <ul class="age-program-list">
+            <li class="age-program-item">• 청소년 오케스트라</li>
+            <li class="age-program-item">• 미술·공예 교실</li>
+            <li class="age-program-item">• 스포츠클럽 활동</li>
+            <li class="age-program-item">• 진로체험 프로그램</li>
+            <li class="age-program-item">• 청소년 문화축제</li>
+          </ul>
+        </div>
+        
+        <div class="age-program-category">
+          <h3 class="age-program-title">
+            <span>💼</span>
+            성인 (25-64세)
+          </h3>
+          <ul class="age-program-list">
+            <li class="age-program-item">• 직장인 문화강좌</li>
+            <li class="age-program-item">• 성인 취미클래스</li>
+            <li class="age-program-item">• 문화유적 탐방</li>
+            <li class="age-program-item">• 생활체육 동호회</li>
+            <li class="age-program-item">• 전문예술 교육</li>
+          </ul>
+        </div>
+        
+        <div class="age-program-category">
+          <h3 class="age-program-title">
+            <span>👴</span>
+            시니어 (65세+)
+          </h3>
+          <ul class="age-program-list">
+            <li class="age-program-item">• 실버 문화교실</li>
+            <li class="age-program-item">• 노인 건강체조</li>
+            <li class="age-program-item">• 전통문화 체험</li>
+            <li class="age-program-item">• 평생학습 프로그램</li>
+            <li class="age-program-item">• 시니어 여행동아리</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 지역별 문화정보 -->
+    <section class="local-culture-map">
+      <h2 class="culture-map-title">
+        <span>🗺️</span>
+        지역별 문화 특색 프로그램
+      </h2>
+      <div class="culture-regions">
+        <div class="culture-region" onclick="exploreRegion('seoul')">
+          <div class="region-badge">수도권</div>
+          <div class="region-name">🏛️ 서울·경기</div>
+          <div class="region-highlights">
+            다양한 박물관·미술관<br>
+            대형 공연장 할인 혜택<br>
+            K-컬처 체험 프로그램
+          </div>
+        </div>
+        
+        <div class="culture-region" onclick="exploreRegion('busan')">
+          <div class="region-badge">영남권</div>
+          <div class="region-name">🌊 부산·경남</div>
+          <div class="region-highlights">
+            해양문화 축제<br>
+            영화제 참여 프로그램<br>
+            해안 레저스포츠
+          </div>
+        </div>
+        
+        <div class="culture-region" onclick="exploreRegion('jeju')">
+          <div class="region-badge">제주권</div>
+          <div class="region-name">🏝️ 제주</div>
+          <div class="region-highlights">
+            자연생태 체험<br>
+            전통문화 보존활동<br>
+            치유·힐링 프로그램
+          </div>
+        </div>
+        
+        <div class="culture-region" onclick="exploreRegion('gangwon')">
+          <div class="region-badge">강원권</div>
+          <div class="region-name">⛰️ 강원</div>
+          <div class="region-highlights">
+            산악 레저스포츠<br>
+            겨울 스포츠 체험<br>
+            자연친화 문화활동
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 성공 사례 -->
+    <section class="success-stories">
+      <h2 class="section-title">🌟 문화/여가 지원 성공 사례</h2>
+      <div class="stories-grid">
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">🎫</span>
+            <div class="story-info">
+              <h4>이○○님 (42세, 한부모)</h4>
+              <span class="story-date">문화누리카드 활용</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"문화누리카드로 아이와 함께 박물관, 영화관을 자주 가요. 연간 13만원 지원받아서 문화생활 부담이 많이 줄었고, 아이와의 소중한 추억을 만들 수 있어 너무 좋습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 문화누리카드 연 13만원, 도서관 프로그램 무료 이용
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">🏃‍♂️</span>
+            <div class="story-info">
+              <h4>박○○님 (16세, 고등학생)</h4>
+              <span class="story-date">스포츠강좌이용권 수혜</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"스포츠강좌이용권으로 수영과 헬스를 배우고 있어요. 연간 8만 5천원 지원받아서 체력도 기르고 스트레스도 해소할 수 있게 되었습니다. 친구들과 함께 운동하는 재미도 있어요."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 스포츠강좌이용권 연 8.5만원, 청소년 문화프로그램 참여
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 카테고리 추천 -->
+    <section class="related-section">
+      <h2 class="section-title">💡 함께 보면 좋은 카테고리</h2>
+      <div class="related-grid">
+        <a href="./student.html" class="related-card">
+          <span class="related-icon">🎒</span>
+          <div class="related-content">
+            <div class="related-title">학령기 가정</div>
+            <div class="related-desc">아동 문화교육</div>
+          </div>
+        </a>
+        
+        <a href="./senior.html" class="related-card">
+          <span class="related-icon">🌅</span>
+          <div class="related-content">
+            <div class="related-title">은퇴 준비기</div>
+            <div class="related-desc">시니어 문화활동</div>
+          </div>
+        </a>
+        
+        <a href="./disability.html" class="related-card">
+          <span class="related-icon">🦽</span>
+          <div class="related-content">
+            <div class="related-title">장애인 지원</div>
+            <div class="related-desc">접근성 지원</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 홈으로 돌아가기 -->
+    <section class="back-home">
+      <a href="../index.html" class="home-btn">
+        🏠 홈으로 돌아가기
+      </a>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p>📞 문화 관련 문의는 문화체육관광부 상담센터 02-3771-8114로 연락주세요</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+      본 사이트는 정부 지원금 정보 제공을 목적으로 하며, 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다
+    </p>
+  </footer>
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/category-filter.js"></script>
+  
+  <!-- 문화/여가 페이지 전용 스크립트 -->
+  <script>
+    // 관심분야 선택 기능
+    function selectInterest(interest) {
+      // 모든 카드에서 선택 해제
+      document.querySelectorAll('.interest-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // 선택된 카드 활성화
+      document.querySelector(`[data-interest="${interest}"]`).classList.add('selected');
+      
+      // 해당 관심분야에 맞는 혜택 필터링
+      filterBenefitsByInterest(interest);
+      
+      // 선택 이벤트 추적
+      console.log('관심분야 선택:', interest);
+    }
+    
+    function filterBenefitsByInterest(interest) {
+      const cards = document.querySelectorAll('.benefit-card');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('.benefit-title').textContent;
+        const target = card.querySelector('.benefit-target').textContent;
+        let shouldShow = true;
+        
+        switch(interest) {
+          case 'performance':
+            // 공연예술 관련
+            shouldShow = title.includes('문화누리') || title.includes('통합문화') || 
+                        title.includes('청소년 문화');
+            break;
+          case 'visual':
+            // 미술/전시 관련
+            shouldShow = title.includes('문화누리') || title.includes('시민 문화') || 
+                        title.includes('예술교육');
+            break;
+          case 'sports':
+            // 스포츠 관련
+            shouldShow = title.includes('스포츠') || title.includes('체육') || 
+                        title.includes('생활체육') || title.includes('할인');
+            break;
+          case 'education':
+            // 문화교육 관련
+            shouldShow = title.includes('교육') || title.includes('도서관') || 
+                        title.includes('평생학습') || title.includes('문화교실');
+            break;
+          case 'travel':
+            // 관광/체험 관련
+            shouldShow = title.includes('문화누리') || title.includes('통합문화');
+            break;
+          case 'digital':
+            // 디지털문화 관련
+            shouldShow = title.includes('시민 문화') || title.includes('평생학습');
+            break;
+        }
+        
+        if (shouldShow) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.opacity = '0.3';
+        }
+      });
+    }
+    
+    // 문화혜택 계산기
+    function calculateCulturalBenefits() {
+      const income = document.getElementById('householdIncome').value;
+      const family = document.getElementById('familyMembers').value;
+      const age = document.getElementById('userAge').value;
+      const interest = document.getElementById('culturalInterest').value;
+      
+      if (!income || !family || !age || !interest) {
+        alert('모든 항목을 선택해주세요.');
+        return;
+      }
+      
+      // 소득수준과 조건에 따른 혜택 계산
+      let totalBenefits = 0;
+      let benefitList = [];
+      
+      // 문화누리카드 (기초생활수급자, 차상위계층)
+      if (income === 'basic' || income === 'near-poor') {
+        const cultureBenefit = 13;
+        totalBenefits += cultureBenefit;
+        benefitList.push(`문화누리카드: ${cultureBenefit}만원`);
+      }
+      
+      // 통합문화이용권 (중위소득 50% 이하)
+      if (income === 'basic' || income === 'near-poor' || income === 'low') {
+        const integratedBenefit = 20;
+        totalBenefits += integratedBenefit;
+        benefitList.push(`통합문화이용권: ${integratedBenefit}만원`);
+      }
+      
+      // 스포츠강좌이용권 (유청소년, 저소득층)
+      if ((age === 'child' || age === 'young') || (income === 'basic' || income === 'near-poor')) {
+        const sportsBenefit = 8.5;
+        totalBenefits += sportsBenefit;
+        benefitList.push(`스포츠강좌이용권: ${sportsBenefit}만원`);
+      }
+      
+      // 문화예술교육 지원
+      if (interest === 'performance' || interest === 'visual') {
+        const artEducation = 6; // 월 5만원 × 12개월 ÷ 10 (연간 평균)
+        totalBenefits += artEducation;
+        benefitList.push(`문화예술교육 지원: ${artEducation}만원`);
+      }
+      
+      // 청소년 문화예술 지원
+      if (age === 'child' || age === 'young') {
+        const youthCulture = 2.4; // 월 2만원 × 12개월 ÷ 10
+        totalBenefits += youthCulture;
+        benefitList.push(`청소년 문화지원: ${youthCulture}만원`);
+      }
+      
+      // 공공체육시설 할인
+      if (interest === 'sports') {
+        const facilitiesDiscount = 3.6; // 월 3만원 × 12개월 ÷ 10
+        totalBenefits += facilitiesDiscount;
+        benefitList.push(`체육시설 할인: ${facilitiesDiscount}만원`);
+      }
+      
+      // 도서관 문화프로그램 (무료)
+      benefitList.push('도서관 프로그램: 무료');
+      
+      // 시민 문화교실 (무료)
+      benefitList.push('시민 문화교실: 무료');
+      
+      // 결과 표시
+      document.getElementById('calcResultSummary').textContent = 
+        `연간 문화혜택: ${totalBenefits.toFixed(1)}만원 + 무료프로그램`;
+      
+      document.getElementById('calcResultDetails').innerHTML = `
+        <div class="result-item">
+          <div class="result-label">총 연간혜택</div>
+          <div class="result-value">${totalBenefits.toFixed(1)}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">월평균 혜택</div>
+          <div class="result-value">${(totalBenefits/12).toFixed(1)}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">지원 항목</div>
+          <div class="result-value">${benefitList.length}개</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">문화생활 수준</div>
+          <div class="result-value">${totalBenefits >= 30 ? '풍부' : totalBenefits >= 15 ? '보통' : totalBenefits >= 5 ? '기본' : '제한적'}</div>
+        </div>
+      `;
+      
+      document.getElementById('calculatorResult').style.display = 'block';
+      document.getElementById('calculatorResult').scrollIntoView({ behavior: 'smooth' });
+      
+      // 추가 권장사항 표시
+      if (income === 'basic' || income === 'near-poor') {
+        setTimeout(() => {
+          alert('다양한 문화혜택을 받을 수 있습니다!\n\n추가 확인사항:\n• 지역 문화원 프로그램 참여\n• 도서관 문화강좌 수강\n• 박물관·미술관 무료관람일 확인\n• 지자체별 추가 문화지원 확인');
+        }, 1000);
+      }
+    }
+    
+    // 지역별 문화정보 탐색
+    function exploreRegion(region) {
+      const regionInfo = {
+        'seoul': '🏛️ 서울·경기 지역은 국립중앙박물관, 세종문화회관 등 다양한 문화시설이 밀집되어 있습니다. 문화누리카드로 할인받을 수 있는 공연장과 전시관이 가장 많은 지역입니다.',
+        'busan': '🌊 부산·경남 지역은 부산국제영화제, 해운대 모래축제 등 특색있는 문화행사가 많습니다. 해양스포츠와 관련된 다양한 체험 프로그램이 운영됩니다.',
+        'jeju': '🏝️ 제주 지역은 자연과 함께하는 문화체험이 특징입니다. 제주 전통문화와 생태관광을 결합한 특별한 프로그램들이 많이 있습니다.',
+        'gangwon': '⛰️ 강원 지역은 산악과 해양을 모두 즐길 수 있는 자연친화적 문화활동이 발달되어 있습니다. 겨울스포츠 관련 프로그램이 특히 풍부합니다.'
+      };
+      
+      alert(regionInfo[region]);
+    }
+    
+    // 문화 프로그램 항목 클릭 이벤트
+    function setupCulturalInteraction() {
+      const programItems = document.querySelectorAll('.age-program-item');
+      programItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const itemName = this.textContent.replace('• ', '');
+          
+          // 프로그램별 정보 표시
+          const infoMap = {
+            '문화누리카드': '🎫 연간 13만원 지원. 도서·공연·영화·박물관·미술관 등에서 사용 가능합니다.',
+            '스포츠강좌이용권': '🏃‍♂️ 연간 8만 5천원 지원. 수영, 헬스, 요가 등 생활체육 프로그램을 이용할 수 있습니다.',
+            '베이비 콘서트': '👶 0-24개월 영유아와 부모가 함께 즐기는 클래식 공연입니다.',
+            '청소년 오케스트라': '🎼 중고등학생들이 참여하는 오케스트라 활동으로 음악적 재능을 키울 수 있습니다.',
+            '시니어 평생학습': '👴 50세 이상을 위한 다양한 교육프로그램으로 평생학습관에서 운영됩니다.'
+          };
+          
+          const info = infoMap[itemName] || '💡 해당 프로그램에 대한 자세한 정보는 지역 문화센터나 문화체육관광부로 문의해보세요!';
+          
+          alert(info);
+        });
+      });
+    }
+    
+    // 문화/여가 페이지 전용 기능
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCategoryPage('culture');
+      trackPageView('culture');
+      setupCulturalInteraction();
+      
+      // 관심분야 카드 애니메이션
+      const interestCards = document.querySelectorAll('.interest-card');
+      interestCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+      
+      // URL 파라미터에 따른 자동 선택
+      const urlParams = new URLSearchParams(window.location.search);
+      const interest = urlParams.get('interest');
+      if (interest) {
+        selectInterest(interest);
+      }
+    });
+  </script>
+</body>
+</html>

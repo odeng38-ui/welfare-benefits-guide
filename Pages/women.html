@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>여성/가족 지원 (생애전반) - 복지 혜택 안내 센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  
+  <!-- 여성/가족 전용 스타일 -->
+  <style>
+    .women-header {
+      background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin: -20px -15px 30px -15px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .women-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255,255,255,0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 40%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      animation: sparkle 6s ease-in-out infinite;
+    }
+    
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    
+    .women-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .women-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .women-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .life-stage-selector {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .stage-selector-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .life-stages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+    }
+    
+    .life-stage-card {
+      padding: 20px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+    
+    .life-stage-card:hover {
+      border-color: #e91e63;
+      transform: translateY(-2px);
+      background: rgba(233, 30, 99, 0.1);
+    }
+    
+    .life-stage-card.selected {
+      border-color: #e91e63;
+      background: rgba(233, 30, 99, 0.2);
+    }
+    
+    .life-stage-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .life-stage-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .life-stage-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .family-support-calculator {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .calculator-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .calculator-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .calculator-field {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .calculator-field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .calculator-field select,
+    .calculator-field input {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+    
+    .calc-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #e91e63, #c2185b);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .calc-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+    }
+    
+    .calculator-result {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(233, 30, 99, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(233, 30, 99, 0.3);
+      display: none;
+    }
+    
+    .result-summary {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #e91e63;
+      margin-bottom: 15px;
+    }
+    
+    .result-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    
+    .result-item {
+      background: var(--bg-card);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .result-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    
+    .result-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #e91e63;
+    }
+    
+    .childcare-info {
+      background: #fff3e0;
+      border: 1px solid #ffcc02;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .childcare-title {
+      color: #ef6c00;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .childcare-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .childcare-category {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #ef6c00;
+    }
+    
+    .childcare-category-title {
+      font-weight: 600;
+      color: #ef6c00;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .childcare-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .childcare-item {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(239, 108, 0, 0.1);
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .childcare-item:last-child {
+      border-bottom: none;
+    }
+    
+    .childcare-item:hover {
+      color: #ef6c00;
+      cursor: pointer;
+    }
+    
+    .work-life-balance {
+      background: #e8f5e8;
+      border: 1px solid #c8e6c9;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .balance-title {
+      color: #2e7d32;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .balance-programs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .balance-program {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #2e7d32;
+      position: relative;
+    }
+    
+    .program-badge {
+      background: #2e7d32;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+    
+    .program-title {
+      font-weight: 600;
+      color: #2e7d32;
+      margin-bottom: 5px;
+    }
+    
+    .program-desc {
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+  
+  <!-- 메타 태그 -->
+  <meta name="description" content="여성과 가족을 위한 정부 지원금 총정리 - 한부모지원, 육아휴직, 출산지원, 여성일자리 등" />
+  <meta name="keywords" content="한부모지원, 육아휴직급여, 출산지원금, 여성일자리, 가족돌봄휴가" />
+  <meta property="og:title" content="여성/가족 지원 혜택" />
+  <meta property="og:description" content="가족의 행복과 여성의 성장을 위한 종합 지원" />
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header" id="page-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          🎯 생애주기별 복지 혜택 가이드<br />
+          <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+        </a>
+      </h1>
+      
+      <!-- 검색창 -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="여성/가족 지원금 검색 (예: 한부모, 출산...)" 
+            type="text" 
+          />
+          <button class="search-btn" onclick="performSearch()" title="검색">
+            🔍
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-container">
+    <ul class="tab-list">
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/baby.html">
+          👶 신생아 가정
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/student.html">
+          🎒 학령기 가정
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/youth.html">
+          🎓 청년 독립기
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/career.html">
+          💼 경력 발전기
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/senior.html">
+          🌅 은퇴 준비기
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/disability.html">
+          🦽 장애인 지원
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link active" href="../pages/women.html">
+          👩 여성/가족
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/rural.html">
+          🌾 농어촌
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/culture.html">
+          🎭 문화/여가
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/emergency.html">
+          🆘 긴급상황
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/business.html">
+          🏪 사업자 지원
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- 여성/가족 헤더 -->
+    <section class="women-header">
+      <div class="women-content">
+        <h1 class="women-title">👩 여성/가족 지원</h1>
+        <p class="women-subtitle">가족의 행복과 여성의 성장을 위한 종합 지원 (생애전반)</p>
+      </div>
+    </section>
+
+    <!-- 생애주기 선택 -->
+    <section class="life-stage-selector">
+      <h2 class="stage-selector-title">👪 현재 상황을 선택하세요</h2>
+      <div class="life-stages">
+        <div class="life-stage-card" data-stage="pregnancy" onclick="selectLifeStage('pregnancy')">
+          <span class="life-stage-icon">🤱</span>
+          <div class="life-stage-name">임신/출산</div>
+          <div class="life-stage-desc">출산 준비 및 지원</div>
+        </div>
+        
+        <div class="life-stage-card" data-stage="parenting" onclick="selectLifeStage('parenting')">
+          <span class="life-stage-icon">👶</span>
+          <div class="life-stage-name">육아기</div>
+          <div class="life-stage-desc">영유아 양육 지원</div>
+        </div>
+        
+        <div class="life-stage-card" data-stage="single-parent" onclick="selectLifeStage('single-parent')">
+          <span class="life-stage-icon">👩‍👧</span>
+          <div class="life-stage-name">한부모 가정</div>
+          <div class="life-stage-desc">홀로 키우는 가정</div>
+        </div>
+        
+        <div class="life-stage-card" data-stage="working-mom" onclick="selectLifeStage('working-mom')">
+          <span class="life-stage-icon">👩‍💼</span>
+          <div class="life-stage-name">워킹맘</div>
+          <div class="life-stage-desc">일과 육아 병행</div>
+        </div>
+        
+        <div class="life-stage-card" data-stage="career-break" onclick="selectLifeStage('career-break')">
+          <span class="life-stage-icon">🔄</span>
+          <div class="life-stage-name">경력단절</div>
+          <div class="life-stage-desc">재취업 준비</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 가족 지원금 계산기 -->
+    <section class="family-support-calculator">
+      <h2 class="calculator-title">👪 가족 지원금 계산기</h2>
+      <div class="calculator-form">
+        <div class="calculator-field">
+          <label for="familyType">가족형태</label>
+          <select id="familyType">
+            <option value="">선택하세요</option>
+            <option value="two-parent">양부모 가정</option>
+            <option value="single-parent">한부모 가정</option>
+            <option value="grandparent">조손 가정</option>
+            <option value="multicultural">다문화 가정</option>
+          </select>
+        </div>
+        
+        <div class="calculator-field">
+          <label for="childCount">자녀 수</label>
+          <select id="childCount">
+            <option value="">선택하세요</option>
+            <option value="1">1명</option>
+            <option value="2">2명</option>
+            <option value="3">3명</option>
+            <option value="4">4명 이상</option>
+          </select>
+        </div>
+        
+        <div class="calculator-field">
+          <label for="childAge">막내 자녀 나이</label>
+          <select id="childAge">
+            <option value="">선택하세요</option>
+            <option value="infant">0-2세</option>
+            <option value="preschool">3-5세</option>
+            <option value="school">6-12세</option>
+            <option value="teen">13-18세</option>
+          </select>
+        </div>
+        
+        <div class="calculator-field">
+          <label for="motherWork">모의 근무상태</label>
+          <select id="motherWork">
+            <option value="">선택하세요</option>
+            <option value="working">재직중</option>
+            <option value="maternity">육아휴직중</option>
+            <option value="unemployed">실업/구직중</option>
+            <option value="homemaker">전업주부</option>
+          </select>
+        </div>
+      </div>
+      
+      <button class="calc-btn" onclick="calculateFamilySupport()">
+        💝 받을 수 있는 지원금 계산하기
+      </button>
+      
+      <div class="calculator-result" id="calculatorResult">
+        <div class="result-summary" id="calcResultSummary"></div>
+        <div class="result-details" id="calcResultDetails"></div>
+      </div>
+    </section>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a> > <span>여성/가족</span>
+      </div>
+      
+      <!-- 카테고리 통계 -->
+      <div class="category-stats">
+        <div class="stat-item">
+          <span class="stat-number">12</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">월 최대 200만원</span>
+          <span class="stat-label">지원 금액</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">93%</span>
+          <span class="stat-label">평균 성공률</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 이 페이지 맞춤 검색 -->
+    <section class="category-search">
+      <div class="search-card">
+        <h3>🔍 여성/가족 지원금 빠른 찾기</h3>
+        <div class="quick-filters">
+          <button class="filter-btn active" onclick="filterBenefits('all')">전체</button>
+          <button class="filter-btn" onclick="filterBenefits('birth')">출산</button>
+          <button class="filter-btn" onclick="filterBenefits('childcare')">육아</button>
+          <button class="filter-btn" onclick="filterBenefits('single_parent')">한부모</button>
+          <button class="filter-btn" onclick="filterBenefits('work_life')">일가정양립</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 혜택 카드들 -->
+    <section class="benefits-section">
+      <div class="benefit-grid" id="benefitGrid">
+        
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_34.html" 
+           rel="noopener" target="_blank" data-category="single_parent">
+          <span class="benefit-icon">👩‍👧</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💙 월 20만원</div>
+            <div class="benefit-title">한부모가족지원금</div>
+            <div class="benefit-desc">여성가족부</div>
+            <div class="benefit-target">👩‍👧‍👦 한부모 가족</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 95%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_29.html" 
+           rel="noopener" target="_blank" data-category="childcare">
+          <span class="benefit-icon">👶</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👶 월 135만원</div>
+            <div class="benefit-title">육아휴직급여</div>
+            <div class="benefit-desc">고용보험</div>
+            <div class="benefit-target">👩‍💼 재직 중 출산</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 98%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_30.html" 
+           rel="noopener" target="_blank" data-category="birth">
+          <span class="benefit-icon">🤱</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎉 270만원</div>
+            <div class="benefit-title">출산지원금 (첫째)</div>
+            <div class="benefit-desc">지자체</div>
+            <div class="benefit-target">🍼 신생아 출산</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 99%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/07/blog-post_3.html" 
+           rel="noopener" target="_blank" data-category="work_life">
+          <span class="benefit-icon">👩‍💼</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💼 최대 200만원</div>
+            <div class="benefit-title">경력단절여성 재취업 지원</div>
+            <div class="benefit-desc">여성가족부</div>
+            <div class="benefit-target">👩 경력단절여성</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 86%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="childcare">
+          <span class="benefit-icon">🏫</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏫 월 58만원</div>
+            <div class="benefit-title">어린이집 보육료 지원</div>
+            <div class="benefit-desc">보건복지부</div>
+            <div class="benefit-target">👶 0-5세 자녀</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 97%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="work_life">
+          <span class="benefit-icon">👨‍👩‍👧‍👦</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👪 월 40만원</div>
+            <div class="benefit-title">가족돌봄휴가 급여</div>
+            <div class="benefit-desc">고용보험</div>
+            <div class="benefit-target">👴 가족돌봄 필요시</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 89%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.moe.go.kr/" 
+           rel="noopener" target="_blank" data-category="childcare">
+          <span class="benefit-icon">🎨</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎭 월 22만원</div>
+            <div class="benefit-title">아이돌봄서비스</div>
+            <div class="benefit-desc">여성가족부</div>
+            <div class="benefit-target">👶 생후 3개월-12세</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 91%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="single_parent">
+          <span class="benefit-icon">🏠</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏠 월 12만원</div>
+            <div class="benefit-title">한부모 주거지원</div>
+            <div class="benefit-desc">LH공사</div>
+            <div class="benefit-target">🏡 한부모 임차가구</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 88%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.mohw.go.kr/" 
+           rel="noopener" target="_blank" data-category="birth">
+          <span class="benefit-icon">💊</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💊 월 5만원</div>
+            <div class="benefit-title">임신부 영양플러스</div>
+            <div class="benefit-desc">보건소</div>
+            <div class="benefit-target">🤱 임신부/수유부</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 94%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="work_life">
+          <span class="benefit-icon">💻</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💻 최대 300만원</div>
+            <div class="benefit-title">여성 직업교육 지원</div>
+            <div class="benefit-desc">여성인력개발센터</div>
+            <div class="benefit-target">👩‍💼 구직 여성</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 84%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="childcare">
+          <span class="benefit-icon">🌍</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🌍 월 10만원</div>
+            <div class="benefit-title">다문화가족 지원</div>
+            <div class="benefit-desc">여성가족부</div>
+            <div class="benefit-target">🌐 다문화 가정</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 92%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="birth">
+          <span class="benefit-icon">🏥</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏥 최대 100만원</div>
+            <div class="benefit-title">고위험 임신부 의료비 지원</div>
+            <div class="benefit-desc">보건복지부</div>
+            <div class="benefit-target">⚠️ 고위험 임신부</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 96%</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 육아 지원 정보 -->
+    <section class="childcare-info">
+      <h2 class="childcare-title">
+        👶 육아 지원 서비스
+      </h2>
+      <div class="childcare-categories">
+        <div class="childcare-category">
+          <h3 class="childcare-category-title">
+            <span>🍼</span>
+            영유아 지원
+          </h3>
+          <ul class="childcare-list">
+            <li class="childcare-item">• 어린이집 보육료 (0-5세)</li>
+            <li class="childcare-item">• 유치원 누리과정 지원</li>
+            <li class="childcare-item">• 아이돌봄서비스</li>
+            <li class="childcare-item">• 영유아 건강검진</li>
+            <li class="childcare-item">• 예방접종 지원</li>
+          </ul>
+        </div>
+        
+        <div class="childcare-category">
+          <h3 class="childcare-category-title">
+            <span>👩‍💼</span>
+            일가정 양립
+          </h3>
+          <ul class="childcare-list">
+            <li class="childcare-item">• 육아휴직급여</li>
+            <li class="childcare-item">• 육아기 근로시간 단축</li>
+            <li class="childcare-item">• 가족돌봄휴가</li>
+            <li class="childcare-item">• 배우자 출산휴가</li>
+            <li class="childcare-item">• 임신기 근로시간 단축</li>
+          </ul>
+        </div>
+        
+        <div class="childcare-category">
+          <h3 class="childcare-category-title">
+            <span>👩‍👧</span>
+            한부모 가족
+          </h3>
+          <ul class="childcare-list">
+            <li class="childcare-item">• 한부모가족 급여</li>
+            <li class="childcare-item">• 청소년 한부모 지원</li>
+            <li class="childcare-item">• 한부모 주거지원</li>
+            <li class="childcare-item">• 법률상담 서비스</li>
+            <li class="childcare-item">• 취업 연계 서비스</li>
+          </ul>
+        </div>
+        
+        <div class="childcare-category">
+          <h3 class="childcare-category-title">
+            <span>🌍</span>
+            다문화 가족
+          </h3>
+          <ul class="childcare-list">
+            <li class="childcare-item">• 한국어 교육</li>
+            <li class="childcare-item">• 통번역 서비스</li>
+            <li class="childcare-item">• 자녀 언어발달 지원</li>
+            <li class="childcare-item">• 문화적응 프로그램</li>
+            <li class="childcare-item">• 취업 지원 서비스</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 일가정 양립 프로그램 -->
+    <section class="work-life-balance">
+      <h2 class="balance-title">
+        <span>⚖️</span>
+        일가정 양립 프로그램
+      </h2>
+      <div class="balance-programs">
+        <div class="balance-program">
+          <div class="program-badge">신규</div>
+          <div class="program-title">📱 스마트워크 지원</div>
+          <div class="program-desc">재택근무 환경 조성 및 디지털 기기 지원</div>
+        </div>
+        
+        <div class="balance-program">
+          <div class="program-badge">인기</div>
+          <div class="program-title">🕐 탄력근무제</div>
+          <div class="program-desc">근무시간 조정으로 육아와 업무 병행</div>
+        </div>
+        
+        <div class="balance-program">
+          <div class="program-badge">추천</div>
+          <div class="program-title">🏫 직장 어린이집</div>
+          <div class="program-desc">직장 내 보육시설 설치 및 운영 지원</div>
+        </div>
+        
+        <div class="balance-program">
+          <div class="program-badge">지원</div>
+          <div class="program-title">👨‍👩‍👧‍👦 가족친화 인증</div>
+          <div class="program-desc">가족친화 우수기업 인증 및 혜택 제공</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 성공 사례 -->
+    <section class="success-stories">
+      <h2 class="section-title">🌟 여성/가족 지원 성공 사례</h2>
+      <div class="stories-grid">
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">👩‍👧</span>
+            <div class="story-info">
+              <h4>이○○님 (32세, 한부모)</h4>
+              <span class="story-date">종합 지원 수혜자</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"한부모가족지원금과 아이돌봄서비스 덕분에 안정적으로 아이를 키우면서 직장생활을 할 수 있게 되었어요. 주거지원까지 받아서 경제적 부담이 많이 줄었습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 한부모지원금 월 20만원, 아이돌봄 월 22만원, 주거지원
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">👩‍💼</span>
+            <div class="story-info">
+              <h4>박○○님 (29세, 워킹맘)</h4>
+              <span class="story-date">육아휴직 활용</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"둘째 출산 후 1년간 육아휴직을 사용했어요. 매월 135만원 받으면서 아이와 소중한 시간을 보낼 수 있었고, 복직 후에도 육아기 근로시간 단축을 활용하고 있습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 육아휴직급여 월 135만원, 근로시간 단축 지원
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 카테고리 추천 -->
+    <section class="related-section">
+      <h2 class="section-title">💡 함께 보면 좋은 카테고리</h2>
+      <div class="related-grid">
+        <a href="./baby.html" class="related-card">
+          <span class="related-icon">👶</span>
+          <div class="related-content">
+            <div class="related-title">신생아 가정</div>
+            <div class="related-desc">출산·육아 지원</div>
+          </div>
+        </a>
+        
+        <a href="./student.html" class="related-card">
+          <span class="related-icon">🎒</span>
+          <div class="related-content">
+            <div class="related-title">학령기 가정</div>
+            <div class="related-desc">교육비 지원</div>
+          </div>
+        </a>
+        
+        <a href="./career.html" class="related-card">
+          <span class="related-icon">💼</span>
+          <div class="related-content">
+            <div class="related-title">경력 발전기</div>
+            <div class="related-desc">여성 취업지원</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 홈으로 돌아가기 -->
+    <section class="back-home">
+      <a href="../index.html" class="home-btn">
+        🏠 홈으로 돌아가기
+      </a>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p>📞 여성/가족 관련 문의는 여성가족부 상담센터 02-2100-6000으로 연락주세요</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+      본 사이트는 정부 지원금 정보 제공을 목적으로 하며, 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다
+    </p>
+  </footer>
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/category-filter.js"></script>
+  
+  <!-- 여성/가족 페이지 전용 스크립트 -->
+  <script>
+    // 생애주기 선택 기능
+    function selectLifeStage(stage) {
+      // 모든 카드에서 선택 해제
+      document.querySelectorAll('.life-stage-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // 선택된 카드 활성화
+      document.querySelector(`[data-stage="${stage}"]`).classList.add('selected');
+      
+      // 해당 생애주기에 맞는 혜택 필터링
+      filterBenefitsByStage(stage);
+      
+      // 선택 이벤트 추적
+      console.log('생애주기 선택:', stage);
+    }
+    
+    function filterBenefitsByStage(stage) {
+      const cards = document.querySelectorAll('.benefit-card');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('.benefit-title').textContent;
+        const target = card.querySelector('.benefit-target').textContent;
+        let shouldShow = true;
+        
+        switch(stage) {
+          case 'pregnancy':
+            // 임신/출산 관련
+            shouldShow = title.includes('출산') || title.includes('임신') || 
+                        title.includes('영양플러스') || target.includes('임신부');
+            break;
+          case 'parenting':
+            // 육아기 관련
+            shouldShow = title.includes('육아') || title.includes('보육') || 
+                        title.includes('돌봄') || target.includes('자녀');
+            break;
+          case 'single-parent':
+            // 한부모 가정 관련
+            shouldShow = title.includes('한부모') || target.includes('한부모');
+            break;
+          case 'working-mom':
+            // 워킹맘 관련
+            shouldShow = title.includes('육아휴직') || title.includes('돌봄휴가') || 
+                        title.includes('일가정') || target.includes('재직');
+            break;
+          case 'career-break':
+            // 경력단절 관련
+            shouldShow = title.includes('경력단절') || title.includes('재취업') || 
+                        title.includes('직업교육');
+            break;
+        }
+        
+        if (shouldShow) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.opacity = '0.3';
+        }
+      });
+    }
+    
+    // 가족 지원금 계산기
+    function calculateFamilySupport() {
+      const familyType = document.getElementById('familyType').value;
+      const childCount = document.getElementById('childCount').value;
+      const childAge = document.getElementById('childAge').value;
+      const motherWork = document.getElementById('motherWork').value;
+      
+      if (!familyType || !childCount || !childAge || !motherWork) {
+        alert('모든 항목을 선택해주세요.');
+        return;
+      }
+      
+      // 가족형태와 조건에 따른 지원금 계산
+      let totalSupport = 0;
+      let supportList = [];
+      
+      // 한부모가족지원금
+      if (familyType === 'single-parent') {
+        const singleParentAmount = 20;
+        totalSupport += singleParentAmount;
+        supportList.push(`한부모가족지원금: ${singleParentAmount}만원`);
+      }
+      
+      // 어린이집 보육료 (영유아)
+      if (childAge === 'infant' || childAge === 'preschool') {
+        const childcareAmount = 58;
+        totalSupport += childcareAmount;
+        supportList.push(`보육료 지원: ${childcareAmount}만원`);
+      }
+      
+      // 육아휴직급여 (재직자)
+      if (motherWork === 'maternity') {
+        const maternityAmount = 135;
+        totalSupport += maternityAmount;
+        supportList.push(`육아휴직급여: ${maternityAmount}만원`);
+      }
+      
+      // 아이돌봄서비스
+      if (childAge === 'infant' || childAge === 'preschool' || childAge === 'school') {
+        const babysittingAmount = 22;
+        totalSupport += babysittingAmount;
+        supportList.push(`아이돌봄서비스: ${babysittingAmount}만원`);
+      }
+      
+      // 다자녀 가정 추가 지원
+      if (parseInt(childCount) >= 3) {
+        const multiChildBonus = 15;
+        totalSupport += multiChildBonus;
+        supportList.push(`다자녀 추가지원: ${multiChildBonus}만원`);
+      }
+      
+      // 다문화가족 지원
+      if (familyType === 'multicultural') {
+        const multiculturalAmount = 10;
+        totalSupport += multiculturalAmount;
+        supportList.push(`다문화가족 지원: ${multiculturalAmount}만원`);
+      }
+      
+      // 가족돌봄휴가 급여 (근로자)
+      if (motherWork === 'working') {
+        const familyCareAmount = 40;
+        totalSupport += familyCareAmount;
+        supportList.push(`가족돌봄 지원: ${familyCareAmount}만원`);
+      }
+      
+      // 결과 표시
+      document.getElementById('calcResultSummary').textContent = 
+        `예상 월 지원금: ${totalSupport.toLocaleString()}만원`;
+      
+      document.getElementById('calcResultDetails').innerHTML = `
+        <div class="result-item">
+          <div class="result-label">총 월지원금</div>
+          <div class="result-value">${totalSupport}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">연간 지원금</div>
+          <div class="result-value">${(totalSupport * 12).toLocaleString()}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">지원 항목</div>
+          <div class="result-value">${supportList.length}개</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">육아 부담 경감</div>
+          <div class="result-value">${totalSupport >= 100 ? '높음' : totalSupport >= 50 ? '보통' : '기초'}</div>
+        </div>
+      `;
+      
+      document.getElementById('calculatorResult').style.display = 'block';
+      document.getElementById('calculatorResult').scrollIntoView({ behavior: 'smooth' });
+      
+      // 추가 권장사항 표시
+      if (familyType === 'single-parent' && totalSupport >= 50) {
+        setTimeout(() => {
+          alert('한부모 가정으로 다양한 지원을 받을 수 있습니다!\n\n추가 확인사항:\n• 주거지원 신청\n• 법률상담 서비스\n• 자녀 교육비 지원\n• 취업 연계 프로그램');
+        }, 1000);
+      }
+    }
+    
+    // 육아 항목 클릭 이벤트
+    function setupChildcareInteraction() {
+      const childcareItems = document.querySelectorAll('.childcare-item');
+      childcareItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const itemName = this.textContent.replace('• ', '');
+          
+          // 육아 항목별 정보 표시
+          const infoMap = {
+            '어린이집 보육료 (0-5세)': '🏫 소득수준에 관계없이 모든 아동에게 지원됩니다. 0세 58만원, 1세 51만원, 2세 42만원',
+            '육아휴직급여': '👶 최대 12개월(18개월) 동안 통상임금의 80% (상한 135만원)를 지급합니다.',
+            '아이돌봄서비스': '👨‍👩‍👧‍👦 시간제 돌봄 시간당 12,040원, 영아종일제 월 156만원을 지원합니다.',
+            '한부모가족 급여': '👩‍👧 아동양육비 월 20만원, 추가아동양육비 월 5만원을 지원합니다.',
+            '가족돌봄휴가': '👴 가족의 질병, 사고 등으로 돌봄이 필요할 때 최대 90일까지 사용 가능합니다.'
+          };
+          
+          const info = infoMap[itemName] || '💡 해당 서비스에 대한 자세한 정보는 여성가족부 상담센터로 문의해보세요!';
+          
+          alert(info);
+        });
+      });
+    }
+    
+    // 여성/가족 페이지 전용 기능
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCategoryPage('women');
+      trackPageView('women');
+      setupChildcareInteraction();
+      
+      // 생애주기 카드 애니메이션
+      const stageCards = document.querySelectorAll('.life-stage-card');
+      stageCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 120);
+      });
+      
+      // URL 파라미터에 따른 자동 선택
+      const urlParams = new URLSearchParams(window.location.search);
+      const stage = urlParams.get('stage');
+      if (stage) {
+        selectLifeStage(stage);
+      }
+    });
+  </script>
+</body>
+</html>

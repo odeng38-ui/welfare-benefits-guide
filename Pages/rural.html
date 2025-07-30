@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>농어촌 지원 (농어업인) - 복지 혜택 안내 센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  
+  <!-- 농어촌 전용 스타일 -->
+  <style>
+    .rural-header {
+      background: linear-gradient(135deg, #689f38 0%, #558b2f 100%);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin: -20px -15px 30px -15px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .rural-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.3)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.2)"/><circle cx="60" cy="70" r="1" fill="rgba(255,255,255,0.4)"/><circle cx="30" cy="80" r="2.5" fill="rgba(255,255,255,0.2)"/></svg>');
+      animation: gentle-float 8s ease-in-out infinite;
+    }
+    
+    @keyframes gentle-float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .rural-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .rural-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .rural-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .farm-type-selector {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .farm-selector-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .farm-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .farm-type-card {
+      padding: 20px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+    
+    .farm-type-card:hover {
+      border-color: #689f38;
+      transform: translateY(-2px);
+      background: rgba(104, 159, 56, 0.1);
+    }
+    
+    .farm-type-card.selected {
+      border-color: #689f38;
+      background: rgba(104, 159, 56, 0.2);
+    }
+    
+    .farm-type-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .farm-type-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .farm-type-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .subsidy-calculator {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .subsidy-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .subsidy-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .subsidy-field {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .subsidy-field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .subsidy-field select,
+    .subsidy-field input {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+    
+    .calc-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #689f38, #558b2f);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .calc-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(104, 159, 56, 0.4);
+    }
+    
+    .subsidy-result {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(104, 159, 56, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(104, 159, 56, 0.3);
+      display: none;
+    }
+    
+    .result-summary {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #689f38;
+      margin-bottom: 15px;
+    }
+    
+    .result-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    
+    .result-item {
+      background: var(--bg-card);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .result-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    
+    .result-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #689f38;
+    }
+    
+    .agricultural-programs {
+      background: #fff3e0;
+      border: 1px solid #ffcc02;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .agricultural-title {
+      color: #ef6c00;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .agricultural-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .agricultural-category {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #ef6c00;
+    }
+    
+    .agricultural-category-title {
+      font-weight: 600;
+      color: #ef6c00;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .agricultural-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .agricultural-item {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(239, 108, 0, 0.1);
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .agricultural-item:last-child {
+      border-bottom: none;
+    }
+    
+    .agricultural-item:hover {
+      color: #ef6c00;
+      cursor: pointer;
+    }
+    
+    .smart-farm-info {
+      background: #e8f5e8;
+      border: 1px solid #c8e6c9;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .smart-farm-title {
+      color: #2e7d32;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .smart-farm-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .smart-farm-feature {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #2e7d32;
+      position: relative;
+    }
+    
+    .feature-badge {
+      background: #2e7d32;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+    
+    .feature-title {
+      font-weight: 600;
+      color: #2e7d32;
+      margin-bottom: 5px;
+    }
+    
+    .feature-desc {
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .seasonal-calendar {
+      background: #f3e5f5;
+      border: 1px solid #e1bee7;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .calendar-title {
+      color: #8e24aa;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .calendar-seasons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .calendar-season {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #8e24aa;
+    }
+    
+    .season-name {
+      font-weight: 600;
+      color: #8e24aa;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .season-tasks {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.4;
+    }
+  </style>
+  
+  <!-- 메타 태그 -->
+  <meta name="description" content="농어업인을 위한 정부 지원금 총정리 - 농업직불금, 농기계지원, 스마트팜, 농촌관광 등" />
+  <meta name="keywords" content="농업직불금, 농기계지원, 스마트팜, 농촌관광, 귀농귀촌, 청년농업인" />
+  <meta property="og:title" content="농어촌 지원 혜택" />
+  <meta property="og:description" content="지속가능한 농어업과 활력있는 농어촌을 위한 지원" />
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header" id="page-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          🎯 생애주기별 복지 혜택 가이드<br />
+          <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+        </a>
+      </h1>
+      
+      <!-- 검색창 -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="농어촌 지원금 검색 (예: 농업직불금, 스마트팜...)" 
+            type="text" 
+          />
+          <button class="search-btn" onclick="performSearch()" title="검색">
+            🔍
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-container">
+    <ul class="tab-list">
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/baby.html">
+          👶 신생아 가정
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/student.html">
+          🎒 학령기 가정
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/youth.html">
+          🎓 청년 독립기
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/career.html">
+          💼 경력 발전기
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/senior.html">
+          🌅 은퇴 준비기
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/disability.html">
+          🦽 장애인 지원
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/women.html">
+          👩 여성/가족
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link active" href="../pages/rural.html">
+          🌾 농어촌
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/culture.html">
+          🎭 문화/여가
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/emergency.html">
+          🆘 긴급상황
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/business.html">
+          🏪 사업자 지원
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- 농어촌 헤더 -->
+    <section class="rural-header">
+      <div class="rural-content">
+        <h1 class="rural-title">🌾 농어촌 지원</h1>
+        <p class="rural-subtitle">지속가능한 농어업과 활력있는 농어촌을 위한 지원 (농어업인)</p>
+      </div>
+    </section>
+
+    <!-- 농업 유형 선택 -->
+    <section class="farm-type-selector">
+      <h2 class="farm-selector-title">🚜 농어업 유형을 선택하세요</h2>
+      <div class="farm-types">
+        <div class="farm-type-card" data-type="rice" onclick="selectFarmType('rice')">
+          <span class="farm-type-icon">🌾</span>
+          <div class="farm-type-name">쌀농업</div>
+          <div class="farm-type-desc">벼농사 중심</div>
+        </div>
+        
+        <div class="farm-type-card" data-type="crop" onclick="selectFarmType('crop')">
+          <span class="farm-type-icon">🥕</span>
+          <div class="farm-type-name">밭농업</div>
+          <div class="farm-type-desc">채소·과일·특용작물</div>
+        </div>
+        
+        <div class="farm-type-card" data-type="livestock" onclick="selectFarmType('livestock')">
+          <span class="farm-type-icon">🐄</span>
+          <div class="farm-type-name">축산업</div>
+          <div class="farm-type-desc">소·돼지·닭 등</div>
+        </div>
+        
+        <div class="farm-type-card" data-type="fishery" onclick="selectFarmType('fishery')">
+          <span class="farm-type-icon">🎣</span>
+          <div class="farm-type-name">어업</div>
+          <div class="farm-type-desc">연근해·원양어업</div>
+        </div>
+        
+        <div class="farm-type-card" data-type="smart" onclick="selectFarmType('smart')">
+          <span class="farm-type-icon">🤖</span>
+          <div class="farm-type-name">스마트팜</div>
+          <div class="farm-type-desc">ICT 융합 농업</div>
+        </div>
+        
+        <div class="farm-type-card" data-type="young" onclick="selectFarmType('young')">
+          <span class="farm-type-icon">👨‍🌾</span>
+          <div class="farm-type-name">청년농업인</div>
+          <div class="farm-type-desc">만 40세 미만</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 농업 보조금 계산기 -->
+    <section class="subsidy-calculator">
+      <h2 class="subsidy-title">💰 농업 보조금 계산기</h2>
+      <div class="subsidy-form">
+        <div class="subsidy-field">
+          <label for="farmSize">경작지 규모</label>
+          <select id="farmSize">
+            <option value="">선택하세요</option>
+            <option value="small">0.5ha 미만</option>
+            <option value="medium">0.5-2ha</option>
+            <option value="large">2-5ha</option>
+            <option value="xlarge">5ha 이상</option>
+          </select>
+        </div>
+        
+        <div class="subsidy-field">
+          <label for="farmerAge">농업인 연령</label>
+          <select id="farmerAge">
+            <option value="">선택하세요</option>
+            <option value="young">만 40세 미만</option>
+            <option value="middle">40-65세</option>
+            <option value="senior">65세 이상</option>
+          </select>
+        </div>
+        
+        <div class="subsidy-field">
+          <label for="farmType">주 작목</label>
+          <select id="farmType">
+            <option value="">선택하세요</option>
+            <option value="rice">벼</option>
+            <option value="vegetable">채소</option>
+            <option value="fruit">과수</option>
+            <option value="livestock">축산</option>
+            <option value="flower">화훼</option>
+          </select>
+        </div>
+        
+        <div class="subsidy-field">
+          <label for="region">지역</label>
+          <select id="region">
+            <option value="">선택하세요</option>
+            <option value="mountainous">중산간지역</option>
+            <option value="plain">평야지역</option>
+            <option value="coastal">해안가</option>
+            <option value="island">도서지역</option>
+          </select>
+        </div>
+      </div>
+      
+      <button class="calc-btn" onclick="calculateSubsidy()">
+        🧮 받을 수 있는 보조금 계산하기
+      </button>
+      
+      <div class="subsidy-result" id="subsidyResult">
+        <div class="result-summary" id="subsidyResultSummary"></div>
+        <div class="result-details" id="subsidyResultDetails"></div>
+      </div>
+    </section>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a> > <span>농어촌</span>
+      </div>
+      
+      <!-- 카테고리 통계 -->
+      <div class="category-stats">
+        <div class="stat-item">
+          <span class="stat-number">15</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">연 최대 3000만원</span>
+          <span class="stat-label">지원 금액</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">91%</span>
+          <span class="stat-label">평균 성공률</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 이 페이지 맞춤 검색 -->
+    <section class="category-search">
+      <div class="search-card">
+        <h3>🔍 농어촌 지원금 빠른 찾기</h3>
+        <div class="quick-filters">
+          <button class="filter-btn active" onclick="filterBenefits('all')">전체</button>
+          <button class="filter-btn" onclick="filterBenefits('direct_payment')">직불금</button>
+          <button class="filter-btn" onclick="filterBenefits('machinery')">농기계</button>
+          <button class="filter-btn" onclick="filterBenefits('smart_farm')">스마트팜</button>
+          <button class="filter-btn" onclick="filterBenefits('youth_farmer')">청년농업인</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 혜택 카드들 -->
+    <section class="benefits-section">
+      <div class="benefit-grid" id="benefitGrid">
+        
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="direct_payment">
+          <span class="benefit-icon">🌾</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🌾 연 300만원</div>
+            <div class="benefit-title">공익직불금</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">🚜 농업인 (0.1ha 이상)</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 98%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="youth_farmer">
+          <span class="benefit-icon">👨‍🌾</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👨‍🌾 연 3000만원</div>
+            <div class="benefit-title">청년농업인 정착지원금</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">🌱 만 40세 미만</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 85%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="machinery">
+          <span class="benefit-icon">🚜</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🚜 최대 2000만원</div>
+            <div class="benefit-title">농기계 구입 지원</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">⚙️ 농기계 구입자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 89%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="smart_farm">
+          <span class="benefit-icon">🤖</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🤖 최대 1억원</div>
+            <div class="benefit-title">스마트팜 조성사업</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">💻 ICT 융합 농업</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 78%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="direct_payment">
+          <span class="benefit-icon">🏔️</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏔️ 연 500만원</div>
+            <div class="benefit-title">중산간지역 직불금</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">⛰️ 중산간지역 농가</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 95%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="youth_farmer">
+          <span class="benefit-icon">🎓</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎓 최대 500만원</div>
+            <div class="benefit-title">농업교육 지원</div>
+            <div class="benefit-desc">농촌진흥청</div>
+            <div class="benefit-target">📚 농업교육 이수자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 92%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="direct_payment">
+          <span class="benefit-icon">🐄</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🐄 최대 1000만원</div>
+            <div class="benefit-title">축산업 지원금</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">🥩 축산농가</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 87%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="smart_farm">
+          <span class="benefit-icon">🌡️</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🌡️ 최대 3000만원</div>
+            <div class="benefit-title">시설원예 현대화</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">🏠 온실농가</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 82%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="direct_payment">
+          <span class="benefit-icon">🎣</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎣 월 100만원</div>
+            <div class="benefit-title">어업인 안전보험</div>
+            <div class="benefit-desc">해양수산부</div>
+            <div class="benefit-target">⛵ 어업종사자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 96%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="machinery">
+          <span class="benefit-icon">🚁</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🚁 최대 5000만원</div>
+            <div class="benefit-title">드론 방제 지원</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">🛩️ 방제용 드론</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 75%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="youth_farmer">
+          <span class="benefit-icon">🏡</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏡 최대 5000만원</div>
+            <div class="benefit-title">귀농귀촌 지원금</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">🌾 귀농귀촌인</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 88%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="smart_farm">
+          <span class="benefit-icon">🌐</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🌐 최대 200만원</div>
+            <div class="benefit-title">농업인 디지털 역량 강화</div>
+            <div class="benefit-desc">농촌진흥청</div>
+            <div class="benefit-target">💻 농업인 교육</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 94%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="direct_payment">
+          <span class="benefit-icon">🌿</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🌿 연 800만원</div>
+            <div class="benefit-title">친환경농업 직불금</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">♻️ 친환경인증 농가</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 90%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="machinery">
+          <span class="benefit-icon">🏭</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🏭 최대 1억원</div>
+            <div class="benefit-title">농산물 가공시설 지원</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">🏭 가공업체</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 83%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="youth_farmer">
+          <span class="benefit-icon">🌸</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🌸 최대 2000만원</div>
+            <div class="benefit-title">농촌관광 사업 지원</div>
+            <div class="benefit-desc">농림축산식품부</div>
+            <div class="benefit-target">🎪 농촌관광업체</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 79%</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 농업 프로그램 정보 -->
+    <section class="agricultural-programs">
+      <h2 class="agricultural-title">
+        🚜 농업 지원 프로그램
+      </h2>
+      <div class="agricultural-categories">
+        <div class="agricultural-category">
+          <h3 class="agricultural-category-title">
+            <span>💰</span>
+            직불금 지원
+          </h3>
+          <ul class="agricultural-list">
+            <li class="agricultural-item">• 공익직불금 (기본·선택)</li>
+            <li class="agricultural-item">• 중산간지역 직불금</li>
+            <li class="agricultural-item">• 친환경농업 직불금</li>
+            <li class="agricultural-item">• 경관보전 직불금</li>
+            <li class="agricultural-item">• 논타작물 재배지원</li>
+          </ul>
+        </div>
+        
+        <div class="agricultural-category">
+          <h3 class="agricultural-category-title">
+            <span>🚜</span>
+            농기계 지원
+          </h3>
+          <ul class="agricultural-list">
+            <li class="agricultural-item">• 농기계 구입 지원</li>
+            <li class="agricultural-item">• 농기계 임대사업</li>
+            <li class="agricultural-item">• 드론 방제 지원</li>
+            <li class="agricultural-item">• 농기계 안전교육</li>
+            <li class="agricultural-item">• 농기계 보험 지원</li>
+          </ul>
+        </div>
+        
+        <div class="agricultural-category">
+          <h3 class="agricultural-category-title">
+            <span>🤖</span>
+            스마트팜
+          </h3>
+          <ul class="agricultural-list">
+            <li class="agricultural-item">• 스마트팜 조성사업</li>
+            <li class="agricultural-item">• 시설원예 현대화</li>
+            <li class="agricultural-item">• ICT 융복합 확산</li>
+            <li class="agricultural-item">• 농업인 디지털 교육</li>
+            <li class="agricultural-item">• 스마트팜 청년창업</li>
+          </ul>
+        </div>
+        
+        <div class="agricultural-category">
+          <h3 class="agricultural-category-title">
+            <span>👨‍🌾</span>
+            청년농업인
+          </h3>
+          <ul class="agricultural-list">
+            <li class="agricultural-item">• 청년농업인 정착지원</li>
+            <li class="agricultural-item">• 농업교육 지원</li>
+            <li class="agricultural-item">• 귀농귀촌 지원</li>
+            <li class="agricultural-item">• 창업자금 융자</li>
+            <li class="agricultural-item">• 멘토링 프로그램</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 스마트팜 정보 -->
+    <section class="smart-farm-info">
+      <h2 class="smart-farm-title">
+        <span>🤖</span>
+        스마트팜 혁신 기술
+      </h2>
+      <div class="smart-farm-features">
+        <div class="smart-farm-feature">
+          <div class="feature-badge">최신</div>
+          <div class="feature-title">🌡️ 환경 제어 시스템</div>
+          <div class="feature-desc">온도, 습도, CO2 농도 자동 조절로 최적 재배 환경 조성</div>
+        </div>
+        
+        <div class="smart-farm-feature">
+          <div class="feature-badge">인기</div>
+          <div class="feature-title">💧 정밀 관수 시스템</div>
+          <div class="feature-desc">토양 수분 센서 기반 자동 물주기로 물 절약 및 수확량 증대</div>
+        </div>
+        
+        <div class="smart-farm-feature">
+          <div class="feature-badge">혁신</div>
+          <div class="feature-title">📱 원격 모니터링</div>
+          <div class="feature-desc">스마트폰 앱으로 언제 어디서나 농장 상태 확인 및 제어</div>
+        </div>
+        
+        <div class="smart-farm-feature">
+          <div class="feature-badge">AI</div>
+          <div class="feature-title">🧠 인공지능 분석</div>
+          <div class="feature-desc">빅데이터 기반 작물 생육 예측 및 최적 관리 솔루션 제공</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 계절별 농사 일정 -->
+    <section class="seasonal-calendar">
+      <h2 class="calendar-title">
+        <span>📅</span>
+        계절별 농사 일정 및 지원 프로그램
+      </h2>
+      <div class="calendar-seasons">
+        <div class="calendar-season">
+          <div class="season-name">
+            <span>🌸</span>
+            봄 (3-5월)
+          </div>
+          <div class="season-tasks">
+            • 모내기 준비 및 파종<br>
+            • 농기계 점검 및 정비<br>
+            • 청년농업인 신청 접수<br>
+            • 공익직불금 신청
+          </div>
+        </div>
+        
+        <div class="calendar-season">
+          <div class="season-name">
+            <span>☀️</span>
+            여름 (6-8월)
+          </div>
+          <div class="season-tasks">
+            • 병해충 방제 및 관리<br>
+            • 관수 시설 운영<br>
+            • 스마트팜 신청 접수<br>
+            • 시설원예 현대화 사업
+          </div>
+        </div>
+        
+        <div class="calendar-season">
+          <div class="season-name">
+            <span>🍂</span>
+            가을 (9-11월)
+          </div>
+          <div class="season-tasks">
+            • 수확 및 건조 작업<br>
+            • 농산물 가공 및 저장<br>
+            • 친환경 직불금 신청<br>
+            • 농촌관광 프로그램 운영
+          </div>
+        </div>
+        
+        <div class="calendar-season">
+          <div class="season-name">
+            <span>❄️</span>
+            겨울 (12-2월)
+          </div>
+          <div class="season-tasks">
+            • 농기계 보관 및 정비<br>
+            • 내년도 농사 계획 수립<br>
+            • 농업교육 프로그램 참여<br>
+            • 귀농귀촌 준비 교육
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 성공 사례 -->
+    <section class="success-stories">
+      <h2 class="section-title">🌟 농어촌 지원 성공 사례</h2>
+      <div class="stories-grid">
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">👨‍🌾</span>
+            <div class="story-info">
+              <h4>김○○님 (35세, 청년농업인)</h4>
+              <span class="story-date">스마트팜 성공 사례</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"청년농업인 정착지원금 3000만원과 스마트팜 조성사업 1억원 지원을 받아 딸기 스마트팜을 운영하고 있어요. 수확량이 30% 증가했고, 연매출 2억원을 달성했습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 청년농업인 정착지원금 3000만원, 스마트팜 조성 1억원
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">🌾</span>
+            <div class="story-info">
+              <h4>박○○님 (52세, 중산간지역 농가)</h4>
+              <span class="story-date">다양한 직불금 수혜</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"중산간지역 직불금 500만원, 친환경농업 직불금 800만원, 공익직불금 300만원을 받고 있어요. 안정적인 소득 보전으로 지속가능한 농업을 실천하고 있습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 연간 직불금 총 1600만원, 친환경 인증 지원
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 카테고리 추천 -->
+    <section class="related-section">
+      <h2 class="section-title">💡 함께 보면 좋은 카테고리</h2>
+      <div class="related-grid">
+        <a href="./business.html" class="related-card">
+          <span class="related-icon">🏪</span>
+          <div class="related-content">
+            <div class="related-title">사업자 지원</div>
+            <div class="related-desc">농업 창업지원</div>
+          </div>
+        </a>
+        
+        <a href="./youth.html" class="related-card">
+          <span class="related-icon">🎓</span>
+          <div class="related-content">
+            <div class="related-title">청년 독립기</div>
+            <div class="related-desc">청년 귀농지원</div>
+          </div>
+        </a>
+        
+        <a href="./senior.html" class="related-card">
+          <span class="related-icon">🌅</span>
+          <div class="related-content">
+            <div class="related-title">은퇴 준비기</div>
+            <div class="related-desc">농촌 은퇴생활</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 홈으로 돌아가기 -->
+    <section class="back-home">
+      <a href="../index.html" class="home-btn">
+        🏠 홈으로 돌아가기
+      </a>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p>📞 농업 관련 문의는 농림축산식품부 상담센터 1588-0800으로 연락주세요</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+      본 사이트는 정부 지원금 정보 제공을 목적으로 하며, 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다
+    </p>
+  </footer>
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/category-filter.js"></script>
+  
+  <!-- 농어촌 페이지 전용 스크립트 -->
+  <script>
+    // 농업 유형 선택 기능
+    function selectFarmType(type) {
+      // 모든 카드에서 선택 해제
+      document.querySelectorAll('.farm-type-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // 선택된 카드 활성화
+      document.querySelector(`[data-type="${type}"]`).classList.add('selected');
+      
+      // 해당 농업 유형에 맞는 혜택 필터링
+      filterBenefitsByFarmType(type);
+      
+      // 선택 이벤트 추적
+      console.log('농업 유형 선택:', type);
+    }
+    
+    function filterBenefitsByFarmType(type) {
+      const cards = document.querySelectorAll('.benefit-card');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('.benefit-title').textContent;
+        const target = card.querySelector('.benefit-target').textContent;
+        let shouldShow = true;
+        
+        switch(type) {
+          case 'rice':
+            // 쌀농업 관련
+            shouldShow = title.includes('직불금') || title.includes('공익') || 
+                        title.includes('중산간') || target.includes('농업인');
+            break;
+          case 'crop':
+            // 밭농업 관련
+            shouldShow = title.includes('친환경') || title.includes('시설원예') || 
+                        title.includes('가공시설') || title.includes('직불금');
+            break;
+          case 'livestock':
+            // 축산업 관련
+            shouldShow = title.includes('축산') || target.includes('축산');
+            break;
+          case 'fishery':
+            // 어업 관련
+            shouldShow = title.includes('어업') || target.includes('어업');
+            break;
+          case 'smart':
+            // 스마트팜 관련
+            shouldShow = title.includes('스마트팜') || title.includes('ICT') || 
+                        title.includes('디지털') || title.includes('시설원예');
+            break;
+          case 'young':
+            // 청년농업인 관련
+            shouldShow = title.includes('청년') || title.includes('귀농') || 
+                        title.includes('교육') || target.includes('40세');
+            break;
+        }
+        
+        if (shouldShow) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.opacity = '0.3';
+        }
+      });
+    }
+    
+    // 농업 보조금 계산기
+    function calculateSubsidy() {
+      const farmSize = document.getElementById('farmSize').value;
+      const farmerAge = document.getElementById('farmerAge').value;
+      const farmType = document.getElementById('farmType').value;
+      const region = document.getElementById('region').value;
+      
+      if (!farmSize || !farmerAge || !farmType || !region) {
+        alert('모든 항목을 선택해주세요.');
+        return;
+      }
+      
+      // 조건에 따른 보조금 계산
+      let totalSubsidy = 0;
+      let subsidyList = [];
+      
+      // 공익직불금 (기본)
+      let basicPayment = 0;
+      switch(farmSize) {
+        case 'small': basicPayment = 100; break;
+        case 'medium': basicPayment = 300; break;
+        case 'large': basicPayment = 500; break;
+        case 'xlarge': basicPayment = 800; break;
+      }
+      totalSubsidy += basicPayment;
+      subsidyList.push(`공익직불금: ${basicPayment}만원`);
+      
+      // 청년농업인 지원 (40세 미만)
+      if (farmerAge === 'young') {
+        const youthSupport = 3000;
+        totalSubsidy += youthSupport;
+        subsidyList.push(`청년농업인 정착지원: ${youthSupport}만원`);
+      }
+      
+      // 중산간지역 직불금
+      if (region === 'mountainous') {
+        const mountainousPayment = 500;
+        totalSubsidy += mountainousPayment;
+        subsidyList.push(`중산간지역 직불금: ${mountainousPayment}만원`);
+      }
+      
+      // 친환경농업 직불금
+      if (farmType === 'vegetable' || farmType === 'fruit') {
+        const organicPayment = 800;
+        totalSubsidy += organicPayment;
+        subsidyList.push(`친환경농업 직불금: ${organicPayment}만원`);
+      }
+      
+      // 축산업 지원
+      if (farmType === 'livestock') {
+        const livestockSupport = 1000;
+        totalSubsidy += livestockSupport;
+        subsidyList.push(`축산업 지원금: ${livestockSupport}만원`);
+      }
+      
+      // 농기계 지원
+      if (farmSize === 'large' || farmSize === 'xlarge') {
+        const machinerySupport = 2000;
+        totalSubsidy += machinerySupport;
+        subsidyList.push(`농기계 구입 지원: ${machinerySupport}만원`);
+      }
+      
+      // 도서지역 추가 지원
+      if (region === 'island') {
+        const islandBonus = 300;
+        totalSubsidy += islandBonus;
+        subsidyList.push(`도서지역 특별지원: ${islandBonus}만원`);
+      }
+      
+      // 결과 표시
+      document.getElementById('subsidyResultSummary').textContent = 
+        `예상 연간 보조금: ${totalSubsidy.toLocaleString()}만원`;
+      
+      document.getElementById('subsidyResultDetails').innerHTML = `
+        <div class="result-item">
+          <div class="result-label">총 연간보조금</div>
+          <div class="result-value">${totalSubsidy}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">월평균 보조금</div>
+          <div class="result-value">${Math.round(totalSubsidy/12)}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">지원 항목</div>
+          <div class="result-value">${subsidyList.length}개</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">농업 경쟁력</div>
+          <div class="result-value">${totalSubsidy >= 3000 ? '매우높음' : totalSubsidy >= 1500 ? '높음' : totalSubsidy >= 500 ? '보통' : '기본'}</div>
+        </div>
+      `;
+      
+      document.getElementById('subsidyResult').style.display = 'block';
+      document.getElementById('subsidyResult').scrollIntoView({ behavior: 'smooth' });
+      
+      // 추가 권장사항 표시
+      if (farmerAge === 'young' && totalSubsidy >= 3000) {
+        setTimeout(() => {
+          alert('청년농업인으로 많은 지원을 받을 수 있습니다!\n\n추가 확인사항:\n• 스마트팜 조성사업 신청\n• 농업교육 프로그램 참여\n• 농촌관광 사업 검토\n• 농업인 안전보험 가입');
+        }, 1000);
+      }
+    }
+    
+    // 농업 항목 클릭 이벤트
+    function setupAgriculturalInteraction() {
+      const agriculturalItems = document.querySelectorAll('.agricultural-item');
+      agriculturalItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const itemName = this.textContent.replace('• ', '');
+          
+          // 농업 항목별 정보 표시
+          const infoMap = {
+            '공익직불금 (기본·선택)': '🌾 0.1ha 이상 농지에 대해 ha당 최대 205만원을 지급합니다.',
+            '청년농업인 정착지원': '👨‍🌾 만 40세 미만 청년농업인에게 3년간 연 최대 1000만원을 지원합니다.',
+            '스마트팜 조성사업': '🤖 ICT 기술을 활용한 스마트팜 구축 시 최대 1억원을 지원합니다.',
+            '농기계 구입 지원': '🚜 농기계 구입비의 50-80%를 지원합니다. 트랙터, 콤바인 등',
+            '중산간지역 직불금': '🏔️ 경지율 22% 미만 지역의 농지에 ha당 최대 100만원을 지급합니다.'
+          };
+          
+          const info = infoMap[itemName] || '💡 해당 프로그램에 대한 자세한 정보는 농림축산식품부 상담센터로 문의해보세요!';
+          
+          alert(info);
+        });
+      });
+    }
+    
+    // 농어촌 페이지 전용 기능
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCategoryPage('rural');
+      trackPageView('rural');
+      setupAgriculturalInteraction();
+      
+      // 농업 유형 카드 애니메이션
+      const farmCards = document.querySelectorAll('.farm-type-card');
+      farmCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+      
+      // URL 파라미터에 따른 자동 선택
+      const urlParams = new URLSearchParams(window.location.search);
+      const type = urlParams.get('type');
+      if (type) {
+        selectFarmType(type);
+      }
+    });
+  </script>
+</body>
+</html>

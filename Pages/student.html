@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>학령기 가정 지원 (3-18세) - 복지 혜택 안내 센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  
+  <!-- 학령기 전용 스타일 -->
+  <style>
+    .student-header {
+      background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin: -20px -15px 30px -15px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .student-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 2px, transparent 2px);
+      background-size: 30px 30px;
+      animation: float 20s linear infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    .student-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .student-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .student-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .school-level-selector {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .level-selector-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .school-levels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .school-level-card {
+      padding: 20px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+    
+    .school-level-card:hover {
+      border-color: #4caf50;
+      transform: translateY(-2px);
+      background: rgba(76, 175, 80, 0.1);
+    }
+    
+    .school-level-card.selected {
+      border-color: #4caf50;
+      background: rgba(76, 175, 80, 0.2);
+    }
+    
+    .school-level-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .school-level-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .school-level-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .education-support {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+    
+    .education-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .education-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .education-category {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid #4caf50;
+    }
+    
+    .education-category-title {
+      font-weight: 600;
+      color: #4caf50;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .education-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .education-item {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    
+    .education-item:last-child {
+      border-bottom: none;
+    }
+    
+    .education-item:hover {
+      color: var(--primary);
+      cursor: pointer;
+    }
+    
+    .cost-calculator {
+      background: #e8f5e8;
+      border: 1px solid #c8e6c9;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .calculator-title {
+      color: #2e7d32;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .calculator-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .calculator-field {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .calculator-field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2e7d32;
+      margin-bottom: 5px;
+    }
+    
+    .calculator-field select,
+    .calculator-field input {
+      padding: 10px;
+      border: 1px solid #c8e6c9;
+      border-radius: 8px;
+      background: white;
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+    
+    .calc-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #4caf50, #388e3c);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .calc-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    }
+    
+    .calculator-result {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(76, 175, 80, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      display: none;
+    }
+    
+    .result-summary {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #4caf50;
+      margin-bottom: 15px;
+    }
+    
+    .result-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    
+    .result-item {
+      background: var(--bg-card);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .result-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    
+    .result-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #4caf50;
+    }
+    
+    .scholarship-info {
+      background: #fff3e0;
+      border: 1px solid #ffcc02;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .scholarship-title {
+      color: #ef6c00;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .scholarship-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .scholarship-type {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #ef6c00;
+    }
+    
+    .scholarship-type-name {
+      font-weight: 600;
+      color: #ef6c00;
+      margin-bottom: 5px;
+    }
+    
+    .scholarship-desc {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .scholarship-contact {
+      font-size: 12px;
+      color: #ef6c00;
+      font-weight: 600;
+    }
+  </style>
+  
+  <!-- 메타 태그 -->
+  <meta name="description" content="3-18세 학령기 가정을 위한 정부 지원금 총정리 - 교육급여, 급식비, 교육비 지원 등" />
+  <meta name="keywords" content="교육급여, 급식비지원, 교육비지원, 학용품비, 방과후학교" />
+  <meta property="og:title" content="학령기 가정 지원 혜택" />
+  <meta property="og:description" content="우리 아이 교육을 위한 든든한 지원" />
+
+  <style>
+/* 학령기 페이지 전용 개선 */
+.school-level-card {
+  background: rgba(45, 45, 45, 0.95) !important;
+  color: #FFFFFF !important;
+  border: 2px solid #4caf50 !important;
+}
+
+.school-level-name {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+.calculator-title, .education-title {
+  color: #4caf50 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+</style>
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header" id="page-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          🎯 생애주기별 복지 혜택 가이드<br />
+          <small style="font-size:12px;opacity:0.8;">당신의 인생 단계에 맞는 맞춤 지원</small>
+        </a>
+      </h1>
+      
+      <!-- 검색창 -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="교육 지원금 검색 (예: 교육급여, 급식비...)" 
+            type="text" 
+          />
+          <button class="search-btn" onclick="performSearch()" title="검색">
+            🔍
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-container">
+    <ul class="tab-list">
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/baby.html">
+          👶 신생아 가정
+          <span class="tab-subtitle">0-2세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link active" href="../pages/student.html">
+          🎒 학령기 가정
+          <span class="tab-subtitle">3-18세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/youth.html">
+          🎓 청년 독립기
+          <span class="tab-subtitle">19-34세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/career.html">
+          💼 경력 발전기
+          <span class="tab-subtitle">35-54세</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/senior.html">
+          🌅 은퇴 준비기
+          <span class="tab-subtitle">55세+</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/disability.html">
+          🦽 장애인 지원
+          <span class="tab-subtitle">전연령</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/women.html">
+          👩 여성/가족
+          <span class="tab-subtitle">생애전반</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/rural.html">
+          🌾 농어촌
+          <span class="tab-subtitle">농어업인</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/culture.html">
+          🎭 문화/여가
+          <span class="tab-subtitle">문화생활</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/emergency.html">
+          🆘 긴급상황
+          <span class="tab-subtitle">즉시지원</span>
+        </a>
+      </li>
+      <li class="tab-item">
+        <a class="tab-link" href="../pages/business.html">
+          🏪 사업자 지원
+          <span class="tab-subtitle">창업/운영</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- 학령기 헤더 -->
+    <section class="student-header">
+      <div class="student-content">
+        <h1 class="student-title">🎒 학령기 가정 지원</h1>
+        <p class="student-subtitle">우리 아이 교육을 위한 든든한 지원 (3-18세)</p>
+      </div>
+    </section>
+
+    <!-- 학교급 선택 -->
+    <section class="school-level-selector">
+      <h2 class="level-selector-title">📚 자녀의 학교급을 선택하세요</h2>
+      <div class="school-levels">
+        <div class="school-level-card" data-level="preschool" onclick="selectSchoolLevel('preschool')">
+          <span class="school-level-icon">👶</span>
+          <div class="school-level-name">유치원</div>
+          <div class="school-level-desc">3-7세 (누리과정)</div>
+        </div>
+        
+        <div class="school-level-card" data-level="elementary" onclick="selectSchoolLevel('elementary')">
+          <span class="school-level-icon">📖</span>
+          <div class="school-level-name">초등학교</div>
+          <div class="school-level-desc">8-13세 (의무교육)</div>
+        </div>
+        
+        <div class="school-level-card" data-level="middle" onclick="selectSchoolLevel('middle')">
+          <span class="school-level-icon">📚</span>
+          <div class="school-level-name">중학교</div>
+          <div class="school-level-desc">14-16세 (의무교육)</div>
+        </div>
+        
+        <div class="school-level-card" data-level="high" onclick="selectSchoolLevel('high')">
+          <span class="school-level-icon">🎓</span>
+          <div class="school-level-name">고등학교</div>
+          <div class="school-level-desc">17-19세 (진학준비)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 교육비 계산기 -->
+    <section class="cost-calculator">
+      <h2 class="calculator-title">
+        <span>💰</span>
+        교육비 지원 계산기
+      </h2>
+      <div class="calculator-form">
+        <div class="calculator-field">
+          <label for="familySize">가구원 수</label>
+          <select id="familySize">
+            <option value="">선택하세요</option>
+            <option value="2">2명</option>
+            <option value="3">3명</option>
+            <option value="4">4명</option>
+            <option value="5">5명 이상</option>
+          </select>
+        </div>
+        
+        <div class="calculator-field">
+          <label for="income">월 소득</label>
+          <select id="income">
+            <option value="">선택하세요</option>
+            <option value="300">300만원 이하</option>
+            <option value="400">300-400만원</option>
+            <option value="500">400-500만원</option>
+            <option value="600">500만원 이상</option>
+          </select>
+        </div>
+        
+        <div class="calculator-field">
+          <label for="studentLevel">학교급</label>
+          <select id="studentLevel">
+            <option value="">선택하세요</option>
+            <option value="preschool">유치원</option>
+            <option value="elementary">초등학교</option>
+            <option value="middle">중학교</option>
+            <option value="high">고등학교</option>
+          </select>
+        </div>
+        
+        <div class="calculator-field">
+          <label for="region">지역</label>
+          <select id="region">
+            <option value="">선택하세요</option>
+            <option value="seoul">서울/경기</option>
+            <option value="city">광역시</option>
+            <option value="rural">중소도시/농어촌</option>
+          </select>
+        </div>
+      </div>
+      
+      <button class="calc-btn" onclick="calculateEducationSupport()">
+        📊 받을 수 있는 지원금 계산하기
+      </button>
+      
+      <div class="calculator-result" id="calculatorResult">
+        <div class="result-summary" id="calcResultSummary"></div>
+        <div class="result-details" id="calcResultDetails"></div>
+      </div>
+    </section>
+
+    <!-- 교육 지원 프로그램 -->
+    <section class="education-support">
+      <h2 class="education-title">📖 교육 지원 프로그램</h2>
+      <div class="education-categories">
+        <div class="education-category">
+          <h3 class="education-category-title">
+            <span>💰</span>
+            교육비 지원
+          </h3>
+          <ul class="education-list">
+            <li class="education-item">• 교육급여 (학용품비, 교과서비)</li>
+            <li class="education-item">• 급식비 지원</li>
+            <li class="education-item">• 방과후학교 자유수강권</li>
+            <li class="education-item">• 교육정보화 지원</li>
+            <li class="education-item">• 현장체험학습비</li>
+          </ul>
+        </div>
+        
+        <div class="education-category">
+          <h3 class="education-category-title">
+            <span>🎨</span>
+            특별 활동
+          </h3>
+          <ul class="education-list">
+            <li class="education-item">• 예술체육 활동 지원</li>
+            <li class="education-item">• 방학 중 돌봄교실</li>
+            <li class="education-item">• 독서논술교실</li>
+            <li class="education-item">• 외국어 교육 지원</li>
+            <li class="education-item">• 과학영재교육</li>
+          </ul>
+        </div>
+        
+        <div class="education-category">
+          <h3 class="education-category-title">
+            <span>🏥</span>
+            건강 관리
+          </h3>
+          <ul class="education-list">
+            <li class="education-item">• 학생 건강검진</li>
+            <li class="education-item">• 치아 홈메우기</li>
+            <li class="education-item">• 시력검사 및 교정</li>
+            <li class="education-item">• 영양상담 서비스</li>
+            <li class="education-item">• 심리상담 지원</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a> > <span>학령기 가정</span>
+      </div>
+      
+      <!-- 카테고리 통계 -->
+      <div class="category-stats">
+        <div class="stat-item">
+          <span class="stat-number">8</span>
+          <span class="stat-label">개 혜택</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">월 최대 50만원</span>
+          <span class="stat-label">지원 금액</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">95%</span>
+          <span class="stat-label">평균 성공률</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 이 페이지 맞춤 검색 -->
+    <section class="category-search">
+      <div class="search-card">
+        <h3>🔍 교육 지원금 빠른 찾기</h3>
+        <div class="quick-filters">
+          <button class="filter-btn active" onclick="filterBenefits('all')">전체</button>
+          <button class="filter-btn" onclick="filterBenefits('education_money')">교육비</button>
+          <button class="filter-btn" onclick="filterBenefits('meal')">급식</button>
+          <button class="filter-btn" onclick="filterBenefits('activity')">활동</button>
+          <button class="filter-btn" onclick="filterBenefits('care')">돌봄</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 혜택 카드들 -->
+    <section class="benefits-section">
+      <div class="benefit-grid" id="benefitGrid">
+        
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_12.html" 
+           rel="noopener" target="_blank" data-category="education_money">
+          <span class="benefit-icon">📚</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💰 월 15만원</div>
+            <div class="benefit-title">교육급여</div>
+            <div class="benefit-desc">교육부</div>
+            <div class="benefit-target">📖 중위소득 50% 이하</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 96%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.moe.go.kr/" 
+           rel="noopener" target="_blank" data-category="meal">
+          <span class="benefit-icon">🍽️</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🥄 월 8만원</div>
+            <div class="benefit-title">급식비 지원</div>
+            <div class="benefit-desc">교육청</div>
+            <div class="benefit-target">🍚 중위소득 60% 이하</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 98%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.moe.go.kr/" 
+           rel="noopener" target="_blank" data-category="activity">
+          <span class="benefit-icon">🎨</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🎭 월 6만원</div>
+            <div class="benefit-title">방과후학교 자유수강권</div>
+            <div class="benefit-desc">교육청</div>
+            <div class="benefit-target">📚 교육급여 수급자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 94%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.moe.go.kr/" 
+           rel="noopener" target="_blank" data-category="education_money">
+          <span class="benefit-icon">💻</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">💾 35만원</div>
+            <div class="benefit-title">교육정보화 지원</div>
+            <div class="benefit-desc">한국교육학술정보원</div>
+            <div class="benefit-target">💻 인터넷통신비 지원</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 92%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.gov.kr/" 
+           rel="noopener" target="_blank" data-category="care">
+          <span class="benefit-icon">🏫</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">👶 무료</div>
+            <div class="benefit-title">온종일 돌봄교실</div>
+            <div class="benefit-desc">교육부</div>
+            <div class="benefit-target">🏫 맞벌이 가정</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge new">신규</span>
+          <span class="success-rate">성공률 88%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.mohw.go.kr/" 
+           rel="noopener" target="_blank" data-category="care">
+          <span class="benefit-icon">🦷</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">🦷 무료</div>
+            <div class="benefit-title">학생 치과주치의</div>
+            <div class="benefit-desc">보건복지부</div>
+            <div class="benefit-target">🦷 초등 4,5,6학년</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 97%</span>
+        </a>
+
+        <a class="benefit-card" href="https://index001.joyzam.com/2025/06/blog-post_2.html" 
+           rel="noopener" target="_blank" data-category="education_money">
+          <span class="benefit-icon">🎓</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">📜 450만원</div>
+            <div class="benefit-title">국가장학금</div>
+            <div class="benefit-desc">한국장학재단</div>
+            <div class="benefit-target">🎓 고3 대학준비생</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge popular">인기</span>
+          <span class="success-rate">성공률 93%</span>
+        </a>
+
+        <a class="benefit-card" href="https://www.moe.go.kr/" 
+           rel="noopener" target="_blank" data-category="activity">
+          <span class="benefit-icon">🌍</span>
+          <div class="benefit-content">
+            <div class="benefit-amount">✈️ 20만원</div>
+            <div class="benefit-title">현장체험학습비 지원</div>
+            <div class="benefit-desc">교육청</div>
+            <div class="benefit-target">🚌 교육급여 수급자</div>
+          </div>
+          <div class="difficulty">
+            <div class="difficulty-star filled"></div>
+            <div class="difficulty-star"></div>
+            <div class="difficulty-star"></div>
+          </div>
+          <span class="badge recommended">추천</span>
+          <span class="success-rate">성공률 91%</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 장학금 정보 -->
+    <section class="scholarship-info">
+      <h2 class="scholarship-title">
+        🎓 장학금 정보
+      </h2>
+      <div class="scholarship-types">
+        <div class="scholarship-type">
+          <div class="scholarship-type-name">🏆 성적우수 장학금</div>
+          <div class="scholarship-desc">전교 상위 10% 이내 학생 대상 장학금</div>
+          <div class="scholarship-contact">📍 각 학교 행정실 문의</div>
+        </div>
+        
+        <div class="scholarship-type">
+          <div class="scholarship-type-name">💝 저소득층 장학금</div>
+          <div class="scholarship-desc">기초생활수급자, 차상위계층 자녀 지원</div>
+          <div class="scholarship-contact">🌐 복지로 (www.bokjiro.go.kr)</div>
+        </div>
+        
+        <div class="scholarship-type">
+          <div class="scholarship-type-name">🌟 특기자 장학금</div>
+          <div class="scholarship-desc">예술, 체육, 과학 분야 특기자 지원</div>
+          <div class="scholarship-contact">📞 1688-6555 (한국장학재단)</div>
+        </div>
+        
+        <div class="scholarship-type">
+          <div class="scholarship-type-name">👨‍👩‍👧‍👦 다자녀 장학금</div>
+          <div class="scholarship-desc">셋째 자녀 이상 가정 교육비 지원</div>
+          <div class="scholarship-contact">🏛️ 지자체 교육청 문의</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 성공 사례 -->
+    <section class="success-stories">
+      <h2 class="section-title">🌟 교육 지원 성공 사례</h2>
+      <div class="stories-grid">
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">📚</span>
+            <div class="story-info">
+              <h4>김○○님 (중2 자녀 둔 한부모)</h4>
+              <span class="story-date">교육급여 수급자</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"교육급여로 매월 15만원, 급식비 8만원을 지원받고 있어요. 방과후 수강권까지 받아서 아이가 다양한 활동을 할 수 있게 되었습니다. 경제적 부담이 많이 줄었어요."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 교육급여 월 15만원, 급식비 8만원, 방과후 수강권
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-icon">🎓</span>
+            <div class="story-info">
+              <h4>박○○님 (고3 자녀)</h4>
+              <span class="story-date">국가장학금 수혜자</span>
+            </div>
+          </div>
+          <div class="story-content">
+            <p>"소득이 적어 대학 진학을 포기하려 했는데, 국가장학금 덕분에 꿈을 이룰 수 있게 되었어요. 연 450만원 지원받아서 등록금 걱정 없이 공부에 집중할 수 있습니다."</p>
+          </div>
+          <div class="story-benefits">
+            받은 혜택: 국가장학금 연 450만원, 생활비 대출 지원
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 카테고리 추천 -->
+    <section class="related-section">
+      <h2 class="section-title">💡 함께 보면 좋은 카테고리</h2>
+      <div class="related-grid">
+        <a href="./baby.html" class="related-card">
+          <span class="related-icon">👶</span>
+          <div class="related-content">
+            <div class="related-title">신생아 가정</div>
+            <div class="related-desc">영유아 지원</div>
+          </div>
+        </a>
+        
+        <a href="./women.html" class="related-card">
+          <span class="related-icon">👩</span>
+          <div class="related-content">
+            <div class="related-title">여성/가족</div>
+            <div class="related-desc">가족 복지 지원</div>
+          </div>
+        </a>
+        
+        <a href="./culture.html" class="related-card">
+          <span class="related-icon">🎭</span>
+          <div class="related-content">
+            <div class="related-title">문화/여가</div>
+            <div class="related-desc">아동 문화활동</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 홈으로 돌아가기 -->
+    <section class="back-home">
+      <a href="../index.html" class="home-btn">
+        🏠 홈으로 돌아가기
+      </a>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p>📞 교육 관련 문의는 교육부 상담센터 02-6222-6060으로 연락주세요</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+      본 사이트는 정부 지원금 정보 제공을 목적으로 하며, 신청은 각 기관 공식 사이트에서 진행하시기 바랍니다
+    </p>
+  </footer>
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/category-filter.js"></script>
+  
+  <!-- 학령기 페이지 전용 스크립트 -->
+  <script>
+    // 학교급 선택 기능
+    function selectSchoolLevel(level) {
+      // 모든 카드에서 선택 해제
+      document.querySelectorAll('.school-level-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // 선택된 카드 활성화
+      document.querySelector(`[data-level="${level}"]`).classList.add('selected');
+      
+      // 해당 학교급에 맞는 혜택 필터링
+      filterBenefitsByLevel(level);
+      
+      // 선택 이벤트 추적
+      console.log('학교급 선택:', level);
+    }
+    
+    function filterBenefitsByLevel(level) {
+      const cards = document.querySelectorAll('.benefit-card');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('.benefit-title').textContent;
+        const target = card.querySelector('.benefit-target').textContent;
+        let shouldShow = true;
+        
+        switch(level) {
+          case 'preschool':
+            // 유치원 관련
+            shouldShow = title.includes('누리') || title.includes('돌봄') || 
+                        target.includes('유치원') || title.includes('보육');
+            break;
+          case 'elementary':
+            // 초등학교 관련
+            shouldShow = title.includes('급식') || title.includes('돌봄') || 
+                        title.includes('치과') || target.includes('초등');
+            break;
+          case 'middle':
+            // 중학교 관련
+            shouldShow = title.includes('교육급여') || title.includes('방과후') || 
+                        title.includes('체험') || !title.includes('장학금');
+            break;
+          case 'high':
+            // 고등학교 관련
+            shouldShow = title.includes('장학금') || title.includes('교육급여') || 
+                        target.includes('고3') || target.includes('대학');
+            break;
+        }
+        
+        if (shouldShow) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.opacity = '0.3';
+        }
+      });
+    }
+    
+    // 교육비 지원 계산기
+    function calculateEducationSupport() {
+      const familySize = document.getElementById('familySize').value;
+      const income = document.getElementById('income').value;
+      const studentLevel = document.getElementById('studentLevel').value;
+      const region = document.getElementById('region').value;
+      
+      if (!familySize || !income || !studentLevel || !region) {
+        alert('모든 항목을 선택해주세요.');
+        return;
+      }
+      
+      // 소득 기준에 따른 지원금 계산
+      let totalSupport = 0;
+      let supportList = [];
+      
+      // 교육급여 기준 (중위소득 50% 이하)
+      if (parseInt(income) <= 400) {
+        let educationAmount = 0;
+        switch(studentLevel) {
+          case 'elementary': educationAmount = 10; break;
+          case 'middle': educationAmount = 15; break;
+          case 'high': educationAmount = 20; break;
+          case 'preschool': educationAmount = 8; break;
+        }
+        totalSupport += educationAmount;
+        supportList.push(`교육급여: ${educationAmount}만원`);
+      }
+      
+      // 급식비 지원 (중위소득 60% 이하)
+      if (parseInt(income) <= 500) {
+        const mealAmount = 8;
+        totalSupport += mealAmount;
+        supportList.push(`급식비: ${mealAmount}만원`);
+      }
+      
+      // 방과후 수강권 (교육급여 수급자)
+      if (parseInt(income) <= 400) {
+        const afterSchoolAmount = 6;
+        totalSupport += afterSchoolAmount;
+        supportList.push(`방과후 수강권: ${afterSchoolAmount}만원`);
+      }
+      
+      // 정보화 지원 (교육급여 수급자)
+      if (parseInt(income) <= 400) {
+        const itAmount = 3; // 월 평균
+        totalSupport += itAmount;
+        supportList.push(`정보화 지원: ${itAmount}만원`);
+      }
+      
+      // 지역별 추가 지원
+      let regionBonus = 0;
+      switch(region) {
+        case 'seoul': regionBonus = 5; break;
+        case 'city': regionBonus = 3; break;
+        case 'rural': regionBonus = 7; break;
+      }
+      totalSupport += regionBonus;
+      if (regionBonus > 0) {
+        supportList.push(`지역가산: ${regionBonus}만원`);
+      }
+      
+      // 결과 표시
+      document.getElementById('calcResultSummary').textContent = 
+        `예상 월 지원금: ${totalSupport.toLocaleString()}만원`;
+      
+      document.getElementById('calcResultDetails').innerHTML = `
+        <div class="result-item">
+          <div class="result-label">총 월지원금</div>
+          <div class="result-value">${totalSupport}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">연간 지원금</div>
+          <div class="result-value">${(totalSupport * 12).toLocaleString()}만원</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">지원 항목</div>
+          <div class="result-value">${supportList.length}개</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">교육비 절감</div>
+          <div class="result-value">${Math.round(totalSupport / 30 * 100)}%</div>
+        </div>
+      `;
+      
+      document.getElementById('calculatorResult').style.display = 'block';
+      document.getElementById('calculatorResult').scrollIntoView({ behavior: 'smooth' });
+      
+      // 추가 권장사항 표시
+      if (totalSupport >= 30) {
+        setTimeout(() => {
+          alert('훌륭해요! 많은 교육비 지원을 받을 수 있습니다.\n\n추가 확인사항:\n• 지역별 추가 장학금 확인\n• 민간 장학재단 신청\n• 교육청 특별 프로그램 참여');
+        }, 1000);
+      }
+    }
+    
+    // 교육 항목 클릭 이벤트
+    function setupEducationInteraction() {
+      const educationItems = document.querySelectorAll('.education-item');
+      educationItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const itemName = this.textContent.replace('• ', '');
+          
+          // 교육 항목별 정보 표시
+          const infoMap = {
+            '교육급여 (학용품비, 교과서비)': '📚 학교급별로 차등 지원됩니다. 초등학교 10만원, 중학교 15만원, 고등학교 20만원',
+            '급식비 지원': '🍽️ 중위소득 60% 이하 가정에 월 8만원 내외로 지원됩니다.',
+            '방과후학교 자유수강권': '🎨 교육급여 수급자 자녀에게 월 6만원 한도로 지원됩니다.',
+            '학생 건강검진': '🏥 모든 학생이 무료로 받을 수 있는 연 1회 종합검진입니다.',
+            '치아 홈메우기': '🦷 초등학교 4-6학년 대상 충치 예방 프로그램입니다.'
+          };
+          
+          const info = infoMap[itemName] || '💡 해당 항목에 대한 자세한 정보는 교육청이나 학교에 문의해보세요!';
+          
+          alert(info);
+        });
+      });
+    }
+    
+    // 학령기 페이지 전용 기능
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCategoryPage('student');
+      trackPageView('student');
+      setupEducationInteraction();
+      
+      // 학교급 카드 애니메이션
+      const levelCards = document.querySelectorAll('.school-level-card');
+      levelCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+      
+      // URL 파라미터에 따른 자동 선택
+      const urlParams = new URLSearchParams(window.location.search);
+      const level = urlParams.get('level');
+      if (level) {
+        selectSchoolLevel(level);
+      }
+    });
+  </script>
+</body>
+</html>
